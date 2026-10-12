@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.6 "Tapper-Ramen" — Unit Tests
+   NUDELBAR v2.9.2.7 "Tapper-Ramen" — Unit Tests
    Node:  node tests.js
    ============================================================================= */
 'use strict';
@@ -40,7 +40,7 @@ function buildBowl(s, broth, toppings) {
 }
 function settle(s, n) { for (var i = 0; i < n; i++) core.tick(s, 0.05); }
 
-console.log('NUDELBAR v2.9.2.6 "Tapper-Ramen" — Core Tests\n');
+console.log('NUDELBAR v2.9.2.7 "Tapper-Ramen" — Core Tests\n');
 
 // 1. Determinismus
 (function () {
@@ -792,6 +792,20 @@ console.log('NUDELBAR v2.9.2.6 "Tapper-Ramen" — Core Tests\n');
   eq(r2.bestNight, 12, 'beste Nacht bleibt');
   eq(r2.totalServed, 130, 'bediente Gäste kumulieren');
   eq(r2.bestCombo, 11, 'beste Combo bleibt');
+})();
+
+// 57. v2.9.2.7: Morgengrauen — nur nach allen 20 Nächten
+(function () {
+  var s = makeGame(41);
+  s.night = 20; s.phaseClock = 239.5;
+  for (var i = 0; i < 30 && !s.gameOver; i++) core.tick(s, 0.05);
+  assert(s.gameOver, 'Kampagne endet in Nacht 20');
+  eq(core.chronicle(s).dawn, true, 'Morgengrauen nach 20 Nächten');
+  var s2 = makeGame(42);
+  s2.credits = 9999; s2.reputation = 99;
+  for (var j = 0; j < 5000 && !s2.gameOver; j++) core.tick(s2, 0.05);
+  assert(s2.gameOver && s2.won, 'früher Sieg über Credits');
+  eq(core.chronicle(s2).dawn, false, 'kein Morgengrauen vor Nacht 20');
 })();
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

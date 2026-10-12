@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.6 — "Tapper-Ramen" — reiner deterministischer Kern
+   NUDELBAR v2.9.2.7 — "Tapper-Ramen" — reiner deterministischer Kern
    -----------------------------------------------------------------------------
    Reine Logik, kein DOM / kein Canvas / kein Audio. Läuft unter Node (require)
    UND im Browser (window.DAMPF.core).
@@ -1877,6 +1877,7 @@
       hardestLine: hardest, happiestLine: happiest, worstMistake: worstMistake,
       bestPayment: st.bestPayment, topTipper: st.topTipper,
       accidental: st.accidental, totalTips: st.totalTips,
+      dawn: state.night >= CONFIG.CAMPAIGN_NIGHTS && !!state.lastNight, // v2.9.2.7: Morgengrauen
       cleanBowls: st.cleanBowls, lingers: st.lingers,
       bestCombo: state.bestCombo, totalServed: state.totalServed, totalLost: state.totalLost
     };

@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.6 — Frontend / Renderer / Input
+   NUDELBAR v2.9.2.7 — Frontend / Renderer / Input
    -----------------------------------------------------------------------------
    Canvas-2D-Rendering, DOM-Overlays (Start/Shop/Ende/Hilfe), Touch, Controller,
    Tooltips, SFX-Hooks. Keine DOM-Abhängigkeit im Kern — hier läuft nur Anzeige.
@@ -514,6 +514,13 @@
     try { localStorage.setItem('nudelbar_stats', JSON.stringify(records)); } catch(e) {}
     body += line('📊 Rekorde', records.campaigns + ' Schichten · ' + records.wins + ' Siege · beste Nacht ' + records.bestNight + ' · ' + records.totalServed + ' bedient · beste Combo ' + records.bestCombo);
     refreshMeta();
+    // v2.9.2.7: Morgengrauen — nach allen 20 Nächten wacht die Stadt auf
+    if (ch.dawn) {
+      el.end.classList.add('dawn');
+      body += line('🌅 Morgen', 'Die Stadt wacht auf. Der Dashi nicht.');
+    } else {
+      el.end.classList.remove('dawn');
+    }
     el.endChrono.innerHTML = body;
     el.endGreta.textContent = GRETA[Math.floor(Math.random() * GRETA.length)];
     el.end.classList.remove('hidden');
