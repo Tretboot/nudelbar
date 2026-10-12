@@ -33,13 +33,22 @@ Laufendes Protokoll: was gebaut, was verworfen, was noch offen.
    Canvas, Menü), Währung € statt „Da", Lorebook (12 Einträge). 122/122, Bot 25/25.
 10. **v2.9.1:** „Laute Nacht" — Audio-Balance (Ambience/Walzer/Shamisen/Titel),
    Musik-Regler, Aim-System (serveBowl(targetSeat)), Sprechblasen größer.
-11. **v2.9.2 (aktuell):** „Der Prüfer kam" — Außenprüfung: Titelbildschirm war
+11. **v2.9.2:** „Der Prüfer kam" — Außenprüfung: Titelbildschirm war
    unsichtbar (Canvas in `hidden`-Container → 0×0), Menü-Button fehlte im HTML
    (totes Feature), Peak-Stem-3 lief nie an. Alle drei fixiert. Partytime in den
    Kern (deterministisch), Aim-Linie sichtbar, MIT-Lizenz + About-Block, DOM-
    Verträge-Check (tools/dom-check.js + Test 42), 8 neue Tests (130 gesamt),
    Patchlog nachgeführt (v2.7–v2.9.1), POSTMORTEM + MANIFEST + Übergabe-Dokumente,
    `nudelbar_v2.9.2.zip`. 130/130 Tests, Bot 25/25.
+12. **v2.9.2.1 (aktuell):** „Die Übernahme" — Git-Repo (Branch `main`, Initial-
+    Commit, Tag `v2.9.2`), 7 neue Dokumente (ROADMAP, CONTRIBUTING, BALANCE,
+    AUDIO, LORE, MOBILE, QA-CHECKLIST), Patchlog/README/MANIFEST/todo auf den
+    Doku-Stand. Funde markiert (nicht repariert): 7 tote SFX, Stem-2-Gate-
+    Diskrepanz (Header ≥ 2, Code ≥ 1), Studio-Besetzung (lore-studio vs.
+    Lorebook-Nacht-18). Kein Spielcode geändert. 130/130 Tests, Bot 25/25.
+    **Ab dieser Phase: ein einzelner Entwickler (KI, mit Kontinuität)** —
+    keine Übergabe mehr pro Session; v2.9.3 (Stabilisierung) geplant,
+    v2.9.4 (Struktur/Refactoring) hinterher.
 
 ## Offene Fragen / nächste Schritte
 - [ ] **Visuelle QA im Browser** (Mensch): Titelbildschirm, Menü, Party, Aim-Linie,
@@ -51,3 +60,7 @@ Laufendes Protokoll: was gebaut, was verworfen, was noch offen.
 - [ ] Content: v2.1-Persona-Bibeln (`content/personas/` im Alt-Ordner) nachportieren?
 - [ ] Balance: Sim-Bot gewinnt 25/25 in Ø 6.5 Nächten — `CONFIG` ist der Drehknopf
       (`WIN_CREDITS`, `CLEAN_BONUS`, `FORGIVE_BASE`, `BASE_SPAWN`).
+
+> **Stand 12.10.2026:** Diese Punkte sind weitergedacht in `todo.md`
+> (v2.9.3/v2.9.4-Plan) und `ROADMAP.md`. Der Master-Log bleibt das
+> Phasen-Protokoll — die Arbeitsliste wohnt jetzt woanders.

@@ -9,11 +9,12 @@
 
 ---
 
-## V2.9.2.1 — „Die Übernahme" (Doku-Version, 12.10.2026)
+## V2.9.2.1 — „Die Übernahme" (Doku-Version, 12.10.2026, Aktuell)
 
-**Status:** Kein Spielcode geändert. Projekt für das neue Team (Menschen + KI)
-organisatorisch übernommen: Git-Repo angelegt, Stand als Commit + Tag fixiert,
-Dokumentation erweitert.
+**Status:** Kein Spielcode geändert. Projekt neu übernommen: Git-Repo angelegt,
+Stand als Commit + Tag fixiert, Dokumentation erweitert. **Ab dieser Version
+führt ein einzelner Entwickler das Projekt: ein KI-Modell mit Kontinuität**
+(siehe „Entwickler-Handover" unten).
 
 ### Neu
 - **Git-Repo** `main`, Initial-Commit `3372646` (23 Dateien), Tag `v2.9.2`.
@@ -41,9 +42,28 @@ Dokumentation erweitert.
 - Keine Balance-Änderung (Zielkorridor 60–80 % Bot-Siegrate steht in `BALANCE.md`).
 - Die v2.7-Lücke im Patchlog bleibt Lücke (bewusst, wie bisher).
 
+### Entwickler-Handover
+- Bis v2.9.2 war das Projekt Übergabe um Übergabe: vier Modelle rührten (v1–v2.9),
+  dann der externe Prüfer (v2.9.1 → v2.9.2), dann „ein neu geordnetes Team".
+  **Ab v2.9.2.1 führt ein einzelner Entwickler das Projekt: ein KI-Modell mit
+  Kontinuität** — einer Agent über Sessions hinweg, Git als Gedächtnis,
+  Patchlog als Protokoll. Keine Übergabe mehr pro Wochenende.
+- Was der neue Entwickler **nicht** ist: ein zweiter Prüfer. Die Distanz des
+  Prüfers (siehe `special_edition/the-audit.md`) endete mit dem Übergabe-Tag —
+  jetzt ist Kontinuität das Prinzip. Was davon bleibt: die Ehrlichkeit.
+  Kein Display → keine visuellen Behauptungen. Keine Ohren → keine
+  Audio-Behauptungen. Die QA-Punkte in `QA-CHECKLIST.md` bleiben Menschenpunkte,
+  bis ein Mensch sie abhakt.
+- Was der neue Entwickler **ist**: der, der die 7 toten SFX verdrahtet oder
+  streicht, die Schrauben in `BALANCE.md` eine pro Runde dreht, `app.js` in
+  v2.9.4 aufteilt — und das Patchlog in derselben Aktion wie den Code schreibt.
+- Übergabe-Kette (vollständig): vier Modelle (v1–v2.9) → externer Prüfer
+  (v2.9.1 → v2.9.2, 11.10.2026) → **einzelner Entwickler** (v2.9.2.1 →,
+  12.10.2026). Die Katze war bei jeder Übergabe anwesend. Sie hat alle gesehen.
+
 ---
 
-## V2.9.2 — „Der Prüfer kam“ (Aktuell)
+## V2.9.2 — „Der Prüfer kam“
 
 **Status:** Vertical Slice · 130/130 Tests · Bot 25/25 · MIT-lizenziert · Paket für ein
 neues Team. Ein externes KI-Modell hat die Codebase geauditet, zwei verdeckte Bugs

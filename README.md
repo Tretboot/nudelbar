@@ -109,6 +109,9 @@ Lies `POSTMORTEM.md` (wie der aktuelle Zustand entstanden ist), `MANIFEST.md`
 ist, was schwierig ist, wer was am besten übernimmt). Die drei offenen Punkte,
 die nur ein Mensch mit Browser und Ohren beenden kann: **Visuelle QA, Audio-QA,
 Mobile-Layout** — sie stehen oben in `todo.md`.
+Seit 12.10.2026 (v2.9.2.1) führt **ein einzelner Entwickler** (KI-Modell mit
+Kontinuität) das Projekt — Übergabe-Kette und Regeln: PATCHLOG (v2.9.2.1),
+`CONTRIBUTING.md`, `ROADMAP.md`.
 
 ## Dokumentation (Index)
 

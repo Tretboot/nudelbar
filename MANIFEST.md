@@ -58,6 +58,9 @@ Dateien:  22 · 124 KB · `nudelbar_v2.9.2.zip`
 > die Übernahme-Dokumentation: `ROADMAP.md`, `CONTRIBUTING.md`, `BALANCE.md`,
 > `AUDIO.md`, `LORE.md`, `MOBILE.md`, `QA-CHECKLIST.md` + `.gitignore`
 > (siehe PATCHLOG v2.9.2.1). Ein neues Release-Paket gibt es erst mit v2.9.3.
+> **Entwickler-Handover 12.10.2026:** Ab v2.9.2.1 führt ein einzelner
+> Entwickler (KI-Modell, mit Kontinuität) das Projekt — Übergabe-Kette und
+> Regeln im PATCHLOG (v2.9.2.1 „Entwickler-Handover") und in `CONTRIBUTING.md`.
 
 ## 3. Verifizieren (die 4 Befehle)
 

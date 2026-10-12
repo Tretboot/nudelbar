@@ -1,6 +1,6 @@
 # NUDELBAR — Todo (Stand: v2.9.2, Außenprüfung)
 
-## Übernahme 12.10.2026 (neues Team)
+## Übernahme 12.10.2026 (neuer Entwickler)
 - [x] **Git-Repo initialisiert** + erster Commit (`3372646`, Branch `main`, 23 Dateien)
 - [x] **Tag `v2.9.2`** auf dem Initial-Commit gesetzt
 - [x] **Erweiterte Dokumentation** angelegt: `ROADMAP.md`, `CONTRIBUTING.md`,
@@ -8,6 +8,10 @@
       (alle Fakten am Code verifiziert; Funde: 7 tote SFX, Stem-2-Gate-Diskrepanz,
       Studio-Besetzungs-Inkonsistenz — jeweils in der Doku markiert, nicht erfunden)
 - [x] README/PATCHLOG/MANIFEST/`todo.md` auf den neuen Dokumentationsstand gebracht
+- [x] **Entwickler-Handover dokumentiert:** ab v2.9.2.1 führt **ein einzelner
+      Entwickler** (KI-Modell mit Kontinuität) das Projekt — Einträge in PATCHLOG
+      (v2.9.2.1 „Entwickler-Handover"), master_log (Phase 12), POSTMORTEM
+      (Nachtrag), MANIFEST (Nachtrag), `special_edition/quotes.md` (Wand)
 
 ## v2.9.3 — Stabilisierung (siehe `ROADMAP.md`)
 - [ ] **Visuelle Browser-QA** (Punkt 2 der `QA-CHECKLIST.md`) — Titel, Menü,

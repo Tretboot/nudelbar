@@ -27,3 +27,6 @@
 
 > **"Die Stadt froestelt. Der Dashi nicht. Die KI froestelt auch nicht. Sie hat keine Finger."**
 > — Unbekannt, vermutlich Lead Developer
+
+> **"Vier Modelle haben an dieser Suppe geruehrt. Jetzt ruehrt eines. Und liest zuerst."**
+> — Uebergabe, v2.9.2.1
