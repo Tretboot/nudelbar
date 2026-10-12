@@ -56,13 +56,21 @@ Laufendes Protokoll: was gebaut, was verworfen, was noch offen.
     5 SFX verdrahtet (Think/Phone/Bad/ZenJiru/Dispatch), 2 gestrichen
     (Ready/Deliver — kein eindeutiger Trigger). 3 neue Tests (43–45, 142 gesamt).
     Kern unangetastet. 142/142 Tests, Bot 25/25.
-14. **v2.9.2.3 (aktuell):** „Abzeichen" — 5 deterministische Kampagnen-Badges
+14. **v2.9.2.3:** „Abzeichen" — 5 deterministische Kampagnen-Badges
     im Kern (Zen-Meister, Party-Vater, Kritiker-Bändiger, Katzenfreund,
     Makellose Nacht), im Endscreen sichtbar (unverdient = „???",
     Replay-Anreiz). Hooks: afterSip / Party-Trigger / doServe / Katzen-Spawn /
     endNight. 4 neue Tests (46–49, 161 gesamt). Kein Gameplay-Einfluss —
     Sim 25/25. Versionsentscheidung: ROADMAP-Anti-Liste verbietet Features
     in v2.9.3, daher Micro-Version v2.9.2.3.
+15. **v2.9.2.4 (aktuell):** „Tiefe Fragen" — Dialog-Playtest-Nachschalung
+    (Spieler: „funktioniert, entbehrt aber jedem Sinn" + „zu oft"):
+    DIALOG_CHANCE 0.05 → 0.0008 + neues DIALOG_MIN_GAP 45 s (~2–4 Dialoge
+    pro Nacht statt ~10–12), KAWAII.dialog komplett neu (7 Personas; gut =
+    warm, neutral = flach, schlecht = kalt — die Wahl ist jetzt erkennbar;
+    Widersprüche behoben, alle Zeilen geprüft), Antworten in zufälliger
+    Reihenfolge (nur Frontend). Tests 50–51 (236 gesamt). Stem-2-Header
+    passt jetzt zum Code (≥ 1; „1 oder 2" = Audio-QA).
 
 ## Offene Fragen / nächste Schritte
 - [ ] **Visuelle QA im Browser** (Mensch): Titelbildschirm, Menü, Party, Aim-Linie,

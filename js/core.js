@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.3 — "Tapper-Ramen" — reiner deterministischer Kern
+   NUDELBAR v2.9.2.4 — "Tapper-Ramen" — reiner deterministischer Kern
    -----------------------------------------------------------------------------
    Reine Logik, kein DOM / kein Canvas / kein Audio. Läuft unter Node (require)
    UND im Browser (window.DAMPF.core).
@@ -102,8 +102,9 @@
     CAT_MIN: 20, CAT_SPREAD: 20,
     CAT_LUCK_FORGIVE: 0.15,
     CAT_LUCK_TIP: 0.2,
-    DIALOG_CHANCE: 0.05,
+    DIALOG_CHANCE: 0.0008,   // pro Tick & wartendem Gast (v2.9.2.4: selten — Playtest: „zu oft, ohne Sinn")
     DIALOG_TIMEOUT: 12,
+    DIALOG_MIN_GAP: 45,      // v2.9.2.4: Mindestabstand zwischen Dialogen (Sekunden)
     EMPLOYEE_COST: 150,
     EMPLOYEE_COOLDOWN: 8,
     EMPLOYEE_ERROR: 0.15,
@@ -638,40 +639,42 @@
         "Sie nimmt das Glück mit. Einen Kuss an die Theke. Ganz kurz. 💗"
       ]
     },
-    // 2) DIALOG
+    // 2) DIALOG — v2.9.2.4: neu geschrieben (Playtest: „funktioniert, entbehrt
+    // aber jedem Sinn"). Prinzip: gut = warm & aufmerksam, neutral = höflich
+    // & flach, schlecht = kalt. Drei klar unterscheidbare Haltungen.
     dialog: {
       kritiker: {
-        question: "Ich habe Ihre Suppen gemessen. 8,4. Die Abweichung stört mich. Erläutern.",
+        question: "Die Brühe: 38,2 Grad. Ich war dabei. Sie hätte 38 sein dürfen.",
         options: [
-          { text: "8,4? Wir streben 8,9. Die Nudeln danken der Kritik. 🍜", q: "good" },
-          { text: "8,4 ist auch eine Zahl. Wir kleben sie an die Wand. Falsche Seite.", q: "neutral" },
-          { text: "Ihre Zahlen? Hier gibt es nur ein Komma. Und das ist im Urlaub.", q: "bad" }
+          { text: "38 ist der Plan. 38,2 ist die Nacht. Beide liegen richtig.", q: "good" },
+          { text: "Die Zahlen wandern ins Glas. Dort halten sie sich an nichts.", q: "neutral" },
+          { text: "Messlöffel gibt's nicht. Suppe isst man, nicht prüft.", q: "bad" }
         ],
         react: {
-          good: "Er nickt zweimal. Bei Kritikern ist das fast eine Standing Ovation.",
-          neutral: "Er notiert die Zahl. Sein Gesicht bleibt der neutrale Durchschnitt.",
-          bad: "Er klappt sein Heft. Die Tür verabschiedet sich leiser als er."
+          good: "Er schreibt es auf. Sein Bleistift zögert einen Moment. Das ist viel.",
+          neutral: "Er notiert die Antwort. Aus der Zahl wird keine. Das war okay.",
+          bad: "Er klappt das Heft. Die Tür verabschiedet sich leiser als er."
         }
       },
       philosoph: {
-        question: "Ist die Suppe, was sie zeigt? Oder was die Nudel einmal versprochen hat?",
+        question: "Wenn du die Brühe gießt — gießt du sie, oder lässt du sie zu?",
         options: [
-          { text: "Beides. Erst isst sie. Dann philosophieren wir zusammen mit ihr.", q: "good" },
-          { text: "Sie schwimmt und fragt nicht. Vielleicht ist das die Wahrheit.", q: "neutral" },
-          { text: "Sie ist, was der Preis sagt. Das ist auch eine Art Wahrheit.", q: "bad" }
+          { text: "Beides. Ich fange an. Sie fängt an. Dann sind wir fertig.", q: "good" },
+          { text: "Ich gieße. Die Brühe entscheidet, wann sie genug hat.", q: "neutral" },
+          { text: "Gegossen wird, weil's bestellt ist. Mehr fragt man nicht.", q: "bad" }
         ],
         react: {
           good: "Er blinzelt. Zum ersten Mal seit Monden versteht er jemanden.",
-          neutral: "Er denkt drei Ewigkeiten nach und zahlt trotzdem. Fair.",
+          neutral: "Er nickt langsam. Die Antwort darf jetzt auch noch reifen.",
           bad: "Sein Blick geht an dir vorbei, durch die Wand, bis zum nächsten Stern."
         }
       },
       schwatzer: {
-        question: "Hast du den Fisch von nebenan GEHÖRT? Ich erzähl's dir SOFORT!",
+        question: "Der Fisch von nebenan hat ein NEUES Plakat! Sag mir sofort: Fisch oder Nudel?",
         options: [
-          { text: "Erst essen. Dann alles. Extra laut. Ich zünde die Ohren an.", q: "good" },
-          { text: "Ja, den Fisch. Schwimmt sehr laut seit dem Wochenende.", q: "neutral" },
-          { text: "Bitte. Nur hier. Nur für mich. Nur die Ruhe.", q: "bad" }
+          { text: "Nudel. Aber der Fisch hat ein gutes Plakat. Erzähl, ich hör zu.", q: "good" },
+          { text: "Der Fisch schwimmt. Die Nudel kocht. Beide sind beschäftigt.", q: "neutral" },
+          { text: "Ich hab keine Zeit für Plakate. Der Topf wartet auch nicht.", q: "bad" }
         ],
         react: {
           good: "Er erzählt's dir dreimal. Du hörst dreimal zu. Alle gewinnen.",
@@ -680,16 +683,16 @@
         }
       },
       timide: {
-        question: "Ähm… die Schale da… ist die für mich? 👉👈",
+        question: "Ähm… ich weiß nicht, was ich nehmen soll. Darf ich nachfragen?",
         options: [
-          { text: "Ja, deine! Mit Extra-Sternen und einem Lächeln zum Mitnehmen. 💗", q: "good" },
-          { text: "Sie ist… frei. Also ja. Ist deine. Wenn es dir passt.", q: "neutral" },
-          { text: "Die ist reserviert. Für den Fisch. Von nebenan. Bitte nicht.", q: "bad" }
+          { text: "Nimm, was dich wärmt. Ich koche den Rest drumherum.", q: "good" },
+          { text: "Die Karte hat alles. Schau gern. Keine Eile.", q: "neutral" },
+          { text: "Das steht auf der Karte. Die weiß es besser als ich.", q: "bad" }
         ],
         react: {
           good: "Sie lacht leise. Die Raumluft wird sofort um 4 % kuscheliger.",
           neutral: "Sie nickt. Langsam. Wie eine aufgeweckte Blume. 🌱",
-          bad: "Sie geht. Die Schale bleibt und tut so, als wäre alles normal."
+          bad: "Sie sagt „Danke“. Es klingt, als würde ein Fenster ganz langsam zu."
         }
       },
       heisshunger: {
@@ -719,11 +722,11 @@
         }
       },
       regelmassige: {
-        question: "Wie immer, ja. Nur: Hat die Katze was zu dir gesagt? Die wartet.",
+        question: "Der Regen hat heute einen Rhythmus. Hast du den auch gehört?",
         options: [
-          { text: "Die Katze meint viel. Leise. Gutes. Fast so wie ein Kuss.", q: "good" },
-          { text: "Die Katze ist anwesend. Das ist ihre ganze Meinung.", q: "neutral" },
-          { text: "Die war heute nicht da. Wir müssen wohl ohne Katzen-Klatsch.", q: "bad" }
+          { text: "Drei Takte lang. Beim vierten gieße ich Brühe. Passt genau.", q: "good" },
+          { text: "Vielleicht. Ich zähl hier Topfe statt Takte.", q: "neutral" },
+          { text: "Ich hör nur Topf und Töpfe. Mehr ist nicht mein Geschäft.", q: "bad" }
         ],
         react: {
           good: "Er lacht. Die Wandlampe flackert ein Mal aus Stolz.",
@@ -991,6 +994,7 @@
       skillPoints: 0,
       employee: { hired: false, cooldown: 0 },
       dialog: null,
+      dialogGap: 0,
       decor: { lamp: false, art: false, luckyCat: false },
       party: { active: false, t: 0 },
       regularFavorites: {},
@@ -1166,17 +1170,20 @@
       }
     }
 
-    // v2.8: Dialog-System
+    // v2.8: Dialog-System (v2.9.2.4: selten — Mindestabstand DIALOG_MIN_GAP)
     if (state.dialog) {
       state.dialog.t -= dt;
       if (state.dialog.t <= 0) answerDialog(state, state.dialog.seat, 1);
     } else {
-      for (var di = 0; di < state.seats.length; di++) {
-        var dg = state.seats[di];
-        if (dg && dg.stage === 'waiting' && !dg.dialogDone && state.rnd() < CONFIG.DIALOG_CHANCE) {
-          dg.dialogDone = true;
-          state.dialog = { seat: di, persona: dg.persona.id, t: CONFIG.DIALOG_TIMEOUT };
-          break;
+      state.dialogGap = Math.max(0, state.dialogGap - dt);
+      if (state.dialogGap <= 0) {
+        for (var di = 0; di < state.seats.length; di++) {
+          var dg = state.seats[di];
+          if (dg && dg.stage === 'waiting' && !dg.dialogDone && state.rnd() < CONFIG.DIALOG_CHANCE) {
+            dg.dialogDone = true;
+            state.dialog = { seat: di, persona: dg.persona.id, t: CONFIG.DIALOG_TIMEOUT };
+            break;
+          }
         }
       }
     }
@@ -1739,6 +1746,7 @@
       if (q === 'bad') setChefMood(state, '😬', 1.2);
     }
     state.dialog = null;
+    state.dialogGap = CONFIG.DIALOG_MIN_GAP; // v2.9.2.4: nächste Frage nicht gleich danach
     return true;
   }
 

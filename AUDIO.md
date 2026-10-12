@@ -25,10 +25,10 @@ master 0.6 ─→ destination
 └── titleGain (0 → ~0.45) ────────────────────── (Titel-Bus, KEIN Delay)
 ```
 
-> **Inkonsistenz (markiert, nicht erfunden):** Der Header in `audio.js` sagt für
-> Stem 2 „guest-gated (Gäste ≥ 2)", der Code sagt `guests >= 1` (`updateIMUSE`,
-> ~Zeile 185). Eines von beiden stimmt nicht. **QA-Aufgabe:** bewusstes späteres
-> Tuning oder alter Header? Dann Header oder Code angleichen.
+> **Stem-2-Gate (12.10.2026 aufgelöst, v2.9.2.4):** Der Header in `audio.js`
+> sagt jetzt dasselbe wie der Code: `guests >= 1` (`updateIMUSE`, ~Zeile 185).
+> Das alte „Gäste ≥ 2" bleibt als **Audio-QA-Item**: Ab *welchem* Gast klingt
+> der Walzer besser? Eine Ohr-Entscheidung, die nur jemand mit Ohren trifft.
 
 **Historie (wichtig):** Der Peak-Stem (Stem 3) lief bis v2.9.2 **nie an** —
 `_scheduleStem3()` wurde nicht aufgerufen, und der gemeinsame `nextNoteTime`-Zeiger

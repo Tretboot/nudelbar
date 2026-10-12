@@ -86,7 +86,7 @@ Reaktionsformel (Kern, `doServe`/`doWrong`):
 | `CAT_MIN` / `CAT_SPREAD` | 20 / 20 | Katze-Verweildauer (s) |
 | `CAT_LUCK_FORGIVE` | 0.15 | Katzen-Glück: Verzeihung |
 | `CAT_LUCK_TIP` | 0.2 | Katzen-Glück: Trinkgeld |
-| `DIALOG_CHANCE` / `DIALOG_TIMEOUT` | 0.05 / 12 | Gast-Dialog (Gast fragt, Spieler antwortet). v2.9.2.2: UI wieder aktiv — Antworten wirken jetzt (±8 moodBonus); Frequenz im Spieltest prüfen |
+| `DIALOG_CHANCE` / `DIALOG_TIMEOUT` / `DIALOG_MIN_GAP` | 0.0008 / 12 / 45 | Gast-Dialog (Gast fragt, Spieler antwortet). **v2.9.2.4 (Playtest: „zu oft, ohne Sinn"):** Chance ÷62 + Mindestabstand 45 s → ~2–4 Dialoge/Nacht. Antworten wirken (±8 moodBonus) |
 | `EMPLOYEE_COST` / `EMPLOYEE_COOLDOWN` / `EMPLOYEE_ERROR` | 150 / 8 / 0.15 | Angestellter: Preis, Intervall, Fehlerquote |
 
 ### Partytime (v2.9.2)

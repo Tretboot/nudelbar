@@ -9,7 +9,58 @@
 
 ---
 
-## V2.9.2.3 — „Abzeichen" (12.10.2026, Aktuell)
+## V2.9.2.4 — „Tiefe Fragen" (12.10.2026, Aktuell)
+
+**Status:** Playtest-Nachschalung des Dialog-Systems (v2.9.2.2). Urteil der
+Spieler: „funktioniert, entbehrt aber so ziemlich jedem Sinn" + „zu oft".
+Antwort: **seltener + tiefer**. 236/236 Tests (2 neue: 50–51). Sim unverändert
+(25/25).
+
+### Frequenz (Kern, CONFIG)
+- `DIALOG_CHANCE`: 0.05 → **0.0008** (pro Tick, pro wartendem Gast)
+- Neu `DIALOG_MIN_GAP`: **45 s** Mindestabstand zwischen Dialogen (State-Feld
+  `dialogGap`, wird beim Dialog-Ende gesetzt — Antwort wie Timeout)
+- Ergebnis: von ~10–12 Dialogen pro Nacht auf **~2–4** (einer pro 60–120 s).
+  Jeder Gast behält max. 1 Dialog pro Nacht (`dialogDone` unverändert).
+
+### Texte (KAWAII.dialog, alle 7 Personas)
+Ursache für „keinerlei Sinn": die 3 Antworten waren gleich lustig → die
+Spielentscheidung war nicht erkennbar; manche Zeilen widersprachen der Lage.
+Neue Prinzipien:
+- **gut = warm & aufmerksam · neutral = höflich & flach · schlecht = kalt.**
+  Drei klar unterscheidbare Haltungen — der Spieler spürt, was „gut" ist.
+- Fragen sind situationstypisch (Warten an der Theke, Regen, Nacht, Katze,
+  Stadt), keine Situation-Brüche.
+- **Widersprüche behoben:** Der Regelmäßige fragte nach der Katze — die
+  Antworten konnten Lügen, wenn die Katze nicht da war → jetzt Regen/Rhythmus.
+  Der Timide fragte nach einer Schale, die noch nicht da war → jetzt um Rat
+  fragen.
+- Alle Zeilen geprüft: Grammatik, Persona-Ton, max. 14 Wörter pro Zeile.
+- Gepflegt (schon gut): Heißhunger & Tourist komplett, Schwätzer-Reaktionen,
+  mehrere Reaktionen bei Kritiker/Philosoph/Regelmäßigem.
+
+### Frontend
+- **Antworten werden in zufälliger Reihenfolge angezeigt** (Shuffle in app.js,
+  nur Frontend — der Kern bleibt deterministisch): Aus-dem-Gedächtnis-Antworten
+  (immer den ersten Button) sind unmöglich.
+- Der Hinweis nennt jetzt die Wirkung: „Gut oder schlecht färbt den Gast"
+  (moodBonus ±8 beeinflusst die Zufriedenheit des Gasts beim Essen).
+
+### Tests 50–51
+- **50:** Mindestabstand — während des Gaps kein neuer Dialog (deterministisch),
+  danach wieder möglich.
+- **51:** Text-Konsistenz — 7 Personas, je Frage + exakt 3 verschiedene
+  Antworten (good/neutral/bad) + 3 nicht-leere Reaktionen.
+
+### Sonstiges
+- Stem-2-Header in `audio.js` passt jetzt zum Code (`guests >= 1`); die
+  „≥ 2"-Frage ist explizit Audio-QA (Ohr-Entscheidung, siehe `AUDIO.md`).
+- Alle Header auf v2.9.2.4; Doku nachgeführt (master_log Phase 15, README,
+  BALANCE, QA-CHECKLIST, AUDIO, todo).
+
+---
+
+## V2.9.2.3 — „Abzeichen" (12.10.2026)
 
 **Status:** Kleines Kern-Feature + Endscreen. Alle 5 Abzeichen werden
 deterministisch im Kern verdient (seedbar, testbar). 161/161 Tests

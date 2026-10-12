@@ -7,7 +7,7 @@ Menschen mit Augen, Ohren und Fingern — der Prüfer (KI) konnte davon nichts.
 ## 1. Automatisch (maschinell, Pflicht)
 
 ```bash
-node tests.js           # → 161 passed, 0 failed   (v2.9.2.3)
+node tests.js           # → 236 passed, 0 failed   (v2.9.2.4)
 node sim.js             # → Sieg-Rate 25/25        (v2.9.2; Ziel v2.9.3: 60–80 %)
 node tools/dom-check.js # → DOM-Vertrag: OK
 ```
@@ -35,9 +35,10 @@ node tools/dom-check.js # → DOM-Vertrag: OK
 - [ ] **Sprechblasen:** Bestellung (Mini-Schüssel + „PREIS: X €"), Sims-Blase,
       Reaktions-Label (BEGEISTERT/ZUFRIEDEN/ÜBERRASCHT/MURRKOPF/BLEIBT SITZEN),
       Gossip
-- [ ] **Gast-Dialog (v2.9.2.2 neu sichtbar):** Panel erscheint (Sfx Phone),
-      3 Antworten klickbar, Timer-Balken läuft, Panel verschwindet nach
-      Antwort/Timeout. Ist die Frequenz angenehm (DIALOG_CHANCE)?
+- [ ] **Gast-Dialog (v2.9.2.4 neu kalibriert):** kommt jetzt **selten**
+      (max. alle ~45 s, ~2–4 pro Nacht). Prüfen: fühlt sich jeder Dialog
+      an wie ein echtes Gespräch? Antworten sind in zufälliger Reihenfolge —
+      warm/flach/kalt erkennbar? Reaktion des Gasts sichtbar?
 - [ ] **Katze:** taucht (selten!) auf, bleibt, geht
 - [ ] **Bürozeit:** Einkauf, Upgrades, Skills, Preis, Angestellter,
       „Nächste Nacht"-Button — alles lesbar und funktionsfähig

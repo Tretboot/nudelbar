@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.3 — Frontend / Renderer / Input
+   NUDELBAR v2.9.2.4 — Frontend / Renderer / Input
    -----------------------------------------------------------------------------
    Canvas-2D-Rendering, DOM-Overlays (Start/Shop/Ende/Hilfe), Touch, Controller,
    Tooltips, SFX-Hooks. Keine DOM-Abhängigkeit im Kern — hier läuft nur Anzeige.
@@ -162,13 +162,21 @@
     el.dialogHint.textContent = T_('game.dialogHint');
     el.dialogQuestion.textContent = data.question;
     el.dialogOptions.innerHTML = '';
-    data.options.forEach(function (o, i) {
+    // v2.9.2.4: Anzeigereihenfolge gemischt (nur Frontend — Kern bleibt
+    // deterministisch), damit man nicht aus dem Gedächtnis antworten kann.
+    var order = [0, 1, 2];
+    for (var sh = order.length - 1; sh > 0; sh--) {
+      var si = Math.floor(Math.random() * (sh + 1));
+      var swap = order[sh]; order[sh] = order[si]; order[si] = swap;
+    }
+    order.forEach(function (idx) {
+      var o = data.options[idx];
       var b = document.createElement('button');
       b.className = 'dialog-opt';
       b.textContent = o.text;
       b.addEventListener('click', function () {
         sfx('Click');
-        core.answerDialog(game, d.seat, i);
+        core.answerDialog(game, d.seat, idx);
       });
       el.dialogOptions.appendChild(b);
     });
@@ -1300,13 +1308,13 @@
     de: {
       hud: { night: "Nacht", time: "Uhr", currency: "€", rep: "Reputation", goal: "€-Ziel" },
       shop: { stock: "Vorrat", upgrades: "Upgrades", price: "Preisniveau", nextNight: "Nächste Nacht", kitchen: "Küche — Nudelbar" },
-      game: { ready: "BEREIT", serve: "SERVIEREN", entrance: "EINGANG", menu: "SPEISEKARTE", pause: "PAUSE", pauseHint: "P zum Fortsetzen · ? Hilfe", dialogTitle: "Gast fragt", dialogHint: "Klick = Antwort · 12 s Zeitlimit, sonst antworte ich neutral" },
+      game: { ready: "BEREIT", serve: "SERVIEREN", entrance: "EINGANG", menu: "SPEISEKARTE", pause: "PAUSE", pauseHint: "P zum Fortsetzen · ? Hilfe", dialogTitle: "Gast fragt", dialogHint: "Klick = Antwort · 12 s, sonst neutral · Gut oder schlecht färbt den Gast" },
       title: { start: "Schicht beginnen", intro: "Intro ansehen", chronicle: "Stammgast-Chronik", tagline: "Die Stadt fröstelt. Der Dashi nicht.", controls: "↑↓ wählen · Enter starten · M Ton" }
     },
     en: {
       hud: { night: "Night", time: "Time", currency: "€", rep: "Reputation", goal: "€ Goal" },
       shop: { stock: "Stock", upgrades: "Upgrades", price: "Price Level", nextNight: "Next Night", kitchen: "Kitchen — Noodle Bar" },
-      game: { ready: "READY", serve: "SERVE", entrance: "ENTRANCE", menu: "MENU", pause: "PAUSE", pauseHint: "P to resume · ? Help", dialogTitle: "Guest asks", dialogHint: "Click to answer · 12 s limit, then I answer neutral" },
+      game: { ready: "READY", serve: "SERVE", entrance: "ENTRANCE", menu: "MENU", pause: "PAUSE", pauseHint: "P to resume · ? Help", dialogTitle: "Guest asks", dialogHint: "Click to answer · 12 s, then neutral · Good or bad colors the guest" },
       title: { start: "Start Shift", intro: "Watch Intro", chronicle: "Regulars Chronicle", tagline: "The city shivers. The dashi doesn't.", controls: "↑↓ select · Enter start · M sound" }
     }
   };

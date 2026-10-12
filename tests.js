@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.3 "Tapper-Ramen" — Unit Tests
+   NUDELBAR v2.9.2.4 "Tapper-Ramen" — Unit Tests
    Node:  node tests.js
    ============================================================================= */
 'use strict';
@@ -40,7 +40,7 @@ function buildBowl(s, broth, toppings) {
 }
 function settle(s, n) { for (var i = 0; i < n; i++) core.tick(s, 0.05); }
 
-console.log('NUDELBAR v2.9.2.3 "Tapper-Ramen" — Core Tests\n');
+console.log('NUDELBAR v2.9.2.4 "Tapper-Ramen" — Core Tests\n');
 
 // 1. Determinismus
 (function () {
@@ -691,6 +691,42 @@ console.log('NUDELBAR v2.9.2.3 "Tapper-Ramen" — Core Tests\n');
   s2.phaseClock = core.CONFIG.NIGHT_DURATION + 0.01;
   core.tick(s2, 0.05);
   assert(!s2.achievements.makellos, 'a lost guest ruins the flawless night');
+})();
+
+// 50. v2.9.2.4: Dialog ist selten — Mindestabstand (DIALOG_MIN_GAP)
+(function () {
+  var s = makeGame(7301);
+  var g = placeGuest(s, 'tonkatsu', ['ei']);
+  g.patience = 9999; g.maxPatience = 9999;
+  s.dialog = { seat: 0, persona: g.persona.id, t: 0.1 };
+  for (var i = 0; i < 10 && s.dialog; i++) core.tick(s, 0.05);
+  eq(s.dialog, null, 'dialog ends (timeout)');
+  assert(s.dialogGap > 0, 'min gap starts after a dialog');
+  for (var j = 0; j < 400 && !s.dialog; j++) core.tick(s, 0.05); // 20 s < Gap
+  assert(!s.dialog, 'no new dialog while the gap runs');
+  for (var k = 0; k < 20000 && !s.dialog; k++) core.tick(s, 0.05);
+  assert(!!s.dialog, 'dialog can trigger again after the gap (seed 7301)');
+})();
+
+// 51. v2.9.2.4: Dialog-Texte — jede Persona: Frage + 3 verschiedene Antworten + Reaktionen
+(function () {
+  var d = core.KAWAII.dialog;
+  var ids = Object.keys(d);
+  eq(ids.length, 7, 'seven dialog personas');
+  ids.forEach(function (id) {
+    assert(core.personaOf(id), 'dialog persona ' + id + ' exists in PERSONAS');
+    var e = d[id];
+    assert(e.question && e.question.length > 5, id + ': question not empty');
+    eq(e.options.length, 3, id + ': exactly three options');
+    eq(e.options.map(function (o) { return o.q; }).sort().join(','), 'bad,good,neutral',
+      id + ': one good, one neutral, one bad option');
+    e.options.forEach(function (o, i) {
+      assert(o.text && o.text.length > 5, id + ': option ' + i + ' not empty');
+    });
+    ['good', 'neutral', 'bad'].forEach(function (q) {
+      assert(e.react[q] && e.react[q].length > 5, id + ': react[' + q + '] not empty');
+    });
+  });
 })();
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');
