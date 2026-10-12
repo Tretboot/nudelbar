@@ -13,6 +13,14 @@
       (v2.9.2.1 „Entwickler-Handover"), master_log (Phase 12), POSTMORTEM
       (Nachtrag), MANIFEST (Nachtrag), `special_edition/quotes.md` (Wand)
 
+## v2.9.2.5 — Erledigt (12.10.2026, „Der Bug wird Gast")
+- [x] **Bug-Gast (Nacht 10):** deterministisch Sek. 40, bestellt nichts,
+      extra Geduld, tippt 60 s; solange anwesend +`BUG_FORGIVE` 0.10
+      (additiv mit Katze) — Lorebook-Eintrag passiert jetzt im Spiel
+- [x] Frontend: Laptop + Tipp-Partikel + Sticky-Note „TODO: v3.0",
+      Hilfe-Zeile „Nacht 10"
+- [x] Tests 52–54 (248 gesamt), Sim 25/25, DOM OK, Doku + Header nachgeführt
+
 ## v2.9.2.4 — Erledigt (12.10.2026, „Tiefe Fragen")
 - [x] **Dialog-Frequenz:** `DIALOG_CHANCE` 0.05 → 0.0008 + neues
       `DIALOG_MIN_GAP` 45 s → ~2–4 Dialoge pro Nacht (Playtest-Feedback:

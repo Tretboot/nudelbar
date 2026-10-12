@@ -88,6 +88,7 @@ Reaktionsformel (Kern, `doServe`/`doWrong`):
 | `CAT_LUCK_TIP` | 0.2 | Katzen-Glück: Trinkgeld |
 | `DIALOG_CHANCE` / `DIALOG_TIMEOUT` / `DIALOG_MIN_GAP` | 0.0008 / 12 / 45 | Gast-Dialog (Gast fragt, Spieler antwortet). **v2.9.2.4 (Playtest: „zu oft, ohne Sinn"):** Chance ÷62 + Mindestabstand 45 s → ~2–4 Dialoge/Nacht. Antworten wirken (±8 moodBonus) |
 | `EMPLOYEE_COST` / `EMPLOYEE_COOLDOWN` / `EMPLOYEE_ERROR` | 150 / 8 / 0.15 | Angestellter: Preis, Intervall, Fehlerquote |
+| `BUG_NIGHT` / `BUG_AT` / `BUG_DUR` / `BUG_FORGIVE` | 10 / 40 / 60 / 0.10 | Bug-Gast (v2.9.2.5): Nacht, Auftritt (s), Tippdauer (s), Verzeihungs-Bonus solange anwesend (additiv mit `CAT_LUCK_FORGIVE`) |
 
 ### Partytime (v2.9.2)
 

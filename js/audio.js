@@ -1,5 +1,5 @@
 /* =============================================================================
-  NUDELBAR — Audio Engine v2.9.2.4 (iMUSE-Light + 5 Titel-Tracks)
+  NUDELBAR — Audio Engine v2.9.2.5 (iMUSE-Light + 5 Titel-Tracks)
   - Stem 1 (Ambient): Shamisen-Drone, läuft dauerhaft
   - Stem 2 (Rhythmus): Walzer-Akkorde + Bass, guest-gated (Code: ab 1 Gast; die alte Doku sagte „Gäste ≥ 2" — 1 oder 2 anhören = Audio-QA, siehe AUDIO.md)
   - Stem 3 (Peak): Arps + Percussion, combo/rush-gated

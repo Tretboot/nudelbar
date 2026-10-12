@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.4 "Tapper-Ramen" — Unit Tests
+   NUDELBAR v2.9.2.5 "Tapper-Ramen" — Unit Tests
    Node:  node tests.js
    ============================================================================= */
 'use strict';
@@ -40,7 +40,7 @@ function buildBowl(s, broth, toppings) {
 }
 function settle(s, n) { for (var i = 0; i < n; i++) core.tick(s, 0.05); }
 
-console.log('NUDELBAR v2.9.2.4 "Tapper-Ramen" — Core Tests\n');
+console.log('NUDELBAR v2.9.2.5 "Tapper-Ramen" — Core Tests\n');
 
 // 1. Determinismus
 (function () {
@@ -727,6 +727,46 @@ console.log('NUDELBAR v2.9.2.4 "Tapper-Ramen" — Core Tests\n');
       assert(e.react[q] && e.react[q].length > 5, id + ': react[' + q + '] not empty');
     });
   });
+})();
+
+// 52. v2.9.2.5: Bug-Gast erscheint in Nacht 10 (deterministisch)
+(function () {
+  var s = makeGame(31);
+  s.night = 10; s.phaseClock = 39.5;
+  var found = false;
+  for (var i = 0; i < 40 && !found; i++) { core.tick(s, 0.05); found = core.bugGuestPresent(s); }
+  assert(found, 'Bug-Gast setzt sich ~Sek. 40 (seed 31)');
+  eq(s._bugSpawned, true, 'einmalig markiert');
+  var g = null;
+  for (var k = 0; k < s.seats.length; k++) if (s.seats[k] && s.seats[k].bug) g = s.seats[k];
+  eq(g.stage, 'typing', 'Bug-Gast tippt');
+  eq(g.order, null, 'Bug-Gast bestellt nichts');
+  assert(g.patience > 1e6, 'Bug-Gast hat extra Geduld');
+})();
+
+// 53. v2.9.2.5: Solange der Bug-Gast da ist, steigt das Verzeihen (BUG_FORGIVE)
+(function () {
+  var s = makeGame(32);
+  eq(core.forgiveBonus(s), 0, 'keine passiven Boni am Anfang');
+  s.night = 10; s.phaseClock = 39.5;
+  for (var i = 0; i < 40 && !core.bugGuestPresent(s); i++) core.tick(s, 0.05);
+  eq(core.forgiveBonus(s), core.CONFIG.BUG_FORGIVE, 'Verzeihen steigt mit Bug-Gast');
+  s.cat.active = true;
+  eq(core.forgiveBonus(s), core.CONFIG.BUG_FORGIVE + core.CONFIG.CAT_LUCK_FORGIVE, 'Katze + Bug addieren sich');
+  s.cat.active = false;
+})();
+
+// 54. v2.9.2.5: Bug-Gast geht wieder und kommt nie zweimal
+(function () {
+  var s = makeGame(33);
+  s.night = 10; s.phaseClock = 39.5;
+  for (var i = 0; i < 40 && !core.bugGuestPresent(s); i++) core.tick(s, 0.05);
+  assert(core.bugGuestPresent(s), 'anfangs anwesend');
+  for (var j = 0; j < 3000; j++) core.tick(s, 0.05); // +150 s
+  assert(!core.bugGuestPresent(s), 'geht nach BUG_DUR wieder');
+  for (var k2 = 0; k2 < 1000; k2++) core.tick(s, 0.05); // +50 s
+  assert(!core.bugGuestPresent(s), 'kommt nie zweimal');
+  eq(s._bugSpawned, true, 'Flag bleibt gesetzt');
 })();
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

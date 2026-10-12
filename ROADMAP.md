@@ -58,7 +58,7 @@ bricht, gleicher Seed + gleiche Eingaben = identisches Spiel (Determinismus-Test
 | Feature | Kern (deterministisch) | Frontend | Lore |
 |---|---|---|---|
 | Entwicklerstudio betretbar | — | Tür in der Gasse, 3 Schreibtische, Whiteboard mit TODOs, Katze auf dem Monitor | Studio-Besetzung klären (siehe `LORE.md`, Inkonsistenz) |
-| Bug-Gast (Nacht 10) | Deterministischer Trigger, Bestellung „2× Nichts, 1× Fehler, extra Geduld" | Laptop, Sticky-Note „TODO: v3.0" | Lorebook-Nacht-10-Text existiert bereits — davor anknüpfen |
+| ~~Bug-Gast (Nacht 10)~~ | **vorgezogen in v2.9.2.5** (deterministisch, bestellt nichts, extra Geduld) | Laptop, Sticky-Note „TODO: v3.0" | Lorebook-Nacht-10-Text ist jetzt im Spiel wirksam |
 | Straße + Wetter | Wetter als Spawn-/Geduld-Modifier (wie EVENTS, aber andauernd) | Regen/Schnee, Neon-Reflexionen auf nassem Asphalt | „Die Stadt fröstelt. Der Dashi nicht." |
 | Meta-Element | Restart-Zähler (localStorage), Bar „erinnert" sich | „Du hast mich schon 3 Mal neu gestartet. Ich erinnere mich." | Die Bar weiß, dass sie ein Spiel ist |
 | Tageszeiten | — | Morgengrauen nach Nacht 20 (Endscreen-Expansion) | Die Stadt wacht auf |

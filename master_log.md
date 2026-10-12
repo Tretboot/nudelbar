@@ -63,7 +63,7 @@ Laufendes Protokoll: was gebaut, was verworfen, was noch offen.
     endNight. 4 neue Tests (46–49, 161 gesamt). Kein Gameplay-Einfluss —
     Sim 25/25. Versionsentscheidung: ROADMAP-Anti-Liste verbietet Features
     in v2.9.3, daher Micro-Version v2.9.2.3.
-15. **v2.9.2.4 (aktuell):** „Tiefe Fragen" — Dialog-Playtest-Nachschalung
+15. **v2.9.2.4:** „Tiefe Fragen" — Dialog-Playtest-Nachschalung
     (Spieler: „funktioniert, entbehrt aber jedem Sinn" + „zu oft"):
     DIALOG_CHANCE 0.05 → 0.0008 + neues DIALOG_MIN_GAP 45 s (~2–4 Dialoge
     pro Nacht statt ~10–12), KAWAII.dialog komplett neu (7 Personas; gut =
@@ -71,6 +71,12 @@ Laufendes Protokoll: was gebaut, was verworfen, was noch offen.
     Widersprüche behoben, alle Zeilen geprüft), Antworten in zufälliger
     Reihenfolge (nur Frontend). Tests 50–51 (236 gesamt). Stem-2-Header
     passt jetzt zum Code (≥ 1; „1 oder 2" = Audio-QA).
+16. **v2.9.2.5 (aktuell):** „Der Bug wird Gast" — v3.0-Teaser vorgezogen:
+    Lorebook-Nacht-10-Eintrag passiert jetzt im Spiel. Nacht 10, Sek. 40:
+    Bug-Gast (💻) setzt sich (deterministisch, einmalig), bestellt nichts,
+    extra Geduld, tippt 60 s; solange anwesend: +BUG_FORGIVE 0.10
+    Verzeihung (additiv mit Katze). Stage `typing`, Sticky-Note „TODO: v3.0".
+    Tests 52–54 (248 gesamt).
 
 ## Offene Fragen / nächste Schritte
 - [ ] **Visuelle QA im Browser** (Mensch): Titelbildschirm, Menü, Party, Aim-Linie,

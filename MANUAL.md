@@ -169,6 +169,11 @@ Nach jeder Nacht: der Shop. Hier ist die Welt pausiert — nichts eilt.
   ist: +20 % Trinkgeld, +15 % Verzeihung. Sie sagt nichts. Sie nickt.
 - **🎉 Partytime:** 4 oder mehr Gäste gleichzeitig → alle tragen Mützen,
   Konfetti, Fanfare, Party-Sprache. Sechs Sekunden. Dann normal weiter.
+- **💻 Der Bug-Gast (Nacht 10):** Am 10. Abend setzt sich um ~Sekunde 40
+  jemand, der nicht bestellt. Er tippt 60 Sekunden auf seinem Laptop
+  (Sticky-Note: „TODO: v3.0") und geht dann wieder. Solange er da ist,
+  werden deine Patzer häufiger verziehen. Die Lorebuch-Seite „Der Bug wird
+  Gast" ist jetzt kein Vorgriff mehr.
 - **Nacht-Events** (stehen oben im HUD):
 
 | Event | Was passiert |

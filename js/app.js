@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.4 — Frontend / Renderer / Input
+   NUDELBAR v2.9.2.5 — Frontend / Renderer / Input
    -----------------------------------------------------------------------------
    Canvas-2D-Rendering, DOM-Overlays (Start/Shop/Ende/Hilfe), Touch, Controller,
    Tooltips, SFX-Hooks. Keine DOM-Abhängigkeit im Kern — hier läuft nur Anzeige.
@@ -693,6 +693,16 @@
     // Stammgast-Stern / Gruppen-Badge
     if (g.isRegular) { c.font = '13px serif'; c.fillText('⭐', x + 16, y - 34); }
     if (g.group) { c.font = '13px serif'; c.fillText(groupEmoji(g.group), x - 16, y - 34); }
+    // v2.9.2.5: Bug-Gast — Laptop, Tipp-Partikel, Sticky-Note „TODO: v3.0"
+    if (g.stage === 'typing') {
+      c.font = '20px serif'; c.fillText('💻', x, y + 12);
+      if (Math.random() < 0.12) particles.push({ x: x + (Math.random() - 0.5) * 14, y: y + 6, vx: (Math.random() - 0.5) * 10, vy: -12, life: 0.5, max: 0.5, color: 'rgba(154,167,189,0.8)', size: 2, grav: -4 });
+      c.save(); c.translate(x + 27, y - 46); c.rotate(0.08);
+      c.fillStyle = '#ffe9a8'; rr(c, -27, -11, 54, 22, 3); c.fill();
+      c.fillStyle = '#5a4a1e'; c.font = '10px monospace'; c.textAlign = 'center';
+      c.fillText('TODO: v3.0', 0, 4);
+      c.restore();
+    }
     // Geduld-Ring (wartend)
     if (g.stage === 'waiting') {
       var frac = clamp01(g.patience / g.maxPatience);

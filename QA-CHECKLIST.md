@@ -7,7 +7,7 @@ Menschen mit Augen, Ohren und Fingern — der Prüfer (KI) konnte davon nichts.
 ## 1. Automatisch (maschinell, Pflicht)
 
 ```bash
-node tests.js           # → 236 passed, 0 failed   (v2.9.2.4)
+node tests.js           # → 248 passed, 0 failed   (v2.9.2.5)
 node sim.js             # → Sieg-Rate 25/25        (v2.9.2; Ziel v2.9.3: 60–80 %)
 node tools/dom-check.js # → DOM-Vertrag: OK
 ```
@@ -40,6 +40,9 @@ node tools/dom-check.js # → DOM-Vertrag: OK
       an wie ein echtes Gespräch? Antworten sind in zufälliger Reihenfolge —
       warm/flach/kalt erkennbar? Reaktion des Gasts sichtbar?
 - [ ] **Katze:** taucht (selten!) auf, bleibt, geht
+- [ ] **Bug-Gast (v2.9.2.5):** kommt in Nacht 10 (Sek. ~40), tippt am Laptop
+      mit Sticky-Note „TODO: v3.0", geht nach ~60 s — fühlt sich an wie ein
+      Moment, nicht wie ein Fehler
 - [ ] **Bürozeit:** Einkauf, Upgrades, Skills, Preis, Angestellter,
       „Nächste Nacht"-Button — alles lesbar und funktionsfähig
 - [ ] **Feierabend:** Score, Chronist-Report, End-Text — Endscreen bleibt,

@@ -74,7 +74,7 @@ Klick/Tastendruck zum Start — Browser-Autoplay-Regel.)
 
 ## Verifizieren (die drei Befehle)
 ```
-node tests.js           # 236 Unit-Tests (Kern)
+node tests.js           # 248 Unit-Tests (Kern)
 node sim.js             # Balance-Sim: 25 Seeds, Bot spielt komplette Kampagnen
 node tools/dom-check.js # DOM-Vertrag: jede UI-Referenz hat ein HTML-Element
 ```
@@ -88,7 +88,7 @@ js/core.js            Reiner deterministischer Kern (Node + Browser, window.DAMP
 js/app.js             Canvas-Renderer, Input, Tooltips, Touch, Controller, Overlays
 js/audio.js           WebAudio: iMUSE 3 Stems, 5 Titel-Tracks, 17 SFX (alles synthetisch)
 js/intro.js           Anime-Prolog (3 Szenen), UMD, kein Zugriff auf core-State
-tests.js              236 Unit-Tests (node tests.js, inkl. Dialog-Tests 43–45 + Abzeichen 46–49 + Dialog-Tiefe 50–51, DOM-Vertrag als Test 42)
+tests.js              248 Unit-Tests (node tests.js, inkl. Dialog-Tests 43–45 + Abzeichen 46–49 + Dialog-Tiefe 50–51 + Bug-Gast 52–54, DOM-Vertrag als Test 42)
 sim.js                Balance-Simulator (node sim.js, 25 Seeds)
 tools/dom-check.js    DOM-Vertrag-Check (v2.9.2: die Versicherung gegen tote Features)
 special_edition/      Tech-Paper, Studio-Lore, Zitate, Dev-History,

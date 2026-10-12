@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.4 — "Tapper-Ramen" — reiner deterministischer Kern
+   NUDELBAR v2.9.2.5 — "Tapper-Ramen" — reiner deterministischer Kern
    -----------------------------------------------------------------------------
    Reine Logik, kein DOM / kein Canvas / kein Audio. Läuft unter Node (require)
    UND im Browser (window.DAMPF.core).
@@ -105,6 +105,10 @@
     DIALOG_CHANCE: 0.0008,   // pro Tick & wartendem Gast (v2.9.2.4: selten — Playtest: „zu oft, ohne Sinn")
     DIALOG_TIMEOUT: 12,
     DIALOG_MIN_GAP: 45,      // v2.9.2.4: Mindestabstand zwischen Dialogen (Sekunden)
+    BUG_NIGHT: 10,           // v2.9.2.5: Bug-Gast (Lorebook-Nacht-10-Eintritt)
+    BUG_AT: 40,              // …setzt sich in Sekunde 40 dieser Nacht (deterministisch)
+    BUG_DUR: 60,             // …tippt 60 s, dann geht er
+    BUG_FORGIVE: 0.10,       // …solange er da ist: Fehler-Chance „wird verziehen" steigt
     EMPLOYEE_COST: 150,
     EMPLOYEE_COOLDOWN: 8,
     EMPLOYEE_ERROR: 0.15,
@@ -831,7 +835,13 @@
     partyChef: [
       "Vielleicht reicht das noch. Für eine Party. Für zwei Schüsseln.",
       "Mützen an. Schürze weiter. Die Show geht weiter."
-    ]
+    ],
+    // 9) BUG-GAST (v2.9.2.5) — der Lorebook-Nacht-10-Einritt, jetzt im Spiel
+    bug: {
+      arrive: ["💻 Der Bug-Gast setzt sich. Bestellung: 2× nichts, 1× Fehler. Geduld: extra."],
+      leave: ["💻 „Danke. Der Bug ist gefixt. Oder: er ist jetzt Feature.\""],
+      nightEnd: ["💻 Der Bug-Gast bleibt sitzen, bis die Türen zu sind. Der Bug bleibt."]
+    }
   };
 
   var PERSONAS = [
@@ -851,6 +861,13 @@
       enthusiastic: DIALOGUE.personas.regelmassige.enthusiastic, positive: DIALOGUE.personas.regelmassige.positive, neutral: DIALOGUE.personas.regelmassige.neutral, grumpy: DIALOGUE.personas.regelmassige.grumpy, accidental: DIALOGUE.personas.regelmassige.accidental }
   ];
   var PERSONA_WEIGHTS = [1, 1, 2, 1, 2, 1, 2];
+
+  // v2.9.2.5: Bug-Gast — keine Persona (wird nie random gezogen, bestellt nie)
+  var BUG_GUEST = {
+    id: 'bug', name: 'Der Bug', emoji: '💻', color: '#9aa7bd',
+    moodBias: 0, forgiving: 0, eat: 1, cleanBowl: 0, lingerBias: 0,
+    enthusiastic: [], positive: [], neutral: [], grumpy: [], accidental: []
+  };
 
   /* ---- Gruppen / Raids ----------------------------------------------------- */
   var GROUPS = [
@@ -1088,6 +1105,26 @@
       spawnRaid(state);
     }
 
+    // v2.9.2.5: Bug-Gast — Nacht 10, deterministisch (Lorebook-Einritt)
+    if (state.night === CONFIG.BUG_NIGHT && !state._bugSpawned && state.phaseClock >= CONFIG.BUG_AT) {
+      var bs = firstEmptySeat(state);
+      if (bs !== -1) {
+        state._bugSpawned = true;
+        state.seats[bs] = {
+          persona: BUG_GUEST, order: null, seat: bs,
+          patience: 1e9, maxPatience: 1e9,
+          stage: 'typing', bug: true, bugTimer: CONFIG.BUG_DUR,
+          eatTimer: 0, sipTimer: 0, lingerTimer: 0, leaveTimer: 0,
+          reaction: null, line: null, lingerLine: false,
+          finisher: null, moodBonus: 0, chat: null,
+          payment: 0, tip: 0, repGain: 0,
+          isRegular: false, group: null, angry: false, tipBonus: 0,
+          stayer: false, reorders: 0, dialogDone: true
+        };
+        log(state, KAWAII.bug.arrive[0]);
+      }
+    }
+
     if (state.phaseClock > 5) {
       state.spawnIn -= dt;
       if (state.spawnIn <= 0) {
@@ -1111,6 +1148,9 @@
       } else if (c.stage === 'waiting') {
         if (!(state.dialog && state.dialog.seat === i)) { c.patience -= dt; }
         if (c.patience <= 0) walkout(state, i);
+      } else if (c.stage === 'typing') { // v2.9.2.5: Bug-Gast (tippt, bestellt nichts)
+        c.bugTimer -= dt;
+        if (c.bugTimer <= 0) { c.stage = 'leaving'; c.leaveTimer = CONFIG.LEAVE_TIME; log(state, KAWAII.bug.leave[0]); }
       } else if (c.stage === 'eating') {
         c.eatTimer -= dt;
         if (c.eatTimer <= 0) finishEating(state, i);
@@ -1363,6 +1403,16 @@
     return eff >= 75 ? 'enthusiastic' : (eff >= 45 ? 'positive' : 'neutral');
   }
 
+  function bugGuestPresent(state) {
+    for (var i = 0; i < state.seats.length; i++) if (state.seats[i] && state.seats[i].bug) return true;
+    return false;
+  }
+  // Passives Verzeihen: Katze + Bug-Gast (v2.9.2.5)
+  function forgiveBonus(state) {
+    return (state.cat && state.cat.active ? CONFIG.CAT_LUCK_FORGIVE : 0)
+      + (bugGuestPresent(state) ? CONFIG.BUG_FORGIVE : 0);
+  }
+
   function resolveServe(state, tr) {
     var c = state.seats[tr.seat];
     if (!c || c.stage !== 'waiting') {
@@ -1374,7 +1424,7 @@
     } else {
       var sim = bowlSimilarity(tr.bowl, c.order);
       var chance = CONFIG.FORGIVE_BASE + c.persona.forgiving * 0.30 + (sim.sameBroth ? 0.20 : 0) + sim.overlap * 0.06
-        + state.skills.luck * 0.08 + (state.cat.active ? CONFIG.CAT_LUCK_FORGIVE : 0);
+        + state.skills.luck * 0.08 + forgiveBonus(state);
       if (state.rnd() < chance) doServe(state, c, 'accidental');
       else doWrong(state, c);
     }
@@ -1581,6 +1631,10 @@
   /* ---- Tages-/Nachtabschluss --------------------------------------------------- */
   function endNight(state) {
     state.inTransit = [];
+    // v2.9.2.5: Bug-Gast, der bis zum Nachtende tippt
+    for (var bi = 0; bi < state.seats.length; bi++) {
+      if (state.seats[bi] && state.seats[bi].bug) { log(state, KAWAII.bug.nightEnd[0]); break; }
+    }
     // v2.6: Stayer, die den ganzen Abend geblieben sind, geben Reputation
     for (var st = 0; st < state.seats.length; st++) {
       var sc = state.seats[st];
@@ -1889,6 +1943,7 @@
     answerDialog: answerDialog, buySkill: buySkill, hireEmployee: hireEmployee,
     KAWAII: KAWAII,
     ACHIEVEMENTS: ACHIEVEMENTS, ACHIEVEMENTS_ORDER: ACHIEVEMENTS_ORDER, earnAchievement: earnAchievement,
+    BUG_GUEST: BUG_GUEST, bugGuestPresent: bugGuestPresent, forgiveBonus: forgiveBonus,
     LOREBOOK: LOREBOOK, lorebookUnlocked: lorebookUnlocked,
     startIntro: startIntro, skipIntro: skipIntro, startTitle: startTitle,
     startGame: startGame, setTitleTrack: setTitleTrack, introAdvance: introAdvance,

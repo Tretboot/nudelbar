@@ -9,7 +9,43 @@
 
 ---
 
-## V2.9.2.4 — „Tiefe Fragen" (12.10.2026, Aktuell)
+## V2.9.2.5 — „Der Bug wird Gast" (12.10.2026, Aktuell)
+
+**Status:** v3.0-Teaser als Micro-Version vorgezogen (Ideenpark). Der
+Lorebook-Nacht-10-Eintrag („Am letzten Stuhl sitzt jemand, der nicht bestellt.
+… 'Danke. Der Bug ist gefixt. Oder: er ist jetzt Feature.'") passiert jetzt
+**im Spiel**. 248/248 Tests (3 neue: 52–54). Sim unverändert (25/25).
+
+### Kern (deterministisch)
+- **Nacht 10, Sekunde 40:** Der Bug-Gast (💻) setzt sich, wenn ein Platz frei
+  ist. Einmal pro Kampagne. Konfig: `BUG_NIGHT` / `BUG_AT` / `BUG_DUR`.
+- Er **bestellt nichts** (`order: null`), hat **extra Geduld** (geht nie
+  weg) und tippt 60 s — dann steht er auf und geht mit seiner Zeile.
+- Solange er anwesend ist: **`BUG_FORGIVE` +0.10** zur Verzeihung-Chance
+  (wie die Katze, additiv) — „Der Bug ist gefixt". Exportiert:
+  `bugGuestPresent`, `forgiveBonus` (rein, testbar).
+- Bleibt er bis zum Nachtende (weil die Nacht endet), eigene Log-Zeile.
+- Neue Stage `typing` — wird von der normalen Stage-Machine nicht angerührt;
+  Servier-Target-Logik, Dialog-System und Angestellter ignorieren ihn
+  (sie suchen nur `waiting`).
+
+### Frontend
+- Laptop-Emoji + Tipp-Partikel + **Sticky-Note „TODO: v3.0"** (laut Roadmap).
+- Hilfe-Tabelle: neuer Zeile „Nacht 10".
+
+### Tests 52–54
+- 52: erscheint in Sek. ~40 (deterministisch), tippt, bestellt nichts, extra Geduld.
+- 53: `forgiveBonus` 0 → +BUG_FORGIVE → +Katze additiv.
+- 54: geht nach `BUG_DUR` wieder, kommt nie zweimal, Flag bleibt.
+
+### Doku
+master_log Phase 16, README, BALANCE (BUG-Schrauben), ROADMAP (Bug-Gast aus
+v3.0 vorgezogen), QA-CHECKLIST, MANUAL (Neues im Abschnitt „Besondere Dinge"),
+alle Header v2.9.2.5.
+
+---
+
+## V2.9.2.4 — „Tiefe Fragen" (12.10.2026)
 
 **Status:** Playtest-Nachschalung des Dialog-Systems (v2.9.2.2). Urteil der
 Spieler: „funktioniert, entbehrt aber so ziemlich jedem Sinn" + „zu oft".
