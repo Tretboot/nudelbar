@@ -71,12 +71,18 @@ Laufendes Protokoll: was gebaut, was verworfen, was noch offen.
     Widersprüche behoben, alle Zeilen geprüft), Antworten in zufälliger
     Reihenfolge (nur Frontend). Tests 50–51 (236 gesamt). Stem-2-Header
     passt jetzt zum Code (≥ 1; „1 oder 2" = Audio-QA).
-16. **v2.9.2.5 (aktuell):** „Der Bug wird Gast" — v3.0-Teaser vorgezogen:
+16. **v2.9.2.5:** „Der Bug wird Gast" — v3.0-Teaser vorgezogen:
     Lorebook-Nacht-10-Eintrag passiert jetzt im Spiel. Nacht 10, Sek. 40:
     Bug-Gast (💻) setzt sich (deterministisch, einmalig), bestellt nichts,
     extra Geduld, tippt 60 s; solange anwesend: +BUG_FORGIVE 0.10
     Verzeihung (additiv mit Katze). Stage `typing`, Sticky-Note „TODO: v3.0".
     Tests 52–54 (248 gesamt).
+17. **v2.9.2.6 (aktuell):** „Die Bar erinnert sich" — Meta-Element
+    (v3.0) + Rekorde (v3.5) vorgezogen. `restartLine(count)`: ab 3 Neustarts
+    sagt die Bar „Ich erinnere mich" (Titelbildschirm). `mergeStats`:
+    Rekorde (Kampagnen/Siege/beste Nacht/Bediente/Combo) in localStorage,
+    Endscreen-Zeile + Titel. Beide rein im Kern, testsbar (Tests 55–56,
+    261 gesamt).
 
 ## Offene Fragen / nächste Schritte
 - [ ] **Visuelle QA im Browser** (Mensch): Titelbildschirm, Menü, Party, Aim-Linie,

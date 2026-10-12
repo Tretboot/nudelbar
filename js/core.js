@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.5 — "Tapper-Ramen" — reiner deterministischer Kern
+   NUDELBAR v2.9.2.6 — "Tapper-Ramen" — reiner deterministischer Kern
    -----------------------------------------------------------------------------
    Reine Logik, kein DOM / kein Canvas / kein Audio. Läuft unter Node (require)
    UND im Browser (window.DAMPF.core).
@@ -1932,6 +1932,27 @@
     return true;
   }
 
+  /* ---- Erinnerung (v2.9.2.6): Meta-Element & Rekorde (rein) ----------------- */
+  // „Du hast mich schon N Mal neu gestartet. Ich erinnere mich." — ab 3
+  function restartLine(count) {
+    count = count | 0;
+    if (count < 3) return null;
+    return '„Du hast mich schon ' + count + ' Mal neu gestartet. Ich erinnere mich.“';
+  }
+  // Rekorde: Kampagnen-Ergebnis in alte Rekorde mergen (nie schlechter)
+  function mergeStats(prev, g) {
+    prev = prev || {};
+    return {
+      campaigns: (prev.campaigns | 0) + 1,
+      wins: (prev.wins | 0) + (g.won ? 1 : 0),
+      bestCredits: Math.max(prev.bestCredits | 0, Math.round(g.credits)),
+      bestRep: Math.max(prev.bestRep | 0, Math.round(g.reputation)),
+      bestNight: Math.max(prev.bestNight | 0, g.night),
+      totalServed: (prev.totalServed | 0) + (g.totalServed | 0),
+      bestCombo: Math.max(prev.bestCombo | 0, g.bestCombo | 0)
+    };
+  }
+
   return {
     CONFIG: CONFIG, BROTHS: BROTHS, TOPPINGS: TOPPINGS, UPGRADES: UPGRADES,
     EVENTS: EVENTS, PERSONAS: PERSONAS, GROUPS: GROUPS, PRICE_LEVELS: PRICE_LEVELS,
@@ -1954,6 +1975,7 @@
     priceOfOrder: priceOfOrder, computeReaction: computeReaction, bowlSimilarity: bowlSimilarity,
     upgradeCost: upgradeCost, upgradeLevel: upgradeLevel,
     phaseInfo: phaseInfo, chronicle: chronicle, log: log,
+    restartLine: restartLine, mergeStats: mergeStats,
     _rng: mulberry32
   };
 });

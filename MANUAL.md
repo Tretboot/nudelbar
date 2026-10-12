@@ -174,6 +174,12 @@ Nach jeder Nacht: der Shop. Hier ist die Welt pausiert — nichts eilt.
   (Sticky-Note: „TODO: v3.0") und geht dann wieder. Solange er da ist,
   werden deine Patzer häufiger verziehen. Die Lorebuch-Seite „Der Bug wird
   Gast" ist jetzt kein Vorgriff mehr.
+- **🧠 Die Bar erinnert sich:** Startest du die Schicht zum dritten Mal
+  (oder öfter), steht auf dem Titelbildschirm: „Du hast mich schon N Mal
+  neu gestartet. Ich erinnere mich." — die Bar weiß, dass sie ein Spiel ist.
+  Zusätzlich merkt sie sich deine **Rekorde** (Kampagnen, Siege, beste
+  Nacht, bediente Gäste, beste Combo) zwischen den Sitzungen — offline,
+  ohne Account.
 - **Nacht-Events** (stehen oben im HUD):
 
 | Event | Was passiert |

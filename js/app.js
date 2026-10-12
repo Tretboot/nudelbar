@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.5 — Frontend / Renderer / Input
+   NUDELBAR v2.9.2.6 — Frontend / Renderer / Input
    -----------------------------------------------------------------------------
    Canvas-2D-Rendering, DOM-Overlays (Start/Shop/Ende/Hilfe), Touch, Controller,
    Tooltips, SFX-Hooks. Keine DOM-Abhängigkeit im Kern — hier läuft nur Anzeige.
@@ -15,6 +15,7 @@
   var el = {
     start: $('start-screen'), help: $('help-screen'), shop: $('shop-screen'), end: $('end-screen'), game: $('game'),
     barName: $('bar-name'), seed: $('seed-input'), chefPick: $('chef-pick'), pricePick: $('price-pick'),
+    metaNote: $('meta-note'),
     btnStart: $('btn-start'), btnHelpClose: $('btn-help-close'), btnRestart: $('btn-restart'),
     btnShopNext: $('btn-shop-next'),
     nameLive: document.querySelector('.name-live'), tbName: $('tb-name'), eventName: $('event-name'),
@@ -239,6 +240,8 @@
     if (audio) { audio.init(); audio.resume(); audio.stopTitleMusic(); audio.startAmbience(); }
     titleActive = false; introPlaying = false;
     try { localStorage.setItem('nudelbar_played', '1'); hasPlayed = true; } catch(e) {}
+    // v2.9.2.6: Neustart zählt (die erste Schicht ist kein Neustart)
+    if (hasPlayed) { restarts++; try { localStorage.setItem('nudelbar_restarts', String(restarts)); } catch(e) {} }
     sfxPhase();
   }
 
@@ -506,6 +509,11 @@
         : '<span class="badge locked" title="???">🔒 ???</span>';
     }).join(' ');
     body += '<div class="chrono-line badges-line"><span class="lbl">🏅 Abzeichen:</span> ' + badges + '</div>';
+    // v2.9.2.6: Rekorde (localStorage) — die Bar erinnert sich
+    records = core.mergeStats(records, game);
+    try { localStorage.setItem('nudelbar_stats', JSON.stringify(records)); } catch(e) {}
+    body += line('📊 Rekorde', records.campaigns + ' Schichten · ' + records.wins + ' Siege · beste Nacht ' + records.bestNight + ' · ' + records.totalServed + ' bedient · beste Combo ' + records.bestCombo);
+    refreshMeta();
     el.endChrono.innerHTML = body;
     el.endGreta.textContent = GRETA[Math.floor(Math.random() * GRETA.length)];
     el.end.classList.remove('hidden');
@@ -513,6 +521,18 @@
   }
   function statBox(k, v, amber) { return '<div class="end-stat"><div class="k">' + k + '</div><div class="v' + (amber ? ' amber' : '') + '">' + v + '</div></div>'; }
   function line(lbl, txt, cls) { return '<div class="chrono-line ' + (cls || '') + '"><span class="lbl">' + lbl + ':</span> <span class="q">' + txt + '</span></div>'; }
+  // v2.9.2.6: Die Bar erinnert sich — Titelbildschirm (Meta-Element + Rekorde)
+  function refreshMeta() {
+    var rl = core.restartLine(restarts);
+    var rec = (records && records.campaigns)
+      ? ('Bisher: ' + records.campaigns + ' Schicht' + (records.campaigns > 1 ? 'en' : '') + ' · ' + records.wins + ' Sieg' + (records.wins > 1 ? 'e' : '') + ' · beste Nacht ' + records.bestNight + '/' + core.CONFIG.CAMPAIGN_NIGHTS + ' · ' + records.totalServed + ' bedient.')
+      : null;
+    if (!rl && !rec) { el.metaNote.classList.add('hidden'); return; }
+    el.metaNote.classList.remove('hidden');
+    el.metaNote.innerHTML =
+      (rl ? '<span class="meta-line">🧠 ' + rl + '</span>' : '') +
+      (rec ? '<span class="meta-records">📊 ' + rec + '</span>' : '');
+  }
 
   /* ---- Render ---------------------------------------------------------------- */
   function clamp01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
@@ -1389,6 +1409,11 @@
   var lorebookScroll = 0;
   var hasPlayed = false; // localStorage: mindestens 1 Nacht gespielt
   try { hasPlayed = localStorage.getItem('nudelbar_played') === '1'; } catch(e) {}
+  // v2.9.2.6: Die Bar erinnert sich (Meta-Element + Rekorde, localStorage)
+  var restarts = 0;
+  try { restarts = parseInt(localStorage.getItem('nudelbar_restarts') || '0', 10) || 0; } catch(e) {}
+  var records = null;
+  try { records = JSON.parse(localStorage.getItem('nudelbar_stats') || 'null'); } catch(e) {}
 
   var TITLE_MENU = ['Schicht beginnen', 'Intro ansehen', 'Stammgast-Chronik'];
   var TITLE_TRACK_NAMES = { 1: 'City Pop', 2: 'Neon Rain', 3: 'Dashi', 4: 'Concrete', 5: 'Morning' };
@@ -1593,6 +1618,7 @@
     try {
       buildChefPicker(); buildPricePicker(); buildTouchpad(); bindInput();
       if (el.barName) el.barName.addEventListener('input', function () { if (el.nameLive) el.nameLive.textContent = (el.barName.value.trim() || 'deine Nudelbar'); });
+      refreshMeta(); // v2.9.2.6: Meta-Element + Rekorde beim Titel zeigen
     } catch (err) {
       console.error('NUDELBAR init-Fehler (UI):', err);
     }

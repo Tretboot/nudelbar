@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.5 "Tapper-Ramen" — Unit Tests
+   NUDELBAR v2.9.2.6 "Tapper-Ramen" — Unit Tests
    Node:  node tests.js
    ============================================================================= */
 'use strict';
@@ -40,7 +40,7 @@ function buildBowl(s, broth, toppings) {
 }
 function settle(s, n) { for (var i = 0; i < n; i++) core.tick(s, 0.05); }
 
-console.log('NUDELBAR v2.9.2.5 "Tapper-Ramen" — Core Tests\n');
+console.log('NUDELBAR v2.9.2.6 "Tapper-Ramen" — Core Tests\n');
 
 // 1. Determinismus
 (function () {
@@ -767,6 +767,31 @@ console.log('NUDELBAR v2.9.2.5 "Tapper-Ramen" — Core Tests\n');
   for (var k2 = 0; k2 < 1000; k2++) core.tick(s, 0.05); // +50 s
   assert(!core.bugGuestPresent(s), 'kommt nie zweimal');
   eq(s._bugSpawned, true, 'Flag bleibt gesetzt');
+})();
+
+// 55. v2.9.2.6: Meta-Element — die Bar erinnert sich (reine Funktion)
+(function () {
+  eq(core.restartLine(0), null, 'keine Zeile bei 0 Neustarts');
+  eq(core.restartLine(2), null, 'keine Zeile bei 2 Neustarts');
+  assert(core.restartLine(3) && core.restartLine(3).indexOf('3 Mal') !== -1, 'Zeile ab 3 Neustarts');
+  assert(core.restartLine(7).indexOf('7 Mal') !== -1, 'Zahl sitzt in der Zeile');
+})();
+
+// 56. v2.9.2.6: Rekorde — mergeStats kumuliert, wird nie schlechter
+(function () {
+  var g1 = { won: true, credits: 1200, reputation: 40, night: 12, totalServed: 90, bestCombo: 11 };
+  var r1 = core.mergeStats(null, g1);
+  eq(r1.campaigns, 1, 'erste Kampagne gezählt');
+  eq(r1.wins, 1, 'Sieg gezählt');
+  eq(r1.bestNight, 12, 'beste Nacht');
+  var g2 = { won: false, credits: 300, reputation: 10, night: 6, totalServed: 40, bestCombo: 4 };
+  var r2 = core.mergeStats(r1, g2);
+  eq(r2.campaigns, 2, 'zweite Kampagne gezählt');
+  eq(r2.wins, 1, 'kein zweiter Sieg');
+  eq(r2.bestCredits, 1200, 'bester €-Wert bleibt');
+  eq(r2.bestNight, 12, 'beste Nacht bleibt');
+  eq(r2.totalServed, 130, 'bediente Gäste kumulieren');
+  eq(r2.bestCombo, 11, 'beste Combo bleibt');
 })();
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

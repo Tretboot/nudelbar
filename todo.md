@@ -13,6 +13,14 @@
       (v2.9.2.1 „Entwickler-Handover"), master_log (Phase 12), POSTMORTEM
       (Nachtrag), MANIFEST (Nachtrag), `special_edition/quotes.md` (Wand)
 
+## v2.9.2.6 — Erledigt (12.10.2026, „Die Bar erinnert sich")
+- [x] **Meta-Element:** `restartLine` (Kern, rein) + Neustart-Zähler in
+      localStorage — ab 3 Neustarts: „Du hast mich schon N Mal neu
+      gestartet. Ich erinnere mich." (Titelbildschirm)
+- [x] **Rekorde:** `mergeStats` (Kern, rein) + `localStorage['nudelbar_stats']`
+      — Kampagnen/Siege/beste Nacht/Bediente/Combo; Endscreen-Zeile + Titel
+- [x] Tests 55–56 (261 gesamt), Sim 25/25, DOM OK, Doku + Header nachgeführt
+
 ## v2.9.2.5 — Erledigt (12.10.2026, „Der Bug wird Gast")
 - [x] **Bug-Gast (Nacht 10):** deterministisch Sek. 40, bestellt nichts,
       extra Geduld, tippt 60 s; solange anwesend +`BUG_FORGIVE` 0.10

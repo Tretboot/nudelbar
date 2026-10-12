@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.5 — Neon-CRT-Design
+   NUDELBAR v2.9.2.6 — Neon-CRT-Design
    -----------------------------------------------------------------------------
    Dunkler Hintergrund #05070d, Neon-Akzente:
    Cyan #4dd7e8 · Amber #ffb020 · Pink #ff3b5c · Green #39ff88 · Purple #8b5cf6
@@ -158,6 +158,11 @@ html, body {
   max-width: 560px;
   background: rgba(255, 176, 32, 0.05);
 }
+
+/* v2.9.2.6: Die Bar erinnert sich (Meta-Element + Rekorde, Titelbildschirm) */
+.meta-note { margin: 0 auto 14px; max-width: 560px; text-align: center; font-size: 12px; line-height: 1.8; }
+.meta-note .meta-line { display: block; color: var(--pink); font-style: italic; }
+.meta-note .meta-records { display: block; color: rgba(232, 232, 240, 0.55); }
 
 .start-body {
   font-size: 13px;

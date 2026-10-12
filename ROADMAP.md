@@ -60,14 +60,14 @@ bricht, gleicher Seed + gleiche Eingaben = identisches Spiel (Determinismus-Test
 | Entwicklerstudio betretbar | — | Tür in der Gasse, 3 Schreibtische, Whiteboard mit TODOs, Katze auf dem Monitor | Studio-Besetzung klären (siehe `LORE.md`, Inkonsistenz) |
 | ~~Bug-Gast (Nacht 10)~~ | **vorgezogen in v2.9.2.5** (deterministisch, bestellt nichts, extra Geduld) | Laptop, Sticky-Note „TODO: v3.0" | Lorebook-Nacht-10-Text ist jetzt im Spiel wirksam |
 | Straße + Wetter | Wetter als Spawn-/Geduld-Modifier (wie EVENTS, aber andauernd) | Regen/Schnee, Neon-Reflexionen auf nassem Asphalt | „Die Stadt fröstelt. Der Dashi nicht." |
-| Meta-Element | Restart-Zähler (localStorage), Bar „erinnert" sich | „Du hast mich schon 3 Mal neu gestartet. Ich erinnere mich." | Die Bar weiß, dass sie ein Spiel ist |
+| ~~Meta-Element~~ | **vorgezogen in v2.9.2.6** (Neustart-Zähler localStorage, `restartLine` im Kern) | „Du hast mich schon 3 Mal neu gestartet. Ich erinnere mich." | Die Bar weiß, dass sie ein Spiel ist |
 | Tageszeiten | — | Morgengrauen nach Nacht 20 (Endscreen-Expansion) | Die Stadt wacht auf |
 
 **Nicht in v3.0:** neue Preisstufen, neue Persona-Typen, Multiplayer.
 
 ### v3.5 / v4.0 — Ausblick (keine Zusagen)
 
-- Highscore/Statistik-Persistenz (localStorage, bleibt offline)
+- ~~Highscore/Statistik-Persistenz (localStorage, bleibt offline)~~ — **vorgezogen in v2.9.2.6** (Rekorde: Kampagnen, Siege, beste Nacht, Bediente, Combo)
 - Speisekarte mit echten Preisen pro Preisstufe rendern
 - Sound: Gossip-Flüsterungen, Bleiber-Seufzer, Tür-Klingel beim Spawn
 - Content-Updates: saisonale Events, neue Brühen, neue Gäste-Typen

@@ -9,7 +9,41 @@
 
 ---
 
-## V2.9.2.5 — „Der Bug wird Gast" (12.10.2026, Aktuell)
+## V2.9.2.6 — „Die Bar erinnert sich" (12.10.2026, Aktuell)
+
+**Status:** Zwei v3.0/v3.5-Items als Micro-Version vorgezogen (Ideenpark):
+das **Meta-Element** („Du hast mich schon 3 Mal neu gestartet. Ich erinnere
+mich.") und **Highscore/Statistik-Persistenz**. 261/261 Tests (2 neue:
+55–56). Sim unverändert (25/25).
+
+### Meta-Element (die Bar weiß, dass sie ein Spiel ist)
+- Kern: `restartLine(count)` — rein, deterministisch, testbar. Unter 3
+  Neustarts: `null`; ab 3: die Lore-Zeile mit der echten Zahl.
+- Frontend: `localStorage['nudelbar_restarts']` — jede neue Schicht **nach**
+  der ersten zählt als Neustart (die erste Schicht ist kein Neustart).
+  Anzeige: Titelbildschirm ( Setup, `#meta-note`), DE-only wie der Chronist
+  (die Bar spricht die Sprache der Stadt).
+
+### Rekorde (Highscore-Persistenz, offline, kein Account)
+- Kern: `mergeStats(prev, result)` — rein: Kampagnen, Siege, bester
+  Kredit-/Reputations-Stand, beste erreichte Nacht, kumulierte Bediente,
+  beste Combo. Wird nie schlechter.
+- Frontend: `localStorage['nudelbar_stats']` — gemerged beim Endscreen,
+  dort als „📊 Rekorde"-Zeile + auf dem Titelbildschirm („Bisher: …").
+
+### Tests 55–56
+- 55: `restartLine` — null bei 0/2, Zeile mit korrekter Zahl ab 3.
+- 56: `mergeStats` — Kumulation, Bestwerte bleiben bei schlechterer
+  zweiter Kampagne.
+
+### Doku
+master_log Phase 17, README, ROADMAP (Meta-Element + Highscore aus
+v3.0/v3.5 vorgezogen), QA-CHECKLIST, MANUAL (Neues im Abschnitt „Besondere
+Dinge"), alle Header v2.9.2.6.
+
+---
+
+## V2.9.2.5 — „Der Bug wird Gast" (12.10.2026)
 
 **Status:** v3.0-Teaser als Micro-Version vorgezogen (Ideenpark). Der
 Lorebook-Nacht-10-Eintrag („Am letzten Stuhl sitzt jemand, der nicht bestellt.
