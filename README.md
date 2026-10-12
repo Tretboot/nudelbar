@@ -122,10 +122,11 @@ Kontinuität) das Projekt — Übergabe-Kette und Regeln: PATCHLOG (v2.9.2.1),
 
 | Datei | Inhalt |
 |---|---|
+| `MANUAL.md` | **Handbuch für Spieler:** Spielablauf, Steuerung, Personas, Bürozeit, Events, Abzeichen, Enden, Profi-Tipps (neu in v2.9.2.4) |
 | `ROADMAP.md` | Versionsziele (v2.9.3 Stabilisierung → v2.9.4 Struktur → v3.0), Metriken, technische Trigger |
 | `CONTRIBUTING.md` | Setup, Code-Konventionen, Workflow, Commit-Regeln — für Menschen und KI-Kollegen |
 | `BALANCE.md` | CONFIG komplett dokumentiert, Schrauben für „schwerer", Personas, Events, Balance-Prozess |
-| `AUDIO.md` | iMUSE-Light, Stems, Titel-Tracks, SFX-Liste (inkl. 7 toter SFX — Fund 12.10.2026) |
+| `AUDIO.md` | iMUSE-Light, Stems, Titel-Tracks, SFX-Liste (Stand v2.9.2.2: 16 SFX, alle verdrahtet oder dokumentiert entfernt) |
 | `LORE.md` | Welt, 7 Personas, Lorebook, die Katze, Studio-Inkonsistenz (offen), Schreibregeln |
 | `MOBILE.md` | Touch-Ist-Zustand, QA-Plan für echte Geräte, Porträt/Landscape-Entscheidung |
 | `QA-CHECKLIST.md` | Release-Checkliste: 3 automatische Checks + visuelle/audio/mobile QA |
