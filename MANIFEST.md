@@ -1,7 +1,8 @@
 # NUDELBAR v2.9.2 — Übergabe-Manifest
 
-**Paket:** `nudelbar_v2.9.2.zip`
-**Zustand:** 130/130 Tests · 25/25 Balance-Sim · DOM-Vertrag grün · MIT-lizenziert
+**Paket:** `nudelbar_v2.9.2.zip` (historisch) — aktuelles Release:
+`releases/NUDELBAR-v2.9.2.4.zip` (12.10.2026)
+**Zustand:** 236/236 Tests (v2.9.2.4) · 25/25 Balance-Sim · DOM-Vertrag grün · MIT-lizenziert
 **Verpackt am:** 11.10.2026 von einem externen Prüfer (KI-Modell)
 **Für:** ein neu geordnetes Team — Menschen, andere Agenten, das nächste Modell.
 
@@ -18,12 +19,12 @@ nudelbar/
 ├── style.css             Neon-CRT-Design, title-mode, About-Block
 ├── js/
 │   ├── core.js           Reiner deterministischer Kern (Node + Browser). ALLE
-│   │                     Spielregeln, CONFIG, KAWAII-Texte, Lorebook. 1.900 Zeilen.
+│   │                     Spielregeln, CONFIG, KAWAII-Texte, Lorebook. ~1.900 Zeilen.
 │   ├── app.js            Renderer + Input + Overlays. 1.550 Zeilen (Refactoring-Plan
 │   │                     steht in special_edition/tech-paper.md).
-│   ├── audio.js          WebAudio: iMUSE 3 Stems, 5 Titel-Tracks, 17 SFX. Alles synthetisch.
+│   ├── audio.js          WebAudio: iMUSE 3 Stems, 5 Titel-Tracks, 16 SFX (alle verdrahtet). Alles synthetisch.
 │   └── intro.js          Anime-Intro (3 Szenen), UMD, kein Zugriff auf core-State.
-├── tests.js              130 Unit-Tests (Kern) — `node tests.js`
+├── tests.js              236 Unit-Tests (Kern) — `node tests.js`
 ├── sim.js                Balance-Simulator, 25 Seeds — `node sim.js`
 ├── tools/
 │   └── dom-check.js      DOM-Vertrag: jede $('id') in app.js MUSS im index.html sein
@@ -34,8 +35,13 @@ nudelbar/
 │   ├── dev-history.md    Entwicklungsgeschichte (Spielperspektive)
 │   ├── the-audit.md      Aufsatz über die Außenprüfung v2.9.2  ← NEU
 │   └── handover-next-model.md  Anweisungen für das nächste Modell  ← NEU
-├── LICENSE               MIT + Sonderklausel
-├── PATCHLOG.md           Vollständig nachgeführt (v1.0 → v2.9.2, inkl. v2.7-Lücke)
+├── LICENSE               MIT + Sonderklausel (12.10.2026 ins Repo zurückgeholt;
+│                         lag nur im v2.9.2-Zip, im Git-Repo verloren)
+├── MANUAL.md             Handbuch für Spieler (v2.9.2.4: Spielablauf, Steuerung,
+│                         Personas, Bürozeit, Events, Abzeichen, Enden, Tipps)
+├── RELEASE-NOTES.md      Release-Notes (v2.9.2.4)
+├── releases/             Release-Artefakte (Zip + SHA-256) — git-ignoriert
+├── PATCHLOG.md           Vollständig nachgeführt (v1.0 → v2.9.2.4, inkl. v2.7-Lücke)
 ├── POSTMORTEM.md         Persönliches Protokoll des Prüfers  ← NEU
 ├── MANIFEST.md           Diese Datei  ← NEU
 ├── README.md             Einstieg
@@ -61,11 +67,16 @@ Dateien:  22 · 124 KB · `nudelbar_v2.9.2.zip`
 > **Entwickler-Handover 12.10.2026:** Ab v2.9.2.1 führt ein einzelner
 > Entwickler (KI-Modell, mit Kontinuität) das Projekt — Übergabe-Kette und
 > Regeln im PATCHLOG (v2.9.2.1 „Entwickler-Handover") und in `CONTRIBUTING.md`.
+> **Release 12.10.2026 (v2.9.2.4):** Neues Release-Paket
+> `releases/NUDELBAR-v2.9.2.4.zip` (SHA-256 im Sidecar) — enthält
+> `LICENSE` (neu ins Repo geholt, war nur im v2.9.2-Zip), `MANUAL.md`
+> (Handbuch für Spieler), `RELEASE-NOTES.md` + die 4 Spiele-Dateien.
+> Das Repo selbst bleibt spielbar, das Zip ist das Distributions-Format.
 
 ## 3. Verifizieren (die 4 Befehle)
 
 ```bash
-node tests.js           # → 130 passed, 0 failed
+node tests.js           # → 236 passed, 0 failed  (v2.9.2.4)
 node sim.js             # → Sieg-Rate 25/25
 node tools/dom-check.js # → DOM-Vertrag: OK
 # Browser: index.html öffnen → Titelbildschirm (NUDELBAR, Dampf, Katze-Story)

@@ -7,3 +7,6 @@ desktop.ini
 .vscode/
 .idea/
 *.swp
+
+# Release-Artefakte (Zip + entpackter Ordner; Quelltext + RELEASE-NOTES.md bleiben im Repo)
+releases/

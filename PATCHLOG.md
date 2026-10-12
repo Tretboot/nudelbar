@@ -55,8 +55,13 @@ Neue Prinzipien:
 ### Sonstiges
 - Stem-2-Header in `audio.js` passt jetzt zum Code (`guests >= 1`); die
   „≥ 2"-Frage ist explizit Audio-QA (Ohr-Entscheidung, siehe `AUDIO.md`).
+- **`LICENSE` war ins Repo verloren** (lag nur im v2.9.2-Zip, war aber in
+  index.html & MANIFEST referenziert) → wiederhergestellt: MIT + Sonderklausel.
+- **Release-Paket:** `releases/NUDELBAR-v2.9.2.4.zip` (+ SHA-256-Sidecar) mit
+  index.html, style.css, js/*, LICENSE, MANUAL.md, RELEASE-NOTES.md.
+  Das Repo bleibt spielbar; das Zip ist das Distributions-Format.
 - Alle Header auf v2.9.2.4; Doku nachgeführt (master_log Phase 15, README,
-  BALANCE, QA-CHECKLIST, AUDIO, todo).
+  BALANCE, QA-CHECKLIST, AUDIO, MANIFEST, todo).
 
 ---
 
