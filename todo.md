@@ -13,6 +13,14 @@
       (v2.9.2.1 „Entwickler-Handover"), master_log (Phase 12), POSTMORTEM
       (Nachtrag), MANIFEST (Nachtrag), `special_edition/quotes.md` (Wand)
 
+## v2.9.2.8 — Erledigt (12.10.2026, „Die Speisekarte")
+- [x] **Speisekarte:** `menuPrices(levelId)` (Kern, rein) + Overlay
+      `#card-screen` (Taste K, während der Nacht) — echte Preise pro
+      Preisstufe, 🔒 für gesperrte Gerichte, Auto-Schließen
+- [x] **Release-Paket:** `releases/NUDELBAR-v2.9.2.8/` + zip + SHA-256
+      (enthält v2.9.2.5–.8), RELEASE-NOTES überarbeitet
+- [x] Test 58 (272 gesamt), Sim 25/25, DOM OK, Doku + Header nachgeführt
+
 ## v2.9.2.7 — Erledigt (12.10.2026, „Morgengrauen")
 - [x] **Morgengrauen:** `chronicle().dawn` (Kern, rein) — true nach allen
       20 Nächten; Endscreen-Klasse `dawn` (Morgenlicht-Gradient + warme

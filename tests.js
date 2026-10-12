@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.7 "Tapper-Ramen" — Unit Tests
+   NUDELBAR v2.9.2.8 "Tapper-Ramen" — Unit Tests
    Node:  node tests.js
    ============================================================================= */
 'use strict';
@@ -40,7 +40,7 @@ function buildBowl(s, broth, toppings) {
 }
 function settle(s, n) { for (var i = 0; i < n; i++) core.tick(s, 0.05); }
 
-console.log('NUDELBAR v2.9.2.7 "Tapper-Ramen" — Core Tests\n');
+console.log('NUDELBAR v2.9.2.8 "Tapper-Ramen" — Core Tests\n');
 
 // 1. Determinismus
 (function () {
@@ -806,6 +806,22 @@ console.log('NUDELBAR v2.9.2.7 "Tapper-Ramen" — Core Tests\n');
   for (var j = 0; j < 5000 && !s2.gameOver; j++) core.tick(s2, 0.05);
   assert(s2.gameOver && s2.won, 'früher Sieg über Credits');
   eq(core.chronicle(s2).dawn, false, 'kein Morgengrauen vor Nacht 20');
+})();
+
+// 58. v2.9.2.8: Speisekarte — Preise pro Preisstufe
+(function () {
+  var std = core.menuPrices('standard');
+  eq(std.level, 'Standard', 'Stufen-Label');
+  var t = std.broths.filter(function (b) { return b.id === 'tonkatsu'; })[0];
+  eq(t.price, 8, 'Tonkatsu 8 € bei Standard');
+  var bill = core.menuPrices('billig').broths.filter(function (b) { return b.id === 'tonkatsu'; })[0];
+  eq(bill.price, 6.8, 'Tonkatsu 6,80 € bei Billig');
+  var exk = core.menuPrices('exklusiv').broths.filter(function (b) { return b.id === 'tonkatsu'; })[0];
+  eq(exk.price, 10, 'Tonkatsu 10 € bei Exklusiv');
+  eq(std.toppings.length, 5, '5 Beilagen auf der Karte');
+  var ei = std.toppings.filter(function (x) { return x.id === 'ei'; })[0];
+  eq(ei.price, 3, 'Ei 3 € bei Standard');
+  eq(core.menuPrices('unbekannt').level, 'Standard', 'Fallback auf Standard');
 })();
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

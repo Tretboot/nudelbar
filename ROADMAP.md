@@ -68,7 +68,7 @@ bricht, gleicher Seed + gleiche Eingaben = identisches Spiel (Determinismus-Test
 ### v3.5 / v4.0 — Ausblick (keine Zusagen)
 
 - ~~Highscore/Statistik-Persistenz (localStorage, bleibt offline)~~ — **vorgezogen in v2.9.2.6** (Rekorde: Kampagnen, Siege, beste Nacht, Bediente, Combo)
-- Speisekarte mit echten Preisen pro Preisstufe rendern
+- ~~Speisekarte mit echten Preisen pro Preisstufe rendern~~ — **vorgezogen in v2.9.2.8** (Overlay `#card-screen`, Taste K)
 - Sound: Gossip-Flüsterungen, Bleiber-Seufzer, Tür-Klingel beim Spawn
 - Content-Updates: saisonale Events, neue Brühen, neue Gäste-Typen
 - **Multiplayer (Parked → neu bewerten):** Lokal-Coop (2 Spieler, 1 Bar) ist

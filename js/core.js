@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.7 — "Tapper-Ramen" — reiner deterministischer Kern
+   NUDELBAR v2.9.2.8 — "Tapper-Ramen" — reiner deterministischer Kern
    -----------------------------------------------------------------------------
    Reine Logik, kein DOM / kein Canvas / kein Audio. Läuft unter Node (require)
    UND im Browser (window.DAMPF.core).
@@ -1933,6 +1933,19 @@
     return true;
   }
 
+  /* ---- Speisekarte (v2.9.2.8) ------------------------------------------------- */
+  // Preise pro Preisstufe (rein, deterministisch) — Frontend rendert die Karte
+  function menuPrices(levelId) {
+    var pl = PRICE_LEVELS[levelId] || PRICE_LEVELS.standard;
+    var broths = BROTHS.map(function (b) {
+      return { id: b.id, name: b.name, price: Math.round(b.price * pl.priceMult * 10) / 10, unlock: b.unlock };
+    });
+    var toppings = TOPPINGS.map(function (t) {
+      return { id: t.id, name: t.name, emoji: t.emoji, price: Math.round(t.price * pl.priceMult * 10) / 10, unlock: t.unlock };
+    });
+    return { level: pl.label, desc: pl.desc, broths: broths, toppings: toppings };
+  }
+
   /* ---- Erinnerung (v2.9.2.6): Meta-Element & Rekorde (rein) ----------------- */
   // „Du hast mich schon N Mal neu gestartet. Ich erinnere mich." — ab 3
   function restartLine(count) {
@@ -1977,6 +1990,7 @@
     upgradeCost: upgradeCost, upgradeLevel: upgradeLevel,
     phaseInfo: phaseInfo, chronicle: chronicle, log: log,
     restartLine: restartLine, mergeStats: mergeStats,
+    menuPrices: menuPrices,
     _rng: mulberry32
   };
 });

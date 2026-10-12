@@ -9,7 +9,42 @@
 
 ---
 
-## V2.9.2.7 — „Morgengrauen" (12.10.2026, Aktuell)
+## V2.9.2.8 — „Die Speisekarte" (12.10.2026, Aktuell)
+
+**Status:** v3.5-Item „Speisekarte mit echten Preisen pro Preisstufe" als
+Micro-Version vorgezogen (Ideenpark). **Außerdem: neues Release-Paket
+`releases/NUDELBAR-v2.9.2.8`** (enthält v2.9.2.5–.8). 272/272 Tests
+(1 neuer: 58). Sim unverändert (25/25).
+
+### Kern
+- `menuPrices(levelId)` — rein, deterministisch, exportiert: alle Brühen +
+  Beilagen mit Preis (`Basis × priceMult`, 1 Dezimale) + Freischalt-Nacht +
+  Stufen-Label/-Beschreibung. Unbekannte Stufe → Fallback Standard.
+
+### Frontend
+- Neues Overlay `#card-screen` („📋 SPEISEKARTE"): Tabelle mit echten
+  Preisen der **aktuellen** Preisstufe, 🔒-Markierung für noch nicht
+  freigeschaltete Gerichte, Stufen-Label + Beschreibung.
+- **K** öffnet/schließt (während der Nacht), Button „KARTE ZU".
+  Auto-Schließen: Nachtende, Game-Over, Endscreen (Render-Loop-Guard).
+- Hilfe-Tabelle: neuer Knopf „K".
+
+### Test 58
+- Tonkatsu 8 / 6,80 / 10 € (Standard/Billig/Exklusiv), 5 Beilagen,
+  Ei 3 €, Fallback auf Standard.
+
+### Release-Paket
+- `releases/NUDELBAR-v2.9.2.8/` + `.zip` + `.zip.sha256` (offline lauffähig,
+  inkl. LICENSE/MANUAL/RELEASE-NOTES, keine Dev-Dateien).
+- `RELEASE-NOTES.md` überarbeitet (v2.9.2.5–.8).
+
+### Doku
+master_log Phase 19, README, ROADMAP (Speisekarte vorgezogen), QA-CHECKLIST,
+MANUAL (Steuerung: K), alle Header v2.9.2.8.
+
+---
+
+## V2.9.2.7 — „Morgengrauen" (12.10.2026)
 
 **Status:** v3.0-Item „Tageszeiten (Morgengrauen nach Nacht 20)" als
 Micro-Version vorgezogen (Ideenpark). 265/265 Tests (1 neuer: 57). Sim

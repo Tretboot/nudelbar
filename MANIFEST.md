@@ -1,9 +1,9 @@
 # NUDELBAR v2.9.2 — Übergabe-Manifest
 
 **Paket:** `nudelbar_v2.9.2.zip` (historisch) — aktuelles Release:
-`releases/NUDELBAR-v2.9.2.4.zip` (12.10.2026)
-**Zustand:** 236/236 Tests (v2.9.2.4) · 25/25 Balance-Sim · DOM-Vertrag grün · MIT-lizenziert
-**Verpackt am:** 11.10.2026 von einem externen Prüfer (KI-Modell)
+`releases/NUDELBAR-v2.9.2.8.zip` (12.10.2026)
+**Zustand:** 272/272 Tests (v2.9.2.8) · 25/25 Balance-Sim · DOM-Vertrag grün · MIT-lizenziert
+**Verpackt am:** 12.10.2026 (v2.9.2.8) / 11.10.2026 (v2.9.2.4) von einem externen Prüfer (KI-Modell)
 **Für:** ein neu geordnetes Team — Menschen, andere Agenten, das nächste Modell.
 
 > Lies zuerst: **README.md** (was ist das), **POSTMORTEM.md** (wie der Zustand
@@ -71,6 +71,10 @@ Dateien:  22 · 124 KB · `nudelbar_v2.9.2.zip`
 > `releases/NUDELBAR-v2.9.2.4.zip` (SHA-256 im Sidecar) — enthält
 > `LICENSE` (neu ins Repo geholt, war nur im v2.9.2-Zip), `MANUAL.md`
 > (Handbuch für Spieler), `RELEASE-NOTES.md` + die 4 Spiele-Dateien.
+> **Release 12.10.2026 (v2.9.2.8):** `releases/NUDELBAR-v2.9.2.8.zip`
+> (SHA-256 im Sidecar) — enthält v2.9.2.5 „Bug-Gast", v2.9.2.6
+> „Die Bar erinnert sich" (Meta-Element + Rekorde), v2.9.2.7
+> „Morgengrauen", v2.9.2.8 „Speisekarte" + dieselbe Dateiauswahl.
 > Das Repo selbst bleibt spielbar, das Zip ist das Distributions-Format.
 
 ## 3. Verifizieren (die 4 Befehle)

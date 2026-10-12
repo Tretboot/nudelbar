@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.7 — Frontend / Renderer / Input
+   NUDELBAR v2.9.2.8 — Frontend / Renderer / Input
    -----------------------------------------------------------------------------
    Canvas-2D-Rendering, DOM-Overlays (Start/Shop/Ende/Hilfe), Touch, Controller,
    Tooltips, SFX-Hooks. Keine DOM-Abhängigkeit im Kern — hier läuft nur Anzeige.
@@ -16,6 +16,7 @@
     start: $('start-screen'), help: $('help-screen'), shop: $('shop-screen'), end: $('end-screen'), game: $('game'),
     barName: $('bar-name'), seed: $('seed-input'), chefPick: $('chef-pick'), pricePick: $('price-pick'),
     metaNote: $('meta-note'),
+    cardScreen: $('card-screen'), cardTable: $('card-table'), cardLevel: $('card-level'), btnCardClose: $('btn-card-close'),
     btnStart: $('btn-start'), btnHelpClose: $('btn-help-close'), btnRestart: $('btn-restart'),
     btnShopNext: $('btn-shop-next'),
     nameLive: document.querySelector('.name-live'), tbName: $('tb-name'), eventName: $('event-name'),
@@ -478,6 +479,7 @@
     return 'VERDRIESS — die Reputation ist weg. Niemand kommt mehr. Die Neonröhre flackert im Leerlauf.';
   }
   function showEnd() {
+    closeCard(); // v2.9.2.8: Speisekarte nie über dem Endscreen
     var st = game.stats, ch = core.chronicle(game);
     el.endTitle.textContent = game.won ? 'SCHICHT ABGESCHLOSSEN' : 'FEIERABEND';
     el.endTitle.style.color = game.won ? 'var(--green)' : 'var(--pink)';
@@ -540,6 +542,25 @@
       (rl ? '<span class="meta-line">🧠 ' + rl + '</span>' : '') +
       (rec ? '<span class="meta-records">📊 ' + rec + '</span>' : '');
   }
+  // v2.9.2.8: Speisekarte — echte Preise pro Preisstufe
+  function openCard() {
+    if (!game || game.gameOver || game.phase !== 'night') return;
+    var m = core.menuPrices(game.priceLevel);
+    var rows = '';
+    m.broths.forEach(function (b) {
+      var locked = b.unlock > game.night;
+      rows += '<tr><td>' + (locked ? '🔒' : '🍜') + ' ' + b.name + (locked ? ' (ab Nacht ' + b.unlock + ')' : '') + '</td><td>' + b.price + ' €</td></tr>';
+    });
+    m.toppings.forEach(function (t) {
+      var locked = t.unlock > game.night;
+      rows += '<tr><td>' + t.emoji + ' ' + t.name + (locked ? ' (ab Nacht ' + t.unlock + ')' : '') + '</td><td>' + t.price + ' €</td></tr>';
+    });
+    el.cardTable.innerHTML = rows;
+    el.cardLevel.textContent = 'Preisstufe: ' + m.level + ' — ' + m.desc;
+    el.cardScreen.classList.remove('hidden');
+  }
+  function closeCard() { if (el.cardScreen) el.cardScreen.classList.add('hidden'); }
+  function toggleCard() { el.cardScreen.classList.contains('hidden') ? openCard() : closeCard(); }
 
   /* ---- Render ---------------------------------------------------------------- */
   function clamp01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
@@ -1115,6 +1136,8 @@
   function render() {
     var c = ctx(); var s = el.canvas._scale || 1;
     c.setTransform(s, 0, 0, s, 0, 0);
+    // v2.9.2.8: Speisekarte — außerhalb der Nacht automatisch zu
+    if (!el.cardScreen.classList.contains('hidden') && (!game || game.gameOver || game.phase !== 'night')) closeCard();
     c.clearRect(0, 0, W, H);
     if (shake > 0) c.translate((Math.random() - 0.5) * shake * 14, (Math.random() - 0.5) * shake * 14);
     drawRoom(c);
@@ -1261,6 +1284,7 @@
       if (k === 'l') { toggleLang(); return; }
       if (k === 'p') { if (!menuOpen) paused = !paused; return; }
       if (k === 'c') { toggleShop(); return; }
+      if (k === 'k') { if (game && !game.gameOver && game.phase === 'night') { toggleCard(); sfx('Click'); } return; }
       if (game && game.phase === 'between' && game.lastNight) {
         if (k === 'enter') { e.preventDefault(); requestNextNight(); }
         return;
@@ -1625,7 +1649,8 @@
     try {
       buildChefPicker(); buildPricePicker(); buildTouchpad(); bindInput();
       if (el.barName) el.barName.addEventListener('input', function () { if (el.nameLive) el.nameLive.textContent = (el.barName.value.trim() || 'deine Nudelbar'); });
-      refreshMeta(); // v2.9.2.6: Meta-Element + Rekorde beim Titel zeigen
+      refreshMeta();
+      if (el.btnCardClose) el.btnCardClose.addEventListener('click', function () { closeCard(); sfx('Click'); }); // v2.9.2.8: Speisekarte
     } catch (err) {
       console.error('NUDELBAR init-Fehler (UI):', err);
     }

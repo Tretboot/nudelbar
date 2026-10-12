@@ -54,7 +54,7 @@
       <div id="meta-note" class="meta-note hidden"></div>
 
       <button id="btn-start" class="btn-primary">🔑 AUFSCHLIESSEN</button>
-      <p class="credits-line">V2.9.2.7 — Vertical Slice · Premium, keine Mikro-Transaktionen · MIT-lizenziert. „Der Chronist nickt. Wieder. Einfach so.“</p>
+      <p class="credits-line">V2.9.2.8 — Vertical Slice · Premium, keine Mikro-Transaktionen · MIT-lizenziert. „Der Chronist nickt. Wieder. Einfach so.“</p>
     </div>
   </div>
 
@@ -70,6 +70,7 @@
         <tr><td><b>X</b></td><td>Schüssel ausspülen (leeren)</td></tr>
         <tr><td><b>C / ESC</b></td><td>Shop &amp; Abrechnung (Bürozeit)</td></tr>
         <tr><td><b>?</b></td><td>Diese Hilfe</td></tr>
+        <tr><td><b>K</b></td><td>Speisekarte (Preise pro Preisstufe, während der Nacht)</td></tr>
         <tr><td><b>P</b></td><td>Pause · <b>M</b> Ton an/aus</td></tr>
         <tr><td><b>☰ (Menü)</b></td><td>Einstellungen: Ton, Musik-Lautstärke, Sprache, Titel-Track — oder zurück zum Titel</td></tr>
         <tr><td><b>Maus / Touch</b></td><td>Alle Stationen sind anklickbar; Hover zeigt Details</td></tr>
@@ -94,6 +95,17 @@
       </ul>
       <p class="help-tip">Tipp: <b>Exklusiv</b> = teure Preise + große Trinkgelder, aber seltene Gäste. <b>Billig</b> = Volksküche. Und ja: der Partyhut war eine Feature-Eskalation im Changelog nachzulesen.</p>
       <button id="btn-help-close" class="btn-primary">WEG MIT DIESER TAFEL</button>
+    </div>
+  </div>
+
+  <!-- ===================== MENU CARD (SPEISEKARTE, v2.9.2.8) ===================== -->
+  <div id="card-screen" class="overlay hidden">
+    <div class="help-card">
+      <h2>📋 SPEISEKARTE</h2>
+      <p id="card-level" class="card-level"></p>
+      <table class="help-table" id="card-table"></table>
+      <p class="help-tip">Preise gelten pro Preisstufe (Bürozeit) · 🔒 = ab späterer Nacht freigeschaltet · <b>K</b> oder der Knopf unten schließt die Karte.</p>
+      <button id="btn-card-close" class="btn-primary">KARTE ZU</button>
     </div>
   </div>
 
@@ -144,7 +156,7 @@
   <div id="game" class="hidden">
     <header id="topbar">
       <div class="tb-left">
-        <span id="tb-name" class="tb-name neon-name">NUDELBAR</span><span class="ver-badge">v2.9.2.7</span>
+        <span id="tb-name" class="tb-name neon-name">NUDELBAR</span><span class="ver-badge">v2.9.2.8</span>
         <span id="event-name" class="event-name">Nacht 1</span>
       </div>
       <div class="tb-right">

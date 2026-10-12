@@ -83,11 +83,17 @@ Laufendes Protokoll: was gebaut, was verworfen, was noch offen.
     Rekorde (Kampagnen/Siege/beste Nacht/Bediente/Combo) in localStorage,
     Endscreen-Zeile + Titel. Beide rein im Kern, testsbar (Tests 55–56,
     261 gesamt).
-18. **v2.9.2.7 (aktuell):** „Morgengrauen" — v3.0-Item „Tageszeiten"
+18. **v2.9.2.7:** „Morgengrauen" — v3.0-Item „Tageszeiten"
     vorgezogen: Endscreen nach allen 20 Nächten bekommt Morgenlicht
     (CSS-Grauen-Gradient + warme Titel/Greta-Farben) + Chronicle-Zeile
     „Die Stadt wacht auf. Der Dashi nicht." Kern: `chronicle().dawn`
     (true nur bei kompletter Kampagne). Test 57 (265 gesamt).
+19. **v2.9.2.8 (aktuell):** „Die Speisekarte" — v3.5-Item vorgezogen:
+    `menuPrices(levelId)` rein im Kern (Basis × priceMult, Freischalt-Nacht);
+    neues Overlay #card-screen (K / Button), echte Preise der aktuellen
+    Stufe, 🔒 für gesperrte, Auto-Schließen außerhalb der Nacht. Test 58
+    (272 gesamt). Zusätzlich neues Release-Paket v2.9.2.8 (enthält
+    v2.9.2.5–.8) inkl. SHA-256-Sidecar.
 
 ## Offene Fragen / nächste Schritte
 - [ ] **Visuelle QA im Browser** (Mensch): Titelbildschirm, Menü, Party, Aim-Linie,

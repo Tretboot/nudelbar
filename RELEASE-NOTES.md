@@ -1,8 +1,8 @@
 # NUDELBAR — Release Notes
 
-## v2.9.2.4 „Tiefe Fragen" — 12.10.2026
+## v2.9.2.8 „Die Speisekarte" — 12.10.2026
 
-**Status:** Release-Paket (spielbar) · **Zustand:** 236/236 Unit-Tests ·
+**Status:** Release-Paket (spielbar) · **Zustand:** 272/272 Unit-Tests ·
 25/25 Balance-Sim · DOM-Vertrag OK · MIT + Sonderklausel
 
 ### Starten
@@ -14,12 +14,30 @@ Bürozeit, Events, Enden und Profi-Tipps).
 
 ### Was in dieser Version drin ist
 
-**v2.9.2.4 — „Tiefe Fragen" (aktuell)**
+**v2.9.2.8 — „Die Speisekarte" (aktuell)**
+- Neue **Speisekarte** (Taste **K** während der Nacht): alle Brühen und
+  Beilagen mit ihren echten Preisen in deiner aktuellen Preisstufe,
+  🔒-Markierung für noch gesperrte Gerichte.
+
+**v2.9.2.7 — „Morgengrauen"**
+- Alle 20 Nächte durchgehalten? Der Endscreen liegt in Morgenlicht:
+  „Die Stadt wacht auf. Der Dashi nicht."
+
+**v2.9.2.6 — „Die Bar erinnert sich"**
+- Meta-Element: ab 3 Neustarts sagt die Bar es dir auf dem Titelbildschirm.
+- Rekorde (Kampagnen, Siege, beste Nacht, bediente Gäste, beste Combo)
+  werden offline gemerkt (localStorage) — Endscreen + Titel.
+
+**v2.9.2.5 — „Der Bug wird Gast"**
+- Nacht 10: Der Bug-Gast (💻) setzt sich, bestellt nichts, tippt 60 s
+  (Sticky-Note „TODO: v3.0"). Solange er da ist, werden Patzer öfter
+  verziehen — der Lorebook-Eintrag „Der Bug wird Gast" passiert jetzt.
+
+**v2.9.2.4 — „Tiefe Fragen"**
 - Gast-Dialoge sind jetzt **selten** (Mindestabstand 45 s, ~2–4 pro Nacht)
   und **tiefer**: alle 7 Personas neu geschrieben. Drei Haltungen — warm /
   flach / kalt — die Wahl ist erkennbar, die Wirkung sichtbar.
 - Dialog-Antworten erscheinen in zufälliger Reihenfolge.
-- Stem-2-Doku passt zum Code (Audio-QA-Item bleibt: 1 oder 2 Gäste?).
 
 **v2.9.2.3 — „Abzeichen"**
 - 5 deterministische Kampagnen-Abzeichen (Zen-Meister, Party-Vater,
@@ -44,7 +62,7 @@ Bürozeit, Events, Enden und Profi-Tipps).
 ### Verifizieren (optional, braucht Node)
 
 ```bash
-node tests.js           # → 236 passed, 0 failed
+node tests.js           # → 272 passed, 0 failed
 node sim.js             # → Sieg-Rate 25/25
 node tools/dom-check.js # → DOM-Vertrag: OK
 ```

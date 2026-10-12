@@ -7,7 +7,7 @@ Menschen mit Augen, Ohren und Fingern — der Prüfer (KI) konnte davon nichts.
 ## 1. Automatisch (maschinell, Pflicht)
 
 ```bash
-node tests.js           # → 265 passed, 0 failed   (v2.9.2.7)
+node tests.js           # → 272 passed, 0 failed   (v2.9.2.8)
 node sim.js             # → Sieg-Rate 25/25        (v2.9.2; Ziel v2.9.3: 60–80 %)
 node tools/dom-check.js # → DOM-Vertrag: OK
 ```
@@ -48,6 +48,9 @@ node tools/dom-check.js # → DOM-Vertrag: OK
       (localStorage löschen = Test-Fallback)
 - [ ] **Morgengrauen (v2.9.2.7):** 20 Nächte durch → Endscreen in
       Morgenlicht mit „Die Stadt wacht auf. Der Dashi nicht."
+- [ ] **Speisekarte (v2.9.2.8):** K öffnet die Karte (Nacht), Preise passen
+      zur gewählten Preisstufe, 🔒-Zeilen bei noch gesperrten Gerichten,
+      schließt über K/Button/Nachtende/Endscreen
 - [ ] **Bürozeit:** Einkauf, Upgrades, Skills, Preis, Angestellter,
       „Nächste Nacht"-Button — alles lesbar und funktionsfähig
 - [ ] **Feierabend:** Score, Chronist-Report, End-Text — Endscreen bleibt,

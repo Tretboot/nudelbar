@@ -79,6 +79,7 @@ kommen, wie großzügig die Tips sind — und ob du überhaupt überlebst.
 | **X** | Schüssel ausspülen (leeren) |
 | **C / ESC** | Shop & Abrechnung (Bürozeit) |
 | **?** | Diese Hilfe (auch im Spiel) |
+| **K** | Speisekarte: alle Gerichte mit ihren echten Preisen in deiner aktuellen Preisstufe (🔒 = noch gesperrt) — nur während der Nacht, schließt sich von selbst |
 | **P** | Pause · **M** Ton an/aus · **L** Sprache DE/EN |
 | **☰** | Menü: Ton, Musik-Lautstärke, Sprache, Titel-Track, zum Titel |
 | **Controller** | ⬅➡ wählen, A = Aktion, X = Braten, Y = Ausspülen, B = Servieren, Start = Shop / Nächste Nacht |

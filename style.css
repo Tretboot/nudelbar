@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.7 — Neon-CRT-Design
+   NUDELBAR v2.9.2.8 — Neon-CRT-Design
    -----------------------------------------------------------------------------
    Dunkler Hintergrund #05070d, Neon-Akzente:
    Cyan #4dd7e8 · Amber #ffb020 · Pink #ff3b5c · Green #39ff88 · Purple #8b5cf6
@@ -163,6 +163,10 @@ html, body {
 .meta-note { margin: 0 auto 14px; max-width: 560px; text-align: center; font-size: 12px; line-height: 1.8; }
 .meta-note .meta-line { display: block; color: var(--pink); font-style: italic; }
 .meta-note .meta-records { display: block; color: rgba(232, 232, 240, 0.55); }
+
+/* v2.9.2.8: Speisekarte (echte Preise pro Preisstufe) */
+.card-level { text-align: center; font-size: 13px; color: var(--cyan); margin: 0 0 12px; }
+#card-screen .help-table td:last-child { text-align: right; white-space: nowrap; color: var(--amber); font-weight: bold; }
 
 /* v2.9.2.7: Morgengrauen — Endscreen nach allen 20 Nächten */
 #end-screen.dawn {
