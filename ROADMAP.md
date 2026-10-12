@@ -14,6 +14,10 @@ Versionsziele. `todo.md` rotiert, die Roadmap bleibt.
 
 ### v2.9.3 — „Stabilisierung" (klein, keine neuen Mechaniken)
 
+**Notiz (12.10.2026):** Das Abzeichen-Feature (vom Nutzer gewählt, siehe
+Ideenpark) wurde als Micro-Version **v2.9.2.3** vorgezogen — die Anti-Liste
+bleibt stehen: v2.9.3 bleibt reine Stabilisierung.
+
 **Ziel:** Den Vertical Slice getestet, balanciert und mobil-fähig machen.
 
 | # | Aufgabe | Warum | Doku |

@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.2 "Tapper-Ramen" — Unit Tests
+   NUDELBAR v2.9.2.3 "Tapper-Ramen" — Unit Tests
    Node:  node tests.js
    ============================================================================= */
 'use strict';
@@ -40,7 +40,7 @@ function buildBowl(s, broth, toppings) {
 }
 function settle(s, n) { for (var i = 0; i < n; i++) core.tick(s, 0.05); }
 
-console.log('NUDELBAR v2.9.2.2 "Tapper-Ramen" — Core Tests\n');
+console.log('NUDELBAR v2.9.2.3 "Tapper-Ramen" — Core Tests\n');
 
 // 1. Determinismus
 (function () {
@@ -633,6 +633,64 @@ console.log('NUDELBAR v2.9.2.2 "Tapper-Ramen" — Core Tests\n');
   for (var i = 0; i < 10 && s.dialog; i++) core.tick(s, 0.05);
   eq(s.dialog, null, 'dialog auto-answers after timeout');
   eq(g.moodBonus, 0, 'timeout answer is neutral (no moodBonus)');
+})();
+
+// 46. v2.9.2.3: Abzeichen — Struktur, Idempotenz, Log
+(function () {
+  var s = makeGame(7201);
+  assert(s.achievements && typeof s.achievements === 'object', 'achievements object exists');
+  eq(Object.keys(s.achievements).length, 0, 'starts with no achievements');
+  eq(core.ACHIEVEMENTS_ORDER.length, 5, 'five achievements');
+  core.ACHIEVEMENTS_ORDER.forEach(function (id) {
+    var a = core.ACHIEVEMENTS[id];
+    assert(a && a.name && a.emoji && a.desc, 'achievement ' + id + ' has name/emoji/desc');
+  });
+  var count = function () { return s.log.filter(function (l) { return l.indexOf('Abzeichen') !== -1; }).length; };
+  var n0 = count();
+  assert(core.earnAchievement(s, 'katze'), 'earn returns true the first time');
+  eq(s.achievements.katze, 1, 'achievement records the night');
+  assert(!core.earnAchievement(s, 'katze'), 'earn returns false the second time (idempotent)');
+  assert(!core.earnAchievement(s, 'nicht-da'), 'unknown id returns false');
+  eq(count() - n0, 1, 'only one log line despite double-earn');
+})();
+
+// 47. v2.9.2.3: Abzeichen Party-Vater — 3. Partytime in der Kampagne
+(function () {
+  var s = makeGame(6001);
+  s.seats[0] = placeGuest(s, 'tonkatsu', [], 'heisshunger');
+  s.seats[1] = placeGuest(s, 'shoyu', [], 'philosoph');
+  s.seats[2] = placeGuest(s, 'miso', [], 'tourist');
+  s.seats[3] = placeGuest(s, 'spicy', [], 'schnelle');
+  s.partyCount = 2; // zwei Partys "in der Vergangenheit", jetzt die dritte
+  for (var i = 0; i < 4000 && !s.achievements.party; i++) core.tick(s, 0.05);
+  assert(!!s.achievements.party, 'party achievement on the 3rd party (seed 6001)');
+})();
+
+// 48. v2.9.2.3: Abzeichen Zen-Meister — 10. leere Schüssel in einer Nacht
+(function () {
+  var s = makeGame(7203);
+  var g = placeGuest(s, 'tonkatsu', ['ei']);
+  g.patience = 9999; g.maxPatience = 9999;
+  g.finisher = 'clean'; g.stage = 'sipping'; g.sipTimer = 0.1; // Zen-jiru direkt anstoßen
+  s.nightClean = 9;
+  for (var i = 0; i < 100 && !s.achievements.zen; i++) core.tick(s, 0.05);
+  assert(!!s.achievements.zen, 'zen achievement after the 10th clean bowl');
+  eq(s.nightClean, 10, 'nightClean counted to 10');
+})();
+
+// 49. v2.9.2.3: Abzeichen Makellose Nacht — via endNight; ein Weggänger ruiniert sie
+(function () {
+  var s = makeGame(7204);
+  s.nightServed = 3; s.nightLost = 0;
+  s.phaseClock = core.CONFIG.NIGHT_DURATION + 0.01;
+  core.tick(s, 0.05);
+  assert(!!s.achievements.makellos, 'flawless night earns the badge');
+  eq(s.nightClean, 0, 'nightClean resets for the next night');
+  var s2 = makeGame(7205);
+  s2.nightServed = 3; s2.nightLost = 1;
+  s2.phaseClock = core.CONFIG.NIGHT_DURATION + 0.01;
+  core.tick(s2, 0.05);
+  assert(!s2.achievements.makellos, 'a lost guest ruins the flawless night');
 })();
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

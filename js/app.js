@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.2 — Frontend / Renderer / Input
+   NUDELBAR v2.9.2.3 — Frontend / Renderer / Input
    -----------------------------------------------------------------------------
    Canvas-2D-Rendering, DOM-Overlays (Start/Shop/Ende/Hilfe), Touch, Controller,
    Tooltips, SFX-Hooks. Keine DOM-Abhängigkeit im Kern — hier läuft nur Anzeige.
@@ -489,6 +489,15 @@
     if (ch.hardestLine) body += line('😤 Härtester Spruch', '„' + ch.hardestLine.text + '“', 'angry');
     body += line('📉 Häufigster Fehler', ch.worstMistake);
     body += line('📖 Bedient / verloren', game.totalServed + ' / ' + game.totalLost + ' Gäste');
+    // v2.9.2.3: Abzeichen (im Kern verdient, hier sichtbar)
+    var badges = core.ACHIEVEMENTS_ORDER.map(function (id) {
+      var a = core.ACHIEVEMENTS[id];
+      var n = game.achievements[id];
+      return n
+        ? '<span class="badge earned" title="' + a.desc + '">' + a.emoji + ' ' + a.name + ' <small>(Nacht ' + n + ')</small></span>'
+        : '<span class="badge locked" title="???">🔒 ???</span>';
+    }).join(' ');
+    body += '<div class="chrono-line badges-line"><span class="lbl">🏅 Abzeichen:</span> ' + badges + '</div>';
     el.endChrono.innerHTML = body;
     el.endGreta.textContent = GRETA[Math.floor(Math.random() * GRETA.length)];
     el.end.classList.remove('hidden');

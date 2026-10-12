@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.2 — Neon-CRT-Design
+   NUDELBAR v2.9.2.3 — Neon-CRT-Design
    -----------------------------------------------------------------------------
    Dunkler Hintergrund #05070d, Neon-Akzente:
    Cyan #4dd7e8 · Amber #ffb020 · Pink #ff3b5c · Green #39ff88 · Purple #8b5cf6
@@ -715,6 +715,20 @@ html, body {
 }
 .dialog-opt:hover { background: rgba(77, 215, 232, 0.16); border-color: var(--cyan); }
 .dialog-hint { margin: 7px 0 0; font-size: 11px; color: var(--dim); }
+
+/* v2.9.2.3: Abzeichen (Endscreen) */
+.badges-line { margin-top: 6px; }
+.badge {
+  display: inline-block;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 2px 8px;
+  margin: 2px 4px 2px 0;
+  font-size: 12px;
+}
+.badge.earned { color: var(--amber); border-color: rgba(255, 176, 32, 0.5); }
+.badge.earned small { color: var(--dim); }
+.badge.locked { color: var(--dim); opacity: 0.55; }
 
 /* Touchpad */
 .touchpad {

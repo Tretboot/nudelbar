@@ -9,7 +9,41 @@
 
 ---
 
-## V2.9.2.2 — „Die stillen Features" (12.10.2026, Aktuell)
+## V2.9.2.3 — „Abzeichen" (12.10.2026, Aktuell)
+
+**Status:** Kleines Kern-Feature + Endscreen. Alle 5 Abzeichen werden
+deterministisch im Kern verdient (seedbar, testbar). 161/161 Tests
+(4 neue: 46–49). Sim unverändert (25/25) — Abzeichen beeinflussen kein
+Gameplay.
+
+**Die 5 Abzeichen** (`ACHIEVEMENTS` in core.js, `earnAchievement` ist
+idempotent und schreibt eine „🏅 Abzeichen:"-Logzeile):
+
+| Abzeichen | Bedingung | Hook |
+|---|---|---|
+| 🍜 Zen-Meister | 10 leere Schüsseln in einer Nacht (`nightClean`) | `afterSip` |
+| 🎩 Party-Vater | 3× Partytime in einer Kampagne (`partyCount`) | Party-Trigger |
+| 🧐 Kritiker-Bändiger | Der Kritiker is begeistert | `doServe` (enthusiastic + Persona) |
+| 🐈 Katzenfreund | Glückskatze besucht die Bar | Katzen-Spawn |
+| ✨ Makellose Nacht | 0 Weggänger, mindestens 1 Servierung | `endNight` |
+
+Endscreen: neue Zeile „🏅 Abzeichen" — verdient: Name + Nacht, unverdient:
+„🔒 ???" (Mystery-Anreiz zum Wiederholen). Neue State-Felder: `nightClean`,
+`partyCount`, `achievements` (Night-Counter mit `endNight`-Reset). Neue
+Exports: `ACHIEVEMENTS`, `ACHIEVEMENTS_ORDER`, `earnAchievement`.
+
+**Versionsentscheidung:** Die ROADMAP-Anti-Liste verbietet Feature-Mechaniken
+in v2.9.3 — das Abzeichen-Feature wurde vom Nutzer als Nächstes gewählt
+(12.10.2026), daher Micro-Version v2.9.2.3. Die ROADMAP bleibt intakt:
+v2.9.3 = reine Stabilisierung.
+
+**Tests 46–49:** Struktur + Idempotenz + Log, Party-Hook (3. Party),
+Zen-Hook (10. leere Schüssel), Makellose Nacht via `endNight` inkl. Negativ
+(ein Weggänger = kein Badge).
+
+---
+
+## V2.9.2.2 — „Die stillen Features" (12.10.2026)
 
 **Status:** Frontend-Wiederherstellung + Audio-Verdrahtung. Der Kern ist
 unberührt (gleicher Seed = gleiches Spiel, Sim 25/25). 142/142 Tests

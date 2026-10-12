@@ -13,6 +13,16 @@
       (v2.9.2.1 „Entwickler-Handover"), master_log (Phase 12), POSTMORTEM
       (Nachtrag), MANIFEST (Nachtrag), `special_edition/quotes.md` (Wand)
 
+## v2.9.2.3 — Erledigt (12.10.2026, „Abzeichen")
+- [x] **5 Kampagnen-Abzeichen im Kern** (Zen-Meister, Party-Vater,
+      Kritiker-Bändiger, Katzenfreund, Makellose Nacht) — deterministisch,
+      idempotent, mit „🏅"-Logzeile
+- [x] **Endscreen:** „🏅 Abzeichen"-Zeile (verdient: Name + Nacht,
+      unverdient: „🔒 ???")
+- [x] Tests 46–49 (161 gesamt), Sim 25/25, DOM-Vertrag OK
+- [x] Alle Header auf v2.9.2.3, Doku nachgeführt, ROADMAP-Notiz (Feature
+      vorgezogen, v2.9.3 bleibt reine Stabilisierung)
+
 ## v2.9.2.2 — Erledigt (12.10.2026, „Die stillen Features")
 - [x] **Dialog-UI wiederhergestellt** (drittes totes Feature: v2.8-System lief
       im Kern, 0 Referenzen in app.js, 0 Tests) — Panel, Timer, 3 Antworten,

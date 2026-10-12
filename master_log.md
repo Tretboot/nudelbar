@@ -49,13 +49,20 @@ Laufendes Protokoll: was gebaut, was verworfen, was noch offen.
     **Ab dieser Phase: ein einzelner Entwickler (KI, mit Kontinuität)** —
     keine Übergabe mehr pro Session; v2.9.3 (Stabilisierung) geplant,
     v2.9.4 (Struktur/Refactoring) hinterher.
-13. **v2.9.2.2 (aktuell):** „Die stillen Features" — Dialog-UI wiederhergestellt:
+13. **v2.9.2.2:** „Die stillen Features" — Dialog-UI wiederhergestellt:
     das v2.8-Kern-System (Gast fragt, Spieler antwortet, moodBonus ±8) hatte
     kein Frontend (0 Referenzen in app.js, 0 Tests) — der Kern antwortete nach
     12 s selbst neutral. Jetzt: Panel mit Timer + 3 Antworten + I18N + sfxPhone.
     5 SFX verdrahtet (Think/Phone/Bad/ZenJiru/Dispatch), 2 gestrichen
     (Ready/Deliver — kein eindeutiger Trigger). 3 neue Tests (43–45, 142 gesamt).
     Kern unangetastet. 142/142 Tests, Bot 25/25.
+14. **v2.9.2.3 (aktuell):** „Abzeichen" — 5 deterministische Kampagnen-Badges
+    im Kern (Zen-Meister, Party-Vater, Kritiker-Bändiger, Katzenfreund,
+    Makellose Nacht), im Endscreen sichtbar (unverdient = „???",
+    Replay-Anreiz). Hooks: afterSip / Party-Trigger / doServe / Katzen-Spawn /
+    endNight. 4 neue Tests (46–49, 161 gesamt). Kein Gameplay-Einfluss —
+    Sim 25/25. Versionsentscheidung: ROADMAP-Anti-Liste verbietet Features
+    in v2.9.3, daher Micro-Version v2.9.2.3.
 
 ## Offene Fragen / nächste Schritte
 - [ ] **Visuelle QA im Browser** (Mensch): Titelbildschirm, Menü, Party, Aim-Linie,

@@ -7,7 +7,7 @@ Menschen mit Augen, Ohren und Fingern — der Prüfer (KI) konnte davon nichts.
 ## 1. Automatisch (maschinell, Pflicht)
 
 ```bash
-node tests.js           # → 142 passed, 0 failed   (v2.9.2.2)
+node tests.js           # → 161 passed, 0 failed   (v2.9.2.3)
 node sim.js             # → Sieg-Rate 25/25        (v2.9.2; Ziel v2.9.3: 60–80 %)
 node tools/dom-check.js # → DOM-Vertrag: OK
 ```
@@ -43,6 +43,9 @@ node tools/dom-check.js # → DOM-Vertrag: OK
       „Nächste Nacht"-Button — alles lesbar und funktionsfähig
 - [ ] **Feierabend:** Score, Chronist-Report, End-Text — Endscreen bleibt,
       bis der Spieler klickt (kein Auto-Dismiss)
+- [ ] **Abzeichen (v2.9.2.3 neu):** „🏅 Abzeichen"-Zeile am Endscreen —
+      verdiente zeigen Name + Nacht, unverdiente „🔒 ???". Im Spiel: die
+      „🏅 Abzeichen:"-Logzeile flackert im Ticker, wenn eins fällt
 - [ ] Sprache DE ↔ EN: keine toten Strings, keine Mixtexte
 - [ ] Controller: ⬅➡/A/X/Y/B/Start (falls verfügbar)
 

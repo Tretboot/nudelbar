@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2.2 — "Tapper-Ramen" — reiner deterministischer Kern
+   NUDELBAR v2.9.2.3 — "Tapper-Ramen" — reiner deterministischer Kern
    -----------------------------------------------------------------------------
    Reine Logik, kein DOM / kein Canvas / kein Audio. Läuft unter Node (require)
    UND im Browser (window.DAMPF.core).
@@ -995,7 +995,8 @@
       party: { active: false, t: 0 },
       regularFavorites: {},
       _raid: null, _criticPending: false,
-      nightEarnings: 0, nightTips: 0, nightServed: 0, nightLost: 0,
+      nightEarnings: 0, nightTips: 0, nightServed: 0, nightLost: 0, nightClean: 0, partyCount: 0,
+      achievements: {},
       lastNight: null,
       totalServed: 0, totalLost: 0,
       stats: {
@@ -1137,6 +1138,7 @@
       state.cat.dur = CONFIG.CAT_MIN + state.rnd() * CONFIG.CAT_SPREAD + state.skills.cat * 10;
       state.cat.t = state.cat.dur;
       log(state, pickFrom(state, KAWAII.cat.arrive));
+      earnAchievement(state, 'katze');
     }
     if (state.cat.active) {
       state.cat.t -= dt;
@@ -1189,6 +1191,8 @@
     } else if (seated >= CONFIG.PARTY_GUESTS && state.rnd() < dt * CONFIG.PARTY_CHANCE) {
       state.party.active = true;
       state.party.t = CONFIG.PARTY_DUR;
+      state.partyCount++;
+      if (state.partyCount >= 3) earnAchievement(state, 'party');
       log(state, '🎉 Party in der Nudelbar — alle tragen Mützen. (Warum? Kein Kommentar.)');
     }
     if (seated >= 2 && state.rnd() < dt * (state.party.active ? 0.6 : 0.22)) {
@@ -1404,7 +1408,10 @@
       setChefMood(state, '🤯');
       log(state, '🤔 ' + c.persona.name + ' isst die unbestellte Suppe trotzdem. (+' + payment + ' €)');
     } else {
-      if (reaction === 'enthusiastic') setChefMood(state, '😄');
+      if (reaction === 'enthusiastic') {
+        setChefMood(state, '😄');
+        if (c.persona.id === 'kritiker') earnAchievement(state, 'kritiker');
+      }
       log(state, c.persona.name + ' isst. (+' + payment + ' € in der Schale)');
     }
 
@@ -1437,6 +1444,8 @@
     state.credits += CONFIG.CLEAN_BONUS;
     state.nightEarnings += CONFIG.CLEAN_BONUS;
     state.stats.cleanBowls++;
+    state.nightClean++;
+    if (state.nightClean >= 10) earnAchievement(state, 'zen');
     state.reputation = clamp(state.reputation + 1, 0, 100); // Zen-jiru: +Ruf
     setChefMood(state, '😋', 1.4);
     c.line = pickFrom(state, KAWAII.zenjiru); // Zen-jiru-Spruch
@@ -1546,6 +1555,22 @@
     log(state, 'Falsche Suppe! ' + c.persona.name + ' wirft die Schüssel. ' + CONFIG.REP_WRONG + ' Reputation.');
   }
 
+  /* ---- v2.9.2.3: Abzeichen (deterministisch, pro Kampagne) ------------------ */
+  var ACHIEVEMENTS = {
+    zen:      { name: 'Zen-Meister',       emoji: '🍜', desc: '10 leere Schüsseln in einer Nacht' },
+    party:    { name: 'Party-Vater',       emoji: '🎩', desc: '3× Partytime in einer Kampagne' },
+    kritiker: { name: 'Kritiker-Bändiger', emoji: '🧐', desc: 'Der Kritiker is begeistert' },
+    katze:    { name: 'Katzenfreund',      emoji: '🐈', desc: 'Die Katze kam in die Bar' },
+    makellos: { name: 'Makellose Nacht',   emoji: '✨', desc: 'Eine Nacht ohne Fehl- und Weggänger' }
+  };
+  var ACHIEVEMENTS_ORDER = ['zen', 'party', 'kritiker', 'katze', 'makellos'];
+  function earnAchievement(state, id) {
+    if (!ACHIEVEMENTS[id] || state.achievements[id]) return false;
+    state.achievements[id] = state.night;
+    log(state, '🏅 Abzeichen: ' + ACHIEVEMENTS[id].emoji + ' ' + ACHIEVEMENTS[id].name + ' — ' + ACHIEVEMENTS[id].desc + '!');
+    return true;
+  }
+
   /* ---- Tages-/Nachtabschluss --------------------------------------------------- */
   function endNight(state) {
     state.inTransit = [];
@@ -1567,9 +1592,10 @@
     };
     state.credits -= CONFIG.OVERHEAD;
     state.reputation = clamp(state.reputation + state.upgrades.decor, 0, 100);
+    if (state.nightLost === 0 && state.nightServed > 0) earnAchievement(state, 'makellos');
     log(state, '— Nacht ' + state.night + ' zu Ende: + ' + state.nightEarnings + ' €, −' + CONFIG.OVERHEAD + ' € Miete.' +
       (state.upgrades.decor ? ' +' + state.upgrades.decor + ' Rep (Deko).' : '') + ' —');
-    state.nightEarnings = 0; state.nightTips = 0; state.nightServed = 0; state.nightLost = 0;
+    state.nightEarnings = 0; state.nightTips = 0; state.nightServed = 0; state.nightLost = 0; state.nightClean = 0;
     state.skillPoints++;
     state.decor.lamp = (state.upgrades.decor || 0) >= 1;
     state.decor.art = (state.upgrades.decor || 0) >= 2;
@@ -1854,6 +1880,7 @@
     startNextNight: startNextNight, dismissGuest: dismissGuest,
     answerDialog: answerDialog, buySkill: buySkill, hireEmployee: hireEmployee,
     KAWAII: KAWAII,
+    ACHIEVEMENTS: ACHIEVEMENTS, ACHIEVEMENTS_ORDER: ACHIEVEMENTS_ORDER, earnAchievement: earnAchievement,
     LOREBOOK: LOREBOOK, lorebookUnlocked: lorebookUnlocked,
     startIntro: startIntro, skipIntro: skipIntro, startTitle: startTitle,
     startGame: startGame, setTitleTrack: setTitleTrack, introAdvance: introAdvance,
