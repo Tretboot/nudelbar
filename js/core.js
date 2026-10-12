@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2 — "Tapper-Ramen" — reiner deterministischer Kern
+   NUDELBAR v2.9.2.2 — "Tapper-Ramen" — reiner deterministischer Kern
    -----------------------------------------------------------------------------
    Reine Logik, kein DOM / kein Canvas / kein Audio. Läuft unter Node (require)
    UND im Browser (window.DAMPF.core).

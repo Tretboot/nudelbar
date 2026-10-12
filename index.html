@@ -52,7 +52,7 @@
       </div>
 
       <button id="btn-start" class="btn-primary">🔑 AUFSCHLIESSEN</button>
-      <p class="credits-line">V2.9.2 — Vertical Slice · Premium, keine Mikro-Transaktionen · MIT-lizenziert. „Der Chronist nickt. Wieder. Einfach so.“</p>
+      <p class="credits-line">V2.9.2.2 — Vertical Slice · Premium, keine Mikro-Transaktionen · MIT-lizenziert. „Der Chronist nickt. Wieder. Einfach so.“</p>
     </div>
   </div>
 
@@ -72,6 +72,7 @@
         <tr><td><b>☰ (Menü)</b></td><td>Einstellungen: Ton, Musik-Lautstärke, Sprache, Titel-Track — oder zurück zum Titel</td></tr>
         <tr><td><b>Maus / Touch</b></td><td>Alle Stationen sind anklickbar; Hover zeigt Details</td></tr>
         <tr><td><b>Controller</b></td><td>⬅➡ wählen, A = Aktion, X = Braten, Y = Ausspülen, B = Servieren, Start = Nächste Nacht / Shop</td></tr>
+        <tr><td><b>Gast-Dialog</b></td><td>Manchmal fragt ein wartender Gast etwas — antworte per Klick (12 s Zeitlimit, sonst: neutral)</td></tr>
       </table>
       <h2 class="help-sub">📖 SO LÄUFT DIE SCHICHT</h2>
       <ul class="help-list">
@@ -140,7 +141,7 @@
   <div id="game" class="hidden">
     <header id="topbar">
       <div class="tb-left">
-        <span id="tb-name" class="tb-name neon-name">NUDELBAR</span><span class="ver-badge">v2.9.2</span>
+        <span id="tb-name" class="tb-name neon-name">NUDELBAR</span><span class="ver-badge">v2.9.2.2</span>
         <span id="event-name" class="event-name">Nacht 1</span>
       </div>
       <div class="tb-right">
@@ -162,6 +163,18 @@
       <div id="combo" class="combo hidden"></div>
       <div id="tooltip" class="tooltip hidden"></div>
       <div id="touchpad" class="touchpad hidden"></div>
+      <!-- v2.9.2.2: Dialog-UI — das v2.8-Kern-System war ohne Frontend (totes
+           Feature, Fund des Einzel-Entwicklers), wiederhergestellt. -->
+      <div id="dialog-panel" class="dialog-panel hidden">
+        <div class="dialog-head">
+          <span id="dialog-persona" class="dialog-persona">🍜</span>
+          <span id="dialog-title" class="dialog-title">Gast fragt</span>
+          <div id="dialog-timer" class="dialog-timer"><div id="dialog-timer-fill"></div></div>
+        </div>
+        <p id="dialog-question" class="dialog-question"></p>
+        <div id="dialog-options" class="dialog-options"></div>
+        <p id="dialog-hint" class="dialog-hint"></p>
+      </div>
     </main>
 
     <footer id="ticker">

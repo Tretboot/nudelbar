@@ -50,7 +50,7 @@ Umschaltbar im ☰-Menü, gespeichert als `titleTrack` (Standard: 1).
 **Offene Entscheidung (QA):** Welcher Track wird Default? Die eine Zahl
 (`titleTrack = 1` in app.js) + Eintrag hier.
 
-## SFX (18 in `audio.js`, alle `_blip`-basiert)
+## SFX (16 in `audio.js`, alle `_blip`-basiert, alle verdrahtet)
 
 ### Verdrahtet (werden in app.js aufgerufen)
 
@@ -66,25 +66,38 @@ Umschaltbar im ☰-Menü, gespeichert als `titleTrack` (Standard: 1).
 | `sfxUpgrade` | Upgrade gekauft |
 | `sfxParty` | Partytime startet (Differenz-Check auf `game.party`) |
 | `sfxPhase` | Nachtübergang / Spielstart / Intro-Ende (3 Aufrufstellen) |
-| `sfxClick` | Alle UI-Klicks (Setup, Menüs, Titel-Menü) |
+| `sfxClick` | Alle UI-Klicks (Setup, Menüs, Titel-Menü, Dialog-Antworten) |
+| `sfxThink` | Gast überlegt an der Karte (Stage „thinking") — *neu v2.9.2.2* |
+| `sfxPhone` | Ein Gast stellt eine Frage (Dialog-UI erscheint) — *neu v2.9.2.2* |
+| `sfxBad` | Chef-Mood wird „😬" (falsche Schüssel / schlechte Dialog-Antwort) — *neu v2.9.2.2* |
+| `sfxZenJiru` | Chef-Mood wird „😋" (leere Schüssel, Zen-jiru) — *neu v2.9.2.2* |
+| `sfxDispatch` | Der Angestellte schickt eine Schüssel ab (`inTransit[].byEmployee`) — *neu v2.9.2.2* |
 
-### Definiert, aber **nie aufgerufen** (Fund 12.10.2026 — v2.9.3-Task)
+### Gestrichen (Entscheidung v2.9.2.2, 12.10.2026)
 
-| SFX | Evtl. intended für |
+| SFX | Warum gestrichen |
 |---|---|
-| `sfxReady` | Schüssel fertig/aufgebaut? |
-| `sfxPhone` | Dialog-Einladung (Gast fragt — v2.8-Dialog-System) |
-| `sfxDispatch` | Angestellter schickt ab? |
-| `sfxDeliver` | Angestellter serviert? |
-| `sfxBad` | Falsche Schüssel (doWrong) |
-| `sfxThink` | Gast überlegt an der Karte (Stage „thinking") |
-| `sfxZenJiru` | Zen-jiru (leere Schüssel, +Rep) — die Zeilen dazu gibt es (KAWAII.zenjiru) |
+| `sfxReady` | Kein eindeutiger Trigger: „Schüssel fertig" kollidiert mit `sfxCook` (jede Zutat macht bereits Sound) |
+| `sfxDeliver` | Kollidiert mit den Servier-Sounds (`sfxThrow` + `sfxHappy`/`sfxAngry`/`sfxCoin`); für den Angestellten gibt es jetzt `sfxDispatch` |
 
-**Kein Bug im engeren Sinn** (nichts läuft falsch), aber dieselbe Fehlerklasse wie
-der tote Menü-Button: Features, die existieren, aber niemand finden kann.
-**Entscheidung v2.9.3:** verdrahten (die 7 Kandidaten oben haben plausiblen
-Anschluss) oder aus audio.js streichen. Der DOM-Check deckt das nicht ab —
-er prüft nur HTML-Elemente. Hier hilft nur die Ohr-Liste in der QA-CHECKLIST.
+Beide bleiben als Muster in der Git-Historie. Wenn später ein Feature einen
+eindeutigen Moment braucht (z. B. „Bestellung komplett" als eigenes Event),
+kann der Sound mit zwei Zeilen zurückkommen.
+
+### Der größere Fund dabei (v2.9.2.2)
+
+Die 7 toten SFX waren ein Symptom: Beim Verdrahten stellte sich heraus, dass
+**`sfxPhone` für die Dialog-UI gedacht war — und die Dialog-UI existierte nicht.**
+Das v2.8-Dialog-System (Gast fragt → Spieler antwortet gut/neutral/schlecht →
+moodBonus ±8) lief komplett im Kern, hatte aber **null Referenzen in app.js und
+null Tests**. Der Spieler hat nie eine Frage gesehen; nach 12 s hat der Kern
+selbst neutral geantwortet. v2.9.2.2 stellt die UI wieder her (Panel, Timer,
+3 Antwort-Buttons, I18N, `sfxPhone`) und deckt das System mit Tests 43–45 ab.
+Dasselbe Muster wie der tote Menü-Button — nur diesmal hat es den dom-check
+nicht gefangen können, weil da kein `$('id')` fehlte, sondern ein ganzes Feature.
+Lektion: Der dom-check prüft Verträge zwischen Code und HTML. Features, die
+zwischen Code und *Spieler* tot sind, findet nur jemand, der die README
+gegen das Spiel liest. (Und der sie dann wieder herstellt.)
 
 ## Neue Sounds bauen (Muster)
 

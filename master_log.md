@@ -40,7 +40,7 @@ Laufendes Protokoll: was gebaut, was verworfen, was noch offen.
    Verträge-Check (tools/dom-check.js + Test 42), 8 neue Tests (130 gesamt),
    Patchlog nachgeführt (v2.7–v2.9.1), POSTMORTEM + MANIFEST + Übergabe-Dokumente,
    `nudelbar_v2.9.2.zip`. 130/130 Tests, Bot 25/25.
-12. **v2.9.2.1 (aktuell):** „Die Übernahme" — Git-Repo (Branch `main`, Initial-
+12. **v2.9.2.1:** „Die Übernahme" — Git-Repo (Branch `main`, Initial-
     Commit, Tag `v2.9.2`), 7 neue Dokumente (ROADMAP, CONTRIBUTING, BALANCE,
     AUDIO, LORE, MOBILE, QA-CHECKLIST), Patchlog/README/MANIFEST/todo auf den
     Doku-Stand. Funde markiert (nicht repariert): 7 tote SFX, Stem-2-Gate-
@@ -49,6 +49,13 @@ Laufendes Protokoll: was gebaut, was verworfen, was noch offen.
     **Ab dieser Phase: ein einzelner Entwickler (KI, mit Kontinuität)** —
     keine Übergabe mehr pro Session; v2.9.3 (Stabilisierung) geplant,
     v2.9.4 (Struktur/Refactoring) hinterher.
+13. **v2.9.2.2 (aktuell):** „Die stillen Features" — Dialog-UI wiederhergestellt:
+    das v2.8-Kern-System (Gast fragt, Spieler antwortet, moodBonus ±8) hatte
+    kein Frontend (0 Referenzen in app.js, 0 Tests) — der Kern antwortete nach
+    12 s selbst neutral. Jetzt: Panel mit Timer + 3 Antworten + I18N + sfxPhone.
+    5 SFX verdrahtet (Think/Phone/Bad/ZenJiru/Dispatch), 2 gestrichen
+    (Ready/Deliver — kein eindeutiger Trigger). 3 neue Tests (43–45, 142 gesamt).
+    Kern unangetastet. 142/142 Tests, Bot 25/25.
 
 ## Offene Fragen / nächste Schritte
 - [ ] **Visuelle QA im Browser** (Mensch): Titelbildschirm, Menü, Party, Aim-Linie,

@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2 "Tapper-Ramen" — Unit Tests
+   NUDELBAR v2.9.2.2 "Tapper-Ramen" — Unit Tests
    Node:  node tests.js
    ============================================================================= */
 'use strict';
@@ -40,7 +40,7 @@ function buildBowl(s, broth, toppings) {
 }
 function settle(s, n) { for (var i = 0; i < n; i++) core.tick(s, 0.05); }
 
-console.log('NUDELBAR v2.9.2 "Tapper-Ramen" — Core Tests\n');
+console.log('NUDELBAR v2.9.2.2 "Tapper-Ramen" — Core Tests\n');
 
 // 1. Determinismus
 (function () {
@@ -589,6 +589,50 @@ console.log('NUDELBAR v2.9.2 "Tapper-Ramen" — Core Tests\n');
     if (html.indexOf('id="' + m[1] + '"') === -1) missing.push(m[1]);
   }
   assert(missing.length === 0, 'DOM contract: no missing ids ' + (missing.length ? '(' + missing.join(', ') + ')' : ''));
+})();
+
+// 43. v2.9.2.2: Dialog — wartender Gast triggert (deterministisch) und erhält
+// danach nie wieder einen (dialogDone)
+(function () {
+  var s = makeGame(7101);
+  var g = placeGuest(s, 'tonkatsu', ['ei']);
+  g.patience = 9999; g.maxPatience = 9999;
+  for (var i = 0; i < 400 && !s.dialog; i++) core.tick(s, 0.05);
+  assert(!!s.dialog, 'dialog triggers for a waiting guest (seed 7101, 20 s)');
+  if (s.dialog) {
+    eq(s.dialog.seat, 0, 'dialog seat is the waiting seat');
+    assert(s.dialog.t > 0 && s.dialog.t <= core.CONFIG.DIALOG_TIMEOUT, 'dialog has timeout');
+  }
+  core.answerDialog(s, 0, 1);
+  for (var j = 0; j < 400; j++) core.tick(s, 0.05);
+  assert(!s.dialog, 'same guest never gets a second dialog (dialogDone)');
+})();
+
+// 44. v2.9.2.2: Dialog antworten — good/bad/neutral wirken (moodBonus, Spruch, Chef-Mood)
+(function () {
+  var s = makeGame(7102);
+  var g = placeGuest(s, 'tonkatsu', ['ei']);
+  s.dialog = { seat: 0, persona: g.persona.id, t: 12 };
+  assert(core.answerDialog(s, 0, 0), 'answerDialog returns true for the active dialog');
+  eq(s.dialog, null, 'dialog cleared after answer');
+  assert(g.line && g.line.length > 0, 'guest reacts with a line (good)');
+  eq(g.moodBonus, 8, 'good answer +8 moodBonus');
+  var s2 = makeGame(7103);
+  var g2 = placeGuest(s2, 'tonkatsu', ['ei']);
+  s2.dialog = { seat: 0, persona: g2.persona.id, t: 12 };
+  core.answerDialog(s2, 0, 2);
+  eq(g2.moodBonus, -8, 'bad answer -8 moodBonus');
+  assert(s2.chefMood && s2.chefMood.emoji === '😬', 'bad answer sets chef mood 😬');
+})();
+
+// 45. v2.9.2.2: Dialog-Timeout — auto-neutrale Antwort (so läuft es ohne UI — jetzt mit UI)
+(function () {
+  var s = makeGame(7104);
+  var g = placeGuest(s, 'tonkatsu', ['ei']);
+  s.dialog = { seat: 0, persona: g.persona.id, t: 0.2 };
+  for (var i = 0; i < 10 && s.dialog; i++) core.tick(s, 0.05);
+  eq(s.dialog, null, 'dialog auto-answers after timeout');
+  eq(g.moodBonus, 0, 'timeout answer is neutral (no moodBonus)');
 })();
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

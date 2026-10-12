@@ -1,5 +1,5 @@
 /* =============================================================================
-   NUDELBAR v2.9.2 — Neon-CRT-Design
+   NUDELBAR v2.9.2.2 — Neon-CRT-Design
    -----------------------------------------------------------------------------
    Dunkler Hintergrund #05070d, Neon-Akzente:
    Cyan #4dd7e8 · Amber #ffb020 · Pink #ff3b5c · Green #39ff88 · Purple #8b5cf6
@@ -677,6 +677,44 @@ html, body {
   padding: 8px 10px;
   pointer-events: none;
 }
+
+/* v2.9.2.2: Dialog-Panel (Gast fragt — v2.8-Kern, UI wiederhergestellt) */
+.dialog-panel {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(600px, 92%);
+  background: rgba(10, 15, 28, 0.94);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 0 18px rgba(77, 215, 232, 0.28), inset 0 0 24px rgba(77, 215, 232, 0.06);
+  padding: 10px 14px 10px;
+  z-index: 25;
+}
+.dialog-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.dialog-persona { font-weight: bold; color: var(--amber); white-space: nowrap; }
+.dialog-title {
+  color: var(--cyan); letter-spacing: 1px; font-size: 12px;
+  text-transform: uppercase; flex: 1;
+}
+.dialog-timer { width: 90px; height: 5px; background: rgba(255,255,255,0.12); border-radius: 3px; overflow: hidden; }
+#dialog-timer-fill { height: 100%; width: 100%; background: var(--amber); }
+.dialog-question { margin: 0 0 8px; color: var(--text); font-size: 14px; line-height: 1.35; }
+.dialog-options { display: flex; flex-direction: column; gap: 5px; }
+.dialog-opt {
+  text-align: left;
+  background: rgba(77, 215, 232, 0.06);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.dialog-opt:hover { background: rgba(77, 215, 232, 0.16); border-color: var(--cyan); }
+.dialog-hint { margin: 7px 0 0; font-size: 11px; color: var(--dim); }
 
 /* Touchpad */
 .touchpad {

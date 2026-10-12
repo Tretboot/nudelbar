@@ -1,10 +1,10 @@
 /* =============================================================================
-  NUDELBAR — Audio Engine v2.9.2 (iMUSE-Light + 5 Titel-Tracks)
+  NUDELBAR — Audio Engine v2.9.2.2 (iMUSE-Light + 5 Titel-Tracks)
   - Stem 1 (Ambient): Shamisen-Drone, läuft dauerhaft
   - Stem 2 (Rhythmus): Walzer-Akkorde + Bass, guest-gated (Gäste ≥ 2)
   - Stem 3 (Peak): Arps + Percussion, combo/rush-gated
   - 5 Titel-Tracks (City-Pop, Neon-Rain, Dashi, Concrete, Morning)
-  - 17 SFX (unverändert)
+  - 17 SFX (v2.9.2.2: sfxReady/sfxDeliver gestrichen; Think/Phone/Bad/ZenJiru/Dispatch verdrahtet)
   Alle Sounds synthetisch. Kein Asset nötig.
 ============================================================================= */
 (function (global) {
@@ -417,11 +417,6 @@
     var self = this;
     setTimeout(function () { self._blip(240, 0.08, 'sine', 0.2, 120); }, 60);
   };
-  AudioEngine.prototype.sfxReady = function () {
-    this._blip(523, 0.09, 'triangle', 0.3);
-    var self = this;
-    setTimeout(function () { self._blip(784, 0.12, 'triangle', 0.3); }, 70);
-  };
   AudioEngine.prototype.sfxPhone = function () {
     this._blip(660, 0.08, 'square', 0.22);
     var self = this;
@@ -430,12 +425,9 @@
   AudioEngine.prototype.sfxDispatch = function () {
     this._blip(300, 0.15, 'sawtooth', 0.2, 600);
   };
-  AudioEngine.prototype.sfxDeliver = function () {
-    this._blip(523, 0.08, 'square', 0.25);
-    var self = this;
-    setTimeout(function () { self._blip(659, 0.08, 'square', 0.25); }, 60);
-    setTimeout(function () { self._blip(784, 0.12, 'square', 0.25); }, 130);
-  };
+  /* v2.9.2.2: sfxReady und sfxDeliver gestrichen — kein eindeutiger
+     Trigger (würde mit sfxCook bzw. den Servier-Sounds kollidieren).
+     Entscheidung + Begründung: AUDIO.md */
   AudioEngine.prototype.sfxBad = function () {
     this._blip(200, 0.2, 'sawtooth', 0.3, 80);
   };

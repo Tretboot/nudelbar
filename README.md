@@ -52,13 +52,13 @@ Titel-Track (1–5), Zurück zum Titel — plus der Lizenz-Block.
 - **Stimmung steckt an** (💚), Gäste plaudern (Gossip), **Stammgäste** (⭐) mit
   wachsender Rep, **Raids** (Wandergruppe/Schule/Familie).
 - **Glückskatze** (ab Nacht 2, zufällige Besuche) · **Angestellter** (150 €,
-  serviert automatisch, 15 % Fehlerquote) · **Dialog-UI** (Gast fragt, du antwortest).
+  serviert automatisch, 15 % Fehlerquote) · **Dialog-UI** (Gast fragt, du antwortest — in v2.9.2.2 wiederhergestellt, war seit v2.9 ein totes Feature).
 - **🎉 Partytime:** 4+ Gäste gleichzeitig → alle tragen Mützen 🎩, Konfetti,
   Fanfare, Party-Sprache. Seit v2.9.2 **deterministisch im Kern** (Testbar!).
 - **KAWAII-Block:** 11 Text-Pools — Katze, Angestellter, Chef-Gedanken, Dialoge,
   Skills, Deko, Seele, Party. Alle Texte an einem Ort (`KAWAII` in core.js).
 - **iMUSE-Audio:** 3 Stems (Shamisen immer / Walzer ab Gast / Peak bei Combo 5+) +
-  5 Titel-Tracks (City Pop, Neon Rain, Dashi, Concrete, Morning) + 17 SFX.
+  5 Titel-Tracks (City Pop, Neon Rain, Dashi, Concrete, Morning) + 16 SFX.
 - **Bürozeit** zwischen den Nächten: Einkauf, Upgrades, Skills, Preisstufe.
 - **Feierabend:** Score-Tally + **Chronist-Report** (bestes Gericht, größtes
   Trinkgeld, schönster & härtester Spruch, häufigster Fehler, leere Schüsseln).
@@ -69,7 +69,7 @@ Klick/Tastendruck zum Start — Browser-Autoplay-Regel.)
 
 ## Verifizieren (die drei Befehle)
 ```
-node tests.js           # 130 Unit-Tests (Kern)
+node tests.js           # 142 Unit-Tests (Kern)
 node sim.js             # Balance-Sim: 25 Seeds, Bot spielt komplette Kampagnen
 node tools/dom-check.js # DOM-Vertrag: jede UI-Referenz hat ein HTML-Element
 ```
@@ -83,7 +83,7 @@ js/core.js            Reiner deterministischer Kern (Node + Browser, window.DAMP
 js/app.js             Canvas-Renderer, Input, Tooltips, Touch, Controller, Overlays
 js/audio.js           WebAudio: iMUSE 3 Stems, 5 Titel-Tracks, 17 SFX (alles synthetisch)
 js/intro.js           Anime-Prolog (3 Szenen), UMD, kein Zugriff auf core-State
-tests.js              130 Unit-Tests (node tests.js, inkl. DOM-Vertrag als Test 42)
+tests.js              142 Unit-Tests (node tests.js, inkl. Dialog-Tests 43–45, DOM-Vertrag als Test 42)
 sim.js                Balance-Simulator (node sim.js, 25 Seeds)
 tools/dom-check.js    DOM-Vertrag-Check (v2.9.2: die Versicherung gegen tote Features)
 special_edition/      Tech-Paper, Studio-Lore, Zitate, Dev-History,

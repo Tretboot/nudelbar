@@ -9,7 +9,58 @@
 
 ---
 
-## V2.9.2.1 — „Die Übernahme" (Doku-Version, 12.10.2026, Aktuell)
+## V2.9.2.2 — „Die stillen Features" (12.10.2026, Aktuell)
+
+**Status:** Frontend-Wiederherstellung + Audio-Verdrahtung. Der Kern ist
+unberührt (gleicher Seed = gleiches Spiel, Sim 25/25). 142/142 Tests
+(3 neue: 43–45).
+
+### Der Fund: Die Dialog-UI war tot
+
+Beim Verdrahten der 7 toten SFX (Fund v2.9.2.1) zeigte sich: **`sfxPhone` war
+für die Dialog-UI gedacht — und die existierte nicht.** Das v2.8-System
+(Gast fragt → Spieler antwortet gut/neutral/schlecht → moodBonus ±8, Chef-Mood,
+Reaktionsspruch) lief vollständig im Kern: Trigger, 12-s-Timeout,
+Auto-Neutral-Antwort. Dazwischen — das Frontend — **null Referenzen in app.js,
+null Tests in tests.js.** Die README bewarb „Dialog-UI (Gast fragt, du
+antwortest)" seit v2.8. Der Spieler hat nie eine Frage gesehen.
+
+**Reparatur:** Dialog-Panel (Frage, 3 Antwort-Buttons, Timer-Balken, I18N
+DE/EN, Hilfezeile) über der Theke; `core.answerDialog` verdrahtet; `sfxPhone`
+beim Erscheinen. DOM-Vertrag eingehalten (IDs zuerst). **Tests 43–45** decken
+Trigger + `dialogDone`, Antwort-Wirkung (±8 moodBonus, Chef-Mood) und Timeout ab.
+Das System war der dritte tote Feature-Typ nach dem Menü-Button (HTML-Element
+fehlte) und dem Titelbildschirm (Container unsichtbar): diesmal fehlte einfach
+die *gesamte* Frontend-Seite — deshalb fand auch der dom-check nichts. Die
+Lektion steht in `AUDIO.md`.
+
+**Bekannte Folge:** Dialoge sind jetzt sichtbar und wirksam (moodBonus ±8,
+den der Spieler bisher nie einsetzen konnte). `DIALOG_CHANCE: 0.05` war für
+ein unsichtbares System kalibriert — die Frequenz im Spieltest prüfen
+(v2.9.3-Balance, Schraube steht in `BALANCE.md`).
+
+### SFX: 5 verdrahtet, 2 gestrichen
+
+- **Verdrahtet:** `sfxThink` (Gast überlegt), `sfxPhone` (Dialog), `sfxBad`
+  (Chef-Mood 😬: falsche Schüssel / schlechte Antwort), `sfxZenJiru`
+  (Chef-Mood 😋: leere Schüssel), `sfxDispatch` (Angestellter schickt ab —
+  `inTransit[].byEmployee`, der Koch animiert nicht mehr mit).
+- **Gestrichen:** `sfxReady`, `sfxDeliver` — kein eindeutiger Trigger
+  (Kollision mit Cook/Servier-Sounds). Begründung in `AUDIO.md` + Kommentar
+  in `audio.js`. Beide bleiben in der Git-Historie.
+- Ergebnis: **16 SFX, alle 16 verdrahtet.** Die Audio-Sektion in `AUDIO.md`
+  ist die neue Quelle.
+
+### Sonstiges
+- app.js-Header korrigiert (stand noch auf „DAMPF & PHASE v2.3" — das
+  Patchlog hatte „alle Header auf v2.9.2" versprochen; stimmt seit heute).
+- Alle Versions-Header auf v2.9.2.2 (core, app, audio, style, tests, HTML).
+- `AUDIO.md`, `README.md`, `BALANCE.md`, `QA-CHECKLIST.md`, `master_log.md`,
+  `todo.md` nachgeführt.
+
+---
+
+## V2.9.2.1 — „Die Übernahme" (Doku-Version, 12.10.2026)
 
 **Status:** Kein Spielcode geändert. Projekt neu übernommen: Git-Repo angelegt,
 Stand als Commit + Tag fixiert, Dokumentation erweitert. **Ab dieser Version

@@ -13,14 +13,28 @@
       (v2.9.2.1 „Entwickler-Handover"), master_log (Phase 12), POSTMORTEM
       (Nachtrag), MANIFEST (Nachtrag), `special_edition/quotes.md` (Wand)
 
+## v2.9.2.2 — Erledigt (12.10.2026, „Die stillen Features")
+- [x] **Dialog-UI wiederhergestellt** (drittes totes Feature: v2.8-System lief
+      im Kern, 0 Referenzen in app.js, 0 Tests) — Panel, Timer, 3 Antworten,
+      I18N, `sfxPhone`. Tests 43–45 (142 gesamt). DOM-Vertrag OK.
+- [x] **7 tote SFX entschärft:** 5 verdrahtet (Think, Phone, Bad, ZenJiru,
+      Dispatch), 2 gestrichen (Ready, Deliver — kein eindeutiger Trigger).
+      Alle 16 SFX aktiv. Doku: `AUDIO.md`.
+- [x] app.js-Header korrigiert („DAMPF & PHASE v2.3" → v2.9.2.2)
+- [x] Alle Header auf v2.9.2.2, PATCHLOG/MANIFEST-Freund: Doku nachgeführt
+
 ## v2.9.3 — Stabilisierung (siehe `ROADMAP.md`)
 - [ ] **Visuelle Browser-QA** (Punkt 2 der `QA-CHECKLIST.md`) — Titel, Menü,
       Aim-Linie, Party, Intro, Endscreen
 - [ ] **Audio-QA** (Punkt 3): Peak-Stem, Titel-Tracks 1–5 → Default-Entscheidung,
-      Stem-2-Gate klären (≥ 1 oder ≥ 2?), 7 tote SFX: verdrahten oder streichen
+      Stem-2-Gate klären (≥ 1 oder ≥ 2?), neu verdrahtete SFX anhören
+      (Think/Phone/Bad/ZenJiru/Dispatch)
 - [ ] **Mobile-QA** (Punkt 4) + Porträt/Landscape-Entscheidung in `MOBILE.md`
 - [ ] **Balance-Turn:** Bot-Siegrate 100 % → 60–80 %, Prozess in `BALANCE.md`
       (eine Variable pro Runde, Log der Entscheidungen führen)
+- [ ] **Dialog-Frequenz prüfen:** `DIALOG_CHANCE` war für das unsichtbare System
+      kalibriert — jetzt ist die UI sichtbar. Ist jeder Dialog ein Gewinn,
+      oder wird es zur Unterbrechung? (Erst spielen, dann schrauben.)
 - [ ] **Persona-Bibeln v2.1 portieren** (Alt-Ordner `dampf-and-phase/content/personas/`)
 - [ ] **v2.7-Lücke im Patchlog füllen** (Git-/Datei-Log konsultieren — nicht erfinden)
 - [ ] **Studio-Besetzung klären** (Yuki/Marco/Kofi vs. Sonett/Mammut/Commander/Haiku —

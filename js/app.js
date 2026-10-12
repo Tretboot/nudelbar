@@ -1,5 +1,5 @@
 /* =============================================================================
-   DAMPF & PHASE v2.3 — Frontend / Renderer / Input
+   NUDELBAR v2.9.2.2 — Frontend / Renderer / Input
    -----------------------------------------------------------------------------
    Canvas-2D-Rendering, DOM-Overlays (Start/Shop/Ende/Hilfe), Touch, Controller,
    Tooltips, SFX-Hooks. Keine DOM-Abhängigkeit im Kern — hier läuft nur Anzeige.
@@ -27,7 +27,10 @@
     canvas: $('stage'), combo: $('combo'), tooltip: $('tooltip'), touchpad: $('touchpad'), log: $('log'),
     btnMenu: $('btn-menu'), menu: $('menu-screen'), menuSound: $('menu-sound'),
     menuMusicVol: $('menu-music-vol'), menuLang: $('menu-lang'), menuTrack: $('menu-track'),
-    menuResume: $('menu-resume'), menuQuit: $('menu-quit')
+    menuResume: $('menu-resume'), menuQuit: $('menu-quit'),
+    dialogPanel: $('dialog-panel'), dialogPersona: $('dialog-persona'), dialogTitle: $('dialog-title'),
+    dialogQuestion: $('dialog-question'), dialogOptions: $('dialog-options'),
+    dialogTimerFill: $('dialog-timer-fill'), dialogHint: $('dialog-hint')
   };
 
   /* ---- Layout (logische Canvas-Koordinaten) -------------------------------- */
@@ -83,7 +86,7 @@
   var partyConfettiOn = false;
   var chefAnim = 0;         // Wurfbewegung
   var chefHop = { t: 0, dur: 0.7, tx: 0 };   // v2.6: Koch humpelt zum Zapfhahn
-  var prev = { guests: 0, transit: 0, credits: 0, fryFlash: 0, seatStage: {}, broth: null, party: false };
+  var prev = { guests: 0, transit: 0, credits: 0, fryFlash: 0, seatStage: {}, broth: null, party: false, dialog: null, chefMood: null };
   var gpad = { last: {}, focusShown: false };
   var isTouch = (window.matchMedia && (window.matchMedia('(pointer: coarse)').matches)) || ('ontouchstart' in window);
 
@@ -149,6 +152,30 @@
     else if (label === 'AUS') core.discardBowl(game);
   }
 
+  /* ---- v2.9.2.2: Dialog-UI (v2.8-Kern war ohne Frontend — wiederhergestellt) ---- */
+  function showDialog(d) {
+    var p = core.personaOf(d.persona);
+    var data = core.KAWAII && core.KAWAII.dialog ? core.KAWAII.dialog[d.persona] : null;
+    if (!p || !data) { el.dialogPanel.classList.add('hidden'); return; }
+    el.dialogPersona.textContent = p.emoji + ' ' + p.name;
+    el.dialogTitle.textContent = T_('game.dialogTitle');
+    el.dialogHint.textContent = T_('game.dialogHint');
+    el.dialogQuestion.textContent = data.question;
+    el.dialogOptions.innerHTML = '';
+    data.options.forEach(function (o, i) {
+      var b = document.createElement('button');
+      b.className = 'dialog-opt';
+      b.textContent = o.text;
+      b.addEventListener('click', function () {
+        sfx('Click');
+        core.answerDialog(game, d.seat, i);
+      });
+      el.dialogOptions.appendChild(b);
+    });
+    el.dialogTimerFill.style.width = '100%';
+    el.dialogPanel.classList.remove('hidden');
+  }
+
   function requestNextNight() {
     if (game && game.phase === 'between' && game.lastNight !== null) {
       if (core.startNextNight(game)) { shopSkip = true; sfxPhase(); }
@@ -191,7 +218,8 @@
     });
     el.tbName.textContent = game.barName.toUpperCase();
     el.statGoal.textContent = core.CONFIG.WIN_CREDITS;
-    prev = { guests: 0, transit: 0, credits: game.credits, fryFlash: 0, seatStage: {}, party: false };
+    prev = { guests: 0, transit: 0, credits: game.credits, fryFlash: 0, seatStage: {}, party: false, dialog: null, chefMood: null };
+    el.dialogPanel.classList.add('hidden');
     particles = []; floaters = []; throws = []; shake = 0; chefAnim = 0;
     intro = { active: true, t: 0, dur: 5.0 };
     paused = false;
@@ -214,7 +242,12 @@
     // SFX-/FX-Differenz
     var g = countGuests(), tr = game.inTransit.length, cr = game.credits;
     if (g > prev.guests) sfx('Door');
-    if (tr > prev.transit) { sfx('Throw'); chefAnim = 0.4; }
+    if (tr > prev.transit) {
+      // v2.9.2.2: Angestellter schickt die Schüssel ab (eigener Sound, der Koch wirft nicht)
+      var lastT = game.inTransit[game.inTransit.length - 1];
+      if (lastT && lastT.byEmployee) sfx('Dispatch');
+      else { sfx('Throw'); chefAnim = 0.4; }
+    }
     if (game.fryFlash > 0 && prev.fryFlash === 0) sfx('Cook');
     for (var i = 0; i < game.seats.length; i++) {
       var c = game.seats[i];
@@ -225,6 +258,7 @@
           else { sfx('Happy'); }
         }
         if (c.stage === 'sipping' && was !== 'sipping') sfx('Slurp');
+        if (c.stage === 'thinking' && was !== 'thinking') sfx('Think');
         if (c.stage === 'lingering' && was !== 'lingering') floater(seatX(c.seat, seatCount(game.seats.length)), SEAT_Y - 60, '💺', '#ffb020');
       }
       prev.seatStage[i] = c ? c.stage : null;
@@ -245,6 +279,17 @@
       if (audio && audio.sfxParty) { try { audio.sfxParty(); } catch (e) {} }
     }
     prev.party = pNow;
+    // v2.9.2.2: Dialog-UI (das v2.8-Kern-System hatte nie ein Frontend) + SFX
+    var dNow = game.dialog;
+    if (dNow && !prev.dialog) { sfx('Phone'); showDialog(dNow); }
+    if (!dNow && prev.dialog) el.dialogPanel.classList.add('hidden');
+    if (dNow) el.dialogTimerFill.style.width = Math.max(0, 100 * dNow.t / core.CONFIG.DIALOG_TIMEOUT) + '%';
+    prev.dialog = dNow;
+    if (game.chefMood && game.chefMood !== prev.chefMood) {
+      if (game.chefMood.emoji === '😬') sfx('Bad');      // falsche Schüssel / schlechte Dialog-Antwort
+      if (game.chefMood.emoji === '😋') sfx('ZenJiru');  // leere Schüssel (Zen-jiru)
+    }
+    prev.chefMood = game.chefMood;
   }
 
   function spawnThrow(x, y) {
@@ -1246,13 +1291,13 @@
     de: {
       hud: { night: "Nacht", time: "Uhr", currency: "€", rep: "Reputation", goal: "€-Ziel" },
       shop: { stock: "Vorrat", upgrades: "Upgrades", price: "Preisniveau", nextNight: "Nächste Nacht", kitchen: "Küche — Nudelbar" },
-      game: { ready: "BEREIT", serve: "SERVIEREN", entrance: "EINGANG", menu: "SPEISEKARTE", pause: "PAUSE", pauseHint: "P zum Fortsetzen · ? Hilfe" },
+      game: { ready: "BEREIT", serve: "SERVIEREN", entrance: "EINGANG", menu: "SPEISEKARTE", pause: "PAUSE", pauseHint: "P zum Fortsetzen · ? Hilfe", dialogTitle: "Gast fragt", dialogHint: "Klick = Antwort · 12 s Zeitlimit, sonst antworte ich neutral" },
       title: { start: "Schicht beginnen", intro: "Intro ansehen", chronicle: "Stammgast-Chronik", tagline: "Die Stadt fröstelt. Der Dashi nicht.", controls: "↑↓ wählen · Enter starten · M Ton" }
     },
     en: {
       hud: { night: "Night", time: "Time", currency: "€", rep: "Reputation", goal: "€ Goal" },
       shop: { stock: "Stock", upgrades: "Upgrades", price: "Price Level", nextNight: "Next Night", kitchen: "Kitchen — Noodle Bar" },
-      game: { ready: "READY", serve: "SERVE", entrance: "ENTRANCE", menu: "MENU", pause: "PAUSE", pauseHint: "P to resume · ? Help" },
+      game: { ready: "READY", serve: "SERVE", entrance: "ENTRANCE", menu: "MENU", pause: "PAUSE", pauseHint: "P to resume · ? Help", dialogTitle: "Guest asks", dialogHint: "Click to answer · 12 s limit, then I answer neutral" },
       title: { start: "Start Shift", intro: "Watch Intro", chronicle: "Regulars Chronicle", tagline: "The city shivers. The dashi doesn't.", controls: "↑↓ select · Enter start · M sound" }
     }
   };
