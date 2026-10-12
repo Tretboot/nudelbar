@@ -53,6 +53,12 @@ SHA-256:   in der Sidecar-Datei `nudelbar_v2.9.2.zip.sha256` (neben dem Zip —
 Dateien:  22 · 124 KB · `nudelbar_v2.9.2.zip`
 ```
 
+> **Nachtrag 12.10.2026:** Der Zip oben beschreibt das *Release-Paket v2.9.2*
+> (unverändert). Das Git-Repo (Branch `main`, Tag `v2.9.2`) enthält zusätzlich
+> die Übernahme-Dokumentation: `ROADMAP.md`, `CONTRIBUTING.md`, `BALANCE.md`,
+> `AUDIO.md`, `LORE.md`, `MOBILE.md`, `QA-CHECKLIST.md` + `.gitignore`
+> (siehe PATCHLOG v2.9.2.1). Ein neues Release-Paket gibt es erst mit v2.9.3.
+
 ## 3. Verifizieren (die 4 Befehle)
 
 ```bash

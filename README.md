@@ -110,5 +110,21 @@ ist, was schwierig ist, wer was am besten übernimmt). Die drei offenen Punkte,
 die nur ein Mensch mit Browser und Ohren beenden kann: **Visuelle QA, Audio-QA,
 Mobile-Layout** — sie stehen oben in `todo.md`.
 
+## Dokumentation (Index)
+
+| Datei | Inhalt |
+|---|---|
+| `ROADMAP.md` | Versionsziele (v2.9.3 Stabilisierung → v2.9.4 Struktur → v3.0), Metriken, technische Trigger |
+| `CONTRIBUTING.md` | Setup, Code-Konventionen, Workflow, Commit-Regeln — für Menschen und KI-Kollegen |
+| `BALANCE.md` | CONFIG komplett dokumentiert, Schrauben für „schwerer", Personas, Events, Balance-Prozess |
+| `AUDIO.md` | iMUSE-Light, Stems, Titel-Tracks, SFX-Liste (inkl. 7 toter SFX — Fund 12.10.2026) |
+| `LORE.md` | Welt, 7 Personas, Lorebook, die Katze, Studio-Inkonsistenz (offen), Schreibregeln |
+| `MOBILE.md` | Touch-Ist-Zustand, QA-Plan für echte Geräte, Porträt/Landscape-Entscheidung |
+| `QA-CHECKLIST.md` | Release-Checkliste: 3 automatische Checks + visuelle/audio/mobile QA |
+| `architecture.md` | Architektur & Invarianten (dt-Klemmung, Rep-Niederlage im Tick, …) |
+| `todo.md` | Aktuelle Tasks (rotiert mit dem Projekt) |
+| `special_edition/` | Tech-Paper, Studio-Lore, Zitate, Dev-History, Audit, Handover |
+
+
 > „Kein Build-Step. Kein npm. Kein ‚läuft bei mir‘. Nur Nudeln."
 > — Lead Developer, Tech-Paper v2.9

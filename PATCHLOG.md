@@ -9,6 +9,40 @@
 
 ---
 
+## V2.9.2.1 — „Die Übernahme" (Doku-Version, 12.10.2026)
+
+**Status:** Kein Spielcode geändert. Projekt für das neue Team (Menschen + KI)
+organisatorisch übernommen: Git-Repo angelegt, Stand als Commit + Tag fixiert,
+Dokumentation erweitert.
+
+### Neu
+- **Git-Repo** `main`, Initial-Commit `3372646` (23 Dateien), Tag `v2.9.2`.
+- **7 neue Dokumente:** `ROADMAP.md` (v2.9.3 → v2.9.4 → v3.0 → Ausblick,
+  Metriken, TS-Trigger), `CONTRIBUTING.md` (Setup, Konventionen, Workflow),
+  `BALANCE.md` (CONFIG komplett, Schrauben, Personas, Events, Balance-Prozess),
+  `AUDIO.md` (iMUSE-Light, Titel-Tracks, SFX), `LORE.md` (Welt, Personas,
+  Lorebook, Schreibregeln), `MOBILE.md` (Touch-Ist-Zustand, QA-Plan),
+  `QA-CHECKLIST.md` (Release-Checkliste).
+- **README.md:** Doku-Index ergänzt. `todo.md`: Übernahme-Sektion + v2.9.3/v2.9.4-Plan.
+
+### Funde (markiert, nicht repariert — bewusst)
+- **7 tote SFX** in `audio.js` (sfxReady, sfxPhone, sfxDispatch, sfxDeliver,
+  sfxBad, sfxThink, sfxZenJiru): definiert, aber nirgends aufgerufen.
+  Gleiche Fehlerklasse wie der tote Menü-Button — diesmal deckt der dom-check
+  sie nicht ab. Doku: `AUDIO.md`. Entscheidung (verdrahten/streichen) = v2.9.3.
+- **Stem-2-Gate-Diskrepanz:** Header `audio.js` sagt „Gäste ≥ 2", Code sagt
+  `guests >= 1`. Doku: `AUDIO.md`. Klärung = Audio-QA.
+- **Studio-Besetzungs-Inkonsistenz:** `lore-studio.md` (Yuki/Marco/Kofi) vs.
+  Lorebook-Nacht-18 (Sonett/Mammut/Commander/Haiku). Doku: `LORE.md`.
+  Story-Entscheidung vor v3.0.
+
+### Nicht getan
+- Kein Refactoring (app.js-Split ist v2.9.4 — siehe `ROADMAP.md`).
+- Keine Balance-Änderung (Zielkorridor 60–80 % Bot-Siegrate steht in `BALANCE.md`).
+- Die v2.7-Lücke im Patchlog bleibt Lücke (bewusst, wie bisher).
+
+---
+
 ## V2.9.2 — „Der Prüfer kam“ (Aktuell)
 
 **Status:** Vertical Slice · 130/130 Tests · Bot 25/25 · MIT-lizenziert · Paket für ein
