@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>NUDELBAR 🍜 — Nudelbar an der Naht</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="crt">
+
+  <!-- ===================== START SCREEN ===================== -->
+  <div id="start-screen" class="overlay">
+    <div class="start-card">
+      <div class="logo">
+        <span class="logo-d">N</span><span class="logo-a">U</span><span class="logo-m">D</span>
+        <span class="logo-p">E</span><span class="logo-f">L</span>
+        <span class="logo-amp">·</span>
+        <span class="logo-p2">B</span><span class="logo-p3">A</span><span class="logo-p4">R</span>
+      </div>
+      <p class="subtitle">Nudelbar · Rhythmus · Gespräche</p>
+      <p class="tagline">„Der Chronist, Nebelklees literarisches Amt für Dinge, die in Suppe landen.“</p>
+      <div class="wip-badge">⚠ VERTICAL SLICE · ERSTER PROTOTYP · SPIELTEST — es wird noch kaputt, neu erfunden und umbenannt (siehe Changelog). Feedback ist Gold wert.</div>
+
+      <div class="start-body">
+        <p>Du eröffnest <b class="name-live">deine Nudelbar</b> in der Nacht. Gäste kommen rein,
+          gucken in die Karte, bestellen. Du gießt Brühe, legst Beilagen, <b>wirfst die Schüssel</b>
+          zum Gast. Richtig serviert, isst er und redet. Falsch — die Schüssel fliegt zurück.
+          <b>Ziel:</b> 3000 € und 55 Reputation in 20 Nächten.</p>
+        <p class="hint"><b>1–4</b> Brühe · <b>A S D F G</b> Beilagen · <b>Enter</b> servieren ·
+          <b>R</b> braten · <b>X</b> ausspülen · <b>C</b> Shop. Maus/Touch &amp; Controller gehen auch.
+          <b>?</b> zeigt Hilfe.</p>
+      </div>
+
+      <div class="setup-grid">
+        <div class="setup-row">
+          <label for="bar-name">Name deiner Nudelbar</label>
+          <input id="bar-name" type="text" maxlength="14" placeholder="NUDELBAR" autocomplete="off">
+        </div>
+        <div class="setup-row">
+          <label>Dein Gesicht am Herd</label>
+          <div id="chef-pick" class="chef-pick"></div>
+        </div>
+        <div class="setup-row">
+          <label>Preisgestaltung</label>
+          <div id="price-pick" class="price-pick"></div>
+        </div>
+        <div class="setup-row">
+          <label for="seed-input">Seed (optional)</label>
+          <input id="seed-input" type="text" placeholder="zufällig" maxlength="10">
+        </div>
+      </div>
+
+      <button id="btn-start" class="btn-primary">🔑 AUFSCHLIESSEN</button>
+      <p class="credits-line">V2.9.2 — Vertical Slice · Premium, keine Mikro-Transaktionen · MIT-lizenziert. „Der Chronist nickt. Wieder. Einfach so.“</p>
+    </div>
+  </div>
+
+  <!-- ===================== HELP OVERLAY ===================== -->
+  <div id="help-screen" class="overlay hidden">
+    <div class="help-card">
+      <h2>💡 STEUERUNG</h2>
+      <table class="help-table">
+        <tr><td><b>1 – 4</b></td><td>Brühe in die Schüssel gießen (Tonkatsu, Shoyu, Miso, Spicy)</td></tr>
+        <tr><td><b>A S D F G</b></td><td>Beilage aus dem Vorrat (Ei, Nori, Mais, Chashu, Zwiebel)</td></tr>
+        <tr><td><b>Enter / Leertaste</b></td><td>Schüssel zum ältesten wartenden Gast werfen</td></tr>
+        <tr><td><b>R</b></td><td>Fritteuse anwerfen (Beilagen nachbraten)</td></tr>
+        <tr><td><b>X</b></td><td>Schüssel ausspülen (leeren)</td></tr>
+        <tr><td><b>C / ESC</b></td><td>Shop &amp; Abrechnung (Bürozeit)</td></tr>
+        <tr><td><b>?</b></td><td>Diese Hilfe</td></tr>
+        <tr><td><b>P</b></td><td>Pause · <b>M</b> Ton an/aus</td></tr>
+        <tr><td><b>☰ (Menü)</b></td><td>Einstellungen: Ton, Musik-Lautstärke, Sprache, Titel-Track — oder zurück zum Titel</td></tr>
+        <tr><td><b>Maus / Touch</b></td><td>Alle Stationen sind anklickbar; Hover zeigt Details</td></tr>
+        <tr><td><b>Controller</b></td><td>⬅➡ wählen, A = Aktion, X = Braten, Y = Ausspülen, B = Servieren, Start = Nächste Nacht / Shop</td></tr>
+      </table>
+      <h2 class="help-sub">📖 SO LÄUFT DIE SCHICHT</h2>
+      <ul class="help-list">
+        <li>Ein Gast = eine Bestellung: <b>Brühe + Beilagen</b> (steht in seiner Sprechblase).</li>
+        <li>Gäste laufen zur Karte, überlegen in einer <b>Sims-Blase</b>, dann warten sie an der Theke.</li>
+        <li><b>Exakt richtig</b> serviert: er isst (jede Persona in ihrem Tempo), reagiert, zahlt + Trinkgeld, Combo steigt.</li>
+        <li><b>Auslöffeln:</b> Manche schlürfen die letzte Brühe weg und geben die Schüssel <b>komplett leer</b> zurück — das gibt <b>Bonus-€</b>.</li>
+        <li><b>Bleiber:</b> Manche bleiben nach dem Essen noch sitzen („…sonst muss ich wieder zur Arbeit“). Besonders Stammgäste.</li>
+        <li><b>Fast richtig:</b> manche Gäste essen die falsche Schüssel trotzdem — „Glaub, das hab ich nicht bestellt, aber war krass!“</li>
+        <li><b>Deutlich falsch / zu langsam:</b> Schüssel fliegt durch den Raum, −Reputation. Der Koch wird 😬.</li>
+        <li><b>Stimmung steckt an:</b> Begeisterte Mahlzeiten versetzen andere Gäste in gute Laune (💚). Gäste plaudern auch selbst.</li>
+        <li><b>Stammgäste</b> (⭐) kommen mit wachsender Reputation öfter — und bestellen immer dasselbe.</li>
+        <li><b>Raid:</b> manchmal stürmt eine Gruppe (Wanderer, Schulklasse, Familie) rein — viel Suppe, viel Geld.</li>
+        <li>Beilagen gehen aus: <b>braten (R)</b> oder <b>im Shop einkaufen</b> (kostet €).</li>
+        <li>Der <b>Koch hat Gefühle</b>: Bei Patzern wird er 😬, bei Begeisterung 😄, bei Überraschungen 🤯.</li>
+      </ul>
+      <p class="help-tip">Tipp: <b>Exklusiv</b> = teure Preise + große Trinkgelder, aber seltene Gäste. <b>Billig</b> = Volksküche. Und ja: der Partyhut war eine Feature-Eskalation im Changelog nachzulesen.</p>
+      <button id="btn-help-close" class="btn-primary">WEG MIT DIESER TAFEL</button>
+    </div>
+  </div>
+
+  <!-- ===================== END SCREEN ===================== -->
+  <div id="end-screen" class="overlay hidden">
+    <div class="end-card">
+      <h1 id="end-title">ENDE</h1>
+      <p id="end-ending" class="end-ending"></p>
+      <div id="end-stats" class="end-stats"></div>
+      <div class="end-chrono">
+        <h2>📜 BUCHHALTUNG &amp; CHRONIST-REPORT</h2>
+        <div id="end-chrono-body"></div>
+      </div>
+      <p id="end-greta" class="greta-line"></p>
+      <button id="btn-restart" class="btn-primary">NEUE SCHICHT</button>
+      <p class="end-hint">(Dieser Bildschirm bleibt, bis du weiterklickst. Der Chronist eilt nie.)</p>
+    </div>
+  </div>
+
+  <!-- ===================== NIGHT SUMMARY / SHOP ===================== -->
+  <div id="shop-screen" class="overlay hidden">
+    <div class="shop-card">
+      <h2 id="shop-title">BÜROZEIT</h2>
+      <div id="shop-summary" class="shop-summary"></div>
+
+      <div class="shop-cols">
+        <div class="shop-col">
+          <div class="panel-head">🛒 EINKAUF <span class="tip" data-tip="Beilagen für die Schüssel. Jeder Einkauf +1 Vorrat (max. 4). Ohne Vorrat stimmt die Bestellung nicht.">?</span></div>
+          <div id="shop-stock" class="shop-stock"></div>
+        </div>
+        <div class="shop-col">
+          <div class="panel-head">⚙ AUSBAU</div>
+          <div id="shop-upgrades" class="shop-upgrades"></div>
+        </div>
+        <div class="shop-col">
+          <div class="panel-head">🏷 PREISE <span class="tip" data-tip="Gilt ab der nächsten Nacht. Billig: mehr Gäste, weniger Marge, ungeduldiger. Exklusiv: teurer, großzügige Trinkgelder, aber seltener Gast.">?</span></div>
+          <div id="shop-prices" class="shop-prices"></div>
+          <div class="panel-head">📒 KASSE</div>
+          <div id="shop-cash" class="shop-cash"></div>
+        </div>
+      </div>
+      <button id="btn-shop-next" class="btn-primary shop-next-btn">🌙 NÄCHSTE NACHT BEGINNEN</button>
+      <p class="shop-next-hint">Bürozeit pausiert den Laden — kauf in Ruhe ein, nichts eilt. (Enter geht auch)</p>
+    </div>
+  </div>
+
+  <!-- ===================== GAME ===================== -->
+  <div id="game" class="hidden">
+    <header id="topbar">
+      <div class="tb-left">
+        <span id="tb-name" class="tb-name neon-name">NUDELBAR</span><span class="ver-badge">v2.9.2</span>
+        <span id="event-name" class="event-name">Nacht 1</span>
+      </div>
+      <div class="tb-right">
+        <button id="btn-menu" class="menu-btn" data-tip="Menü & Einstellungen: Ton, Musik-Lautstärke, Sprache, Titel-Track — oder zurück zum Titel" aria-label="Menü">☰</button>
+        <div class="stat"><span class="stat-k">Nacht</span><span id="stat-night" class="stat-v">1/20</span></div>
+        <div class="stat"><span class="stat-k">Uhr</span><span id="stat-clock" class="stat-v">2:00</span></div>
+        <div class="stat" data-tip="€ — dein Kapital. Trinkgeld + Preise. Unten 0 = Bankrott. (Keine anderen Währungen — Umrechnung wäre zu komplex.)">
+          <span class="stat-k">€</span><span id="stat-credits" class="stat-v credits">0</span></div>
+        <div class="stat stat-wide" data-tip="Reputation: steigt mit begeisterten Gästen, fällt mit falschen Suppen und Weggängern. Bei 0 ist die Bar tot. Ziel: 55.">
+          <span class="stat-k">Reputation <span id="stat-rep-num">10</span>/100 · Ziel 55</span>
+          <div class="rep-bar"><div id="stat-rep-fill" class="rep-fill"></div></div>
+        </div>
+        <div class="stat"><span class="stat-k">€-Ziel</span><span id="stat-goal" class="stat-v goal">3000</span></div>
+      </div>
+    </header>
+
+    <main id="stage-wrap">
+      <canvas id="stage"></canvas>
+      <div id="combo" class="combo hidden"></div>
+      <div id="tooltip" class="tooltip hidden"></div>
+      <div id="touchpad" class="touchpad hidden"></div>
+    </main>
+
+    <footer id="ticker">
+      <div id="log" class="log"></div>
+    </footer>
+  </div>
+
+</div>
+
+<div id="menu-screen" class="overlay hidden">
+  <div class="menu-panel">
+    <h2 class="menu-title">MENÜ</h2>
+    <div class="menu-row">
+      <span class="menu-label">Ton</span>
+      <button id="menu-sound" class="menu-toggle">AN</button>
+    </div>
+    <div class="menu-row">
+      <span class="menu-label">Musik-Lautstärke</span>
+      <input id="menu-music-vol" type="range" min="0" max="100" value="60">
+    </div>
+    <div class="menu-row">
+      <span class="menu-label">Sprache</span>
+      <button id="menu-lang" class="menu-toggle">DE</button>
+    </div>
+    <div class="menu-row">
+      <span class="menu-label">Titel-Track</span>
+      <button id="menu-track" class="menu-toggle">1 · City Pop</button>
+    </div>
+    <div class="menu-about">
+      <div class="about-line">NUDELBAR v2.9.2 · „Nudelbar an der Naht“</div>
+      <div class="about-line">Lizenz: <code>MIT</code> (siehe <code>LICENSE</code>).<br>Für diese Kunst übernimmt niemand Verantwortung.</div>
+      <div class="about-quote">„Kein Build-Step. Kein npm. Kein ‘läuft bei mir’. Nur Nudeln.“<br><span class="about-attr">— Lead Developer, Tech-Paper v2.9 (genagelt über dem Studio-Tresen)</span></div>
+    </div>
+    <div class="menu-actions">
+      <button id="menu-resume" class="menu-btn-primary">Weiter</button>
+      <button id="menu-quit" class="menu-btn-secondary">Zum Titel</button>
+    </div>
+    <p class="menu-hint">Das Spiel ist pausiert, während das Menü offen ist.</p>
+  </div>
+</div>
+
+<script src="js/core.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/intro.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
