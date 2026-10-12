@@ -61,7 +61,7 @@ bricht, gleicher Seed + gleiche Eingaben = identisches Spiel (Determinismus-Test
 | ~~Bug-Gast (Nacht 10)~~ | **vorgezogen in v2.9.2.5** (deterministisch, bestellt nichts, extra Geduld) | Laptop, Sticky-Note „TODO: v3.0" | Lorebook-Nacht-10-Text ist jetzt im Spiel wirksam |
 | Straße + Wetter | Wetter als Spawn-/Geduld-Modifier (wie EVENTS, aber andauernd) | Regen/Schnee, Neon-Reflexionen auf nassem Asphalt | „Die Stadt fröstelt. Der Dashi nicht." |
 | ~~Meta-Element~~ | **vorgezogen in v2.9.2.6** (Neustart-Zähler localStorage, `restartLine` im Kern) | „Du hast mich schon 3 Mal neu gestartet. Ich erinnere mich." | Die Bar weiß, dass sie ein Spiel ist |
-| Tageszeiten | — | Morgengrauen nach Nacht 20 (Endscreen-Expansion) | Die Stadt wacht auf |
+| ~~Tageszeiten~~ | **vorgezogen in v2.9.2.7** (`chronicle().dawn`, true nur nach 20 Nächten) | Morgengrauen-Endscreen nach Nacht 20 (Endscreen-Expansion) | Die Stadt wacht auf |
 
 **Nicht in v3.0:** neue Preisstufen, neue Persona-Typen, Multiplayer.
 

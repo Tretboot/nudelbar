@@ -9,7 +9,32 @@
 
 ---
 
-## V2.9.2.6 — „Die Bar erinnert sich" (12.10.2026, Aktuell)
+## V2.9.2.7 — „Morgengrauen" (12.10.2026, Aktuell)
+
+**Status:** v3.0-Item „Tageszeiten (Morgengrauen nach Nacht 20)" als
+Micro-Version vorgezogen (Ideenpark). 265/265 Tests (1 neuer: 57). Sim
+unverändert (25/25).
+
+### Kern
+- `chronicle()` liefert jetzt `dawn`: `true`, wenn die Kampagne alle
+  20 Nächte durchgespielt hat (früherer Sieg über Credits → kein Morgen).
+
+### Frontend
+- Endscreen bekommt nach 20 Nächten die Klasse `dawn`: warmer
+  Orange-Pink-Grauen-Gradient über dem Endscreen (statt reiner Nacht),
+  Titel in Morgenfarbe, Greta-Zeile in warmem Ton.
+- Neue Chronicle-Zeile: „🌅 Morgen: Die Stadt wacht auf. Der Dashi nicht."
+
+### Test 57
+- Sieg in Nacht 20 → `dawn: true`; früher Credits-Sieg → `dawn: false`.
+
+### Doku
+master_log Phase 18, README, ROADMAP (Tageszeiten vorgezogen), QA-CHECKLIST,
+MANUAL (Endings: Morgengrauen), alle Header v2.9.2.7.
+
+---
+
+## V2.9.2.6 — „Die Bar erinnert sich" (12.10.2026)
 
 **Status:** Zwei v3.0/v3.5-Items als Micro-Version vorgezogen (Ideenpark):
 das **Meta-Element** („Du hast mich schon 3 Mal neu gestartet. Ich erinnere

@@ -212,6 +212,9 @@ Reiz ist):
   weiter, aber *dein* Laden brennt.
 - **Die Naht:** Alle 20 Nächte überlebt — weniger dramatisch, aber die
   Nebelbude steht.
+- **🌅 Morgengrauen:** Hältst du alle 20 Nächte durch, wacht die Stadt
+  auf: Der Endscreen liegt in Morgenlicht und der Chronist schreibt
+  „Die Stadt wacht auf. Der Dashi nicht."
 - **Bankrott:** Konto unter 0. Die Miete frisst auch leere Schüsseln.
 - **Vergessen:** Reputation 0. Niemand kommt mehr. Die Neonröhre
   flackert im Leerlauf.
