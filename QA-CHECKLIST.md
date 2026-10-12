@@ -1,5 +1,9 @@
 # NUDELBAR — QA-Checkliste
 
+> **Konkretes Browser-Testprotokoll für v2.9.2.5–.8** (Schritt-für-Schritt,
+> Screenshot-Liste, AI-Prüf-Prompts, LocalStorage-Cheats): `BROWSER-QA.md`
+> — mit dem arbeiten, die Punkte unten hier abhaken.
+
 **Wann:** Vor jeder größeren Änderung, nach jeder Änderung, vor jedem Release.
 **Goldstandard:** Die drei automatischen Checks sind Pflicht. Der Rest braucht
 Menschen mit Augen, Ohren und Fingern — der Prüfer (KI) konnte davon nichts.
